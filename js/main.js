@@ -2,15 +2,22 @@ var allData = [];
 var bostonLocation = [42.360082, -71.058880];
 
 // Variable for the visualization instance
-var stationMap;
+var waterMap;
 
 // Start application by loading the data
 loadData();
 
-function loadData() {
+// specify path to Leaflet images: in [dir]/img
+L.Icon.Default.imagePath = 'img/';
 
-    // draw vis
-    createVis();
+function loadData() {
+    // load data
+    $.getJSON("data/mass_cities.json", function(data) {
+        allData = data;
+
+        // draw vis
+        createVis();
+    });
 }
 
 
