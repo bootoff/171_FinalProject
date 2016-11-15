@@ -1,4 +1,4 @@
-var allData = [];
+var citiesMA = [];
 var bostonLocation = [42.360082, -71.058880];
 
 // Variable for the visualization instance
@@ -13,7 +13,7 @@ L.Icon.Default.imagePath = 'img/';
 function loadData() {
     // load data
     $.getJSON("data/mass_cities.json", function(data) {
-        allData = data;
+        citiesMA = data;
 
         // draw vis
         createVis();
@@ -23,5 +23,5 @@ function loadData() {
 
 function createVis() {
     // TO-DO: INSTANTIATE VISUALIZATION
-    waterMap = new WaterMap("water-map", allData, bostonLocation);
+    waterMap = new WaterMap("water-map", citiesMA, bostonLocation);
 }

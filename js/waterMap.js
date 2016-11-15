@@ -1,6 +1,4 @@
 /* Based on lab 9: stationMap.js */
-
-
 /*
  *  StationMap - Object constructor function
  *  @param _parentElement   -- HTML element in which to draw the visualization
@@ -26,7 +24,7 @@ WaterMap.prototype.initVis = function() {
     // MASS STATE MAP -------------------------------------------
 
     // instantiate new city map
-    vis.map = L.map(vis.parentElement).setView(vis.location, 10);
+    vis.map = L.map(vis.parentElement).setView(vis.location, 13);
 
     // load and display tile layer on map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -34,6 +32,8 @@ WaterMap.prototype.initVis = function() {
     }).addTo(vis.map);
 
     vis.wrangleData();
+
+
 };
 
 
@@ -45,7 +45,7 @@ WaterMap.prototype.wrangleData = function() {
     var vis = this;
 
     // Currently no data wrangling/filtering needed
-    vis.displayData = vis.data;
+    // vis.displayData = vis.data;
 
     // Update the visualization
     vis.updateVis();
