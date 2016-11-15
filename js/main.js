@@ -1,27 +1,43 @@
-var citiesMA = [];
-var bostonLocation = [42.360082, -71.058880];
+// GLOBAL VARS ETC. ----------------------------------------------
 
-// Variable for the visualization instance
+
+// global variables for data
+var facilities = [],
+    citiesMA = [];
+
+// Holden, MA (~center of Massachusetts)
+var centerOfMA = [42.358734, -71.849239];
+
+// global variables for visualization instances
 var waterMap;
-
-// Start application by loading the data
-loadData();
 
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
 
-function loadData() {
-    // load data
-    $.getJSON("data/mass_cities.json", function(data) {
-        citiesMA = data;
 
-        // draw vis
-        createVis();
+// WORK WITH DATA ------------------------------------------------
+
+
+// load data asynchronously
+queue()
+    .defer(d3.csv, "data/regions_served.csv")
+    .defer(d3.json, "data/mass_cities.json")
+    .await(createVis);
+
+// clean up data and create visualizations
+function createVis(error, data1, data2) {
+    facilities = data1;
+    citiesMA = data2;
+
+    // clean up data
+    facilities.forEach(function(d) {
+        d.Latitude = +d.Latitude;
+        d.Longitude = +d.Longitude;
+        d["Towns served"] = d["Towns served"].split(',');
     });
-}
 
+    console.log(facilities);
 
-function createVis() {
-    // TO-DO: INSTANTIATE VISUALIZATION
-    waterMap = new WaterMap("water-map", citiesMA, bostonLocation);
+    // instantiate visualizations
+    waterMap = new WaterMap("water-map", facilities, citiesMA, centerOfMA);
 }
