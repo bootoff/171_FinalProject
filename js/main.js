@@ -2,7 +2,7 @@
 
 
 // global variables for waterMap
-var facilities = [],
+var facilityLocations = [],
     citiesMA = [];
 
 // Holden, MA (~center of Massachusetts) -- for center
@@ -26,7 +26,7 @@ queue()
 
 // clean up data and create visualizations
 function createVis(error, regionsServed, massCities) {
-    facilities = regionsServed;
+    facilityLocations = regionsServed;
     citiesMA = massCities;
 
     // waterMap.js clean up data
