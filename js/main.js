@@ -1,11 +1,11 @@
 // GLOBAL VARS ETC. ----------------------------------------------
 
 
-// global variables for data
+// global variables for waterMap
 var facilities = [],
     citiesMA = [];
 
-// Holden, MA (~center of Massachusetts)
+// Holden, MA (~center of Massachusetts) -- for center
 var centerOfMA = [42.358734, -71.849239];
 
 // global variables for visualization instances
@@ -25,18 +25,16 @@ queue()
     .await(createVis);
 
 // clean up data and create visualizations
-function createVis(error, data1, data2) {
-    facilities = data1;
-    citiesMA = data2;
+function createVis(error, waterMapdata1, waterMapdata2) {
+    facilities = waterMapdata1;
+    citiesMA = waterMapdata2;
 
-    // clean up data
+    // waterMap.js clean up data
     facilities.forEach(function(d) {
         d.Latitude = +d.Latitude;
         d.Longitude = +d.Longitude;
         d["Towns served"] = d["Towns served"].split(',');
     });
-
-    console.log(facilities);
 
     // instantiate visualizations
     waterMap = new WaterMap("water-map", facilities, citiesMA, centerOfMA);
