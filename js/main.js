@@ -3,7 +3,8 @@
 
 // global variables for data
 var facilities = [],
-    citiesMA = [];
+    citiesMA = [],
+    plants = [];
 
 // Holden, MA (~center of Massachusetts)
 var centerOfMA = [42.358734, -71.849239];
@@ -22,12 +23,18 @@ L.Icon.Default.imagePath = 'img/';
 queue()
     .defer(d3.csv, "data/regions_served.csv")
     .defer(d3.json, "data/mass_cities.json")
+    .defer(d3.json, "data/plants.json")
     .await(createVis);
 
+
+
 // clean up data and create visualizations
-function createVis(error, data1, data2) {
+function createVis(error, data1, data2, data3) {
+
+    console.log(data1, data2, data3);
     facilities = data1;
     citiesMA = data2;
+    plants = data3;
 
     // clean up data
     facilities.forEach(function(d) {
