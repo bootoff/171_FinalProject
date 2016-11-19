@@ -37,5 +37,5 @@ function createVis(error, regionsServed, massCities) {
     });
 
     // instantiate visualizations
-    waterMap = new WaterMap("water-map", facilities, citiesMA, centerOfMA);
+    waterMap = new WaterMap("water-map", facilityLocations, citiesMA, centerOfMA);
 }
