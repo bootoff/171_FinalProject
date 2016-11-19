@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6543679-cda8-4df9-9671-f61d8a18ab6d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
     </list>
     <ignored path="171_FinalProject.iws" />
@@ -30,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+              <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -40,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="402">
-              <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+              <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -283,12 +282,12 @@
       <workItem from="1479178984405" duration="6446000" />
       <workItem from="1479410196190" duration="681000" />
       <workItem from="1479413881007" duration="1568000" />
-      <workItem from="1479568342981" duration="614000" />
+      <workItem from="1479568342981" duration="728000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14579000" />
+    <option name="totallyTimeSpent" value="14693000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="497" y="23" width="783" height="777" extended-state="0" />
@@ -512,7 +511,7 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -546,7 +545,7 @@
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
-          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
           <folding />
         </state>
       </provider>

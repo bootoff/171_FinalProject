@@ -25,9 +25,9 @@ queue()
     .await(createVis);
 
 // clean up data and create visualizations
-function createVis(error, waterMapdata1, waterMapdata2) {
-    facilities = waterMapdata1;
-    citiesMA = waterMapdata2;
+function createVis(error, regionsServed, massCities) {
+    facilities = regionsServed;
+    citiesMA = massCities;
 
     // waterMap.js clean up data
     facilities.forEach(function(d) {
