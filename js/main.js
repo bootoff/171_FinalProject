@@ -30,7 +30,7 @@ function createVis(error, regionsServed, massCities) {
     citiesMA = massCities;
 
     // waterMap.js clean up data
-    facilities.forEach(function(d) {
+    facilityLocations.forEach(function(d) {
         d.Latitude = +d.Latitude;
         d.Longitude = +d.Longitude;
         d["Towns served"] = d["Towns served"].split(',');
