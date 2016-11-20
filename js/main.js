@@ -32,7 +32,14 @@ function createVis(error, regionsServed, massCities, data3) {
     citiesMA = massCities;
     plants = data3
 
+    plants.forEach(function(d) { delete d.SavingsUSD; delete d.SavingsKWh; });
+
     console.log(plants);
+    var nested = d3.nest()
+    	.key(function(d) { return d.Type;})
+	.key(function(d) { return d.Facility;})
+	.entries(plants);
+    console.log(nested);
 
     // waterMap.js clean up data
     facilityLocations.forEach(function(d) {
