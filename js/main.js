@@ -9,7 +9,7 @@ var facilityLocations = [],
 var centerOfMA = [42.358734, -71.849239];
 
 // global variables for visualization instances
-var waterMap;
+var facilityMap;
 
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
@@ -42,5 +42,5 @@ function createVis(error, regionsServed, massCities, data3) {
     });
 
     // instantiate visualizations
-    waterMap = new WaterMap("water-map", facilityLocations, citiesMA, centerOfMA);
+    facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
 }

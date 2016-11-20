@@ -1,11 +1,11 @@
 /* Based on lab 9: stationMap.js */
 /*
- *  StationMap - Object constructor function
+ *  FacilityMap - Object constructor function
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _data            -- Array with all stations of the bike-sharing network
  */
 
-WaterMap = function(_parentElement, _facilityData, _cityData, _mapPosition) {
+FacilityMap = function(_parentElement, _facilityData, _cityData, _mapPosition) {
 
     this.parentElement = _parentElement;
     this.facilityData = _facilityData ;
@@ -19,7 +19,7 @@ WaterMap = function(_parentElement, _facilityData, _cityData, _mapPosition) {
  *  Initialize Massachusetts state map
  */
 
-WaterMap.prototype.initVis = function() {
+FacilityMap.prototype.initVis = function() {
     var vis = this;
 
     // instantiate new state map
@@ -53,7 +53,7 @@ WaterMap.prototype.initVis = function() {
  *  Data wrangling
  */
 
-WaterMap.prototype.wrangleData = function() {
+FacilityMap.prototype.wrangleData = function() {
     var vis = this;
 
     // Currently no data wrangling/filtering needed
@@ -69,6 +69,6 @@ WaterMap.prototype.wrangleData = function() {
  *  The drawing function
  */
 
-WaterMap.prototype.updateVis = function() {
+FacilityMap.prototype.updateVis = function() {
 
 };
