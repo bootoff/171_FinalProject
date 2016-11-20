@@ -3,7 +3,8 @@
 // global variables for waterMap
 var facilityLocations = [],
     citiesMA = [],
-    plants = [];
+    plants = [],
+    ghg = [];
 
 // Holden, MA (~center of Massachusetts) -- for center
 var centerOfMA = [42.358734, -71.849239];
@@ -22,16 +23,24 @@ queue()
     .defer(d3.csv, "data/regions_served.csv")
     .defer(d3.json, "data/mass_cities.json")
     .defer(d3.csv, "data/plants.csv")
+    .defer(d3.csv, "data/ghg.csv")
     .await(createVis);
 
 
 // clean up data and create visualizations
-function createVis(error, regionsServed, massCities, data3) {
+function createVis(error, regionsServed, massCities, data3, data4) {
 
     facilityLocations = regionsServed;
     citiesMA = massCities;
-    plants = data3
+    plants = data3;
+    ghg = data4
 
+    console.log(ghg);
+    
+
+    // SavingsUSD and SavingsKWh are derived from the Usage data, and there
+    // seem to be errors.  I suggest that we drop the versions in the CSV and
+    // just generate new versions, as needed.
     plants.forEach(function(d) { delete d.SavingsUSD; delete d.SavingsKWh; });
 
     console.log(plants);
