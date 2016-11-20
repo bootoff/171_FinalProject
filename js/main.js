@@ -4,7 +4,7 @@
 var facilityLocations = [],
     citiesMA = [],
     plants = [],
-    ghg = [];
+    ghg = {};
 
 // Holden, MA (~center of Massachusetts) -- for center
 var centerOfMA = [42.358734, -71.849239];
@@ -26,22 +26,37 @@ queue()
     .defer(d3.csv, "data/ghg.csv")
     .await(createVis);
 
-
+var cnt = 0;
 // clean up data and create visualizations
-function createVis(error, regionsServed, massCities, data3, data4) {
+function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
     facilityLocations = regionsServed;
     citiesMA = massCities;
-    plants = data3;
-    ghg = data4
+    plants = plantsData;
 
-    console.log(ghg);
-    
+    GHGdata.forEach(function(d){
+	ghg[d.FY] = d["GHG factor"];
+    });
 
     // SavingsUSD and SavingsKWh are derived from the Usage data, and there
     // seem to be errors.  I suggest that we drop the versions in the CSV and
     // just generate new versions, as needed.
     plants.forEach(function(d) { delete d.SavingsUSD; delete d.SavingsKWh; });
+
+    plants.forEach(function(d) {
+	if(d.ElectricityGenerationKWh != ""){
+	    d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
+	}else{
+	    d.GHG = "";
+	}
+	d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
+	if(d.USDperKWh != ""){
+	    if(Math.abs((d.Rate-d.USDperKWh)/d.USDperKWh)>1e-1){
+		cnt++;
+		console.log(cnt, "Rate! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
+	    }
+	}
+    });
 
     console.log(plants);
     var nested = d3.nest()
