@@ -1,18 +1,19 @@
 // GLOBAL VARS ETC. ----------------------------------------------
 
-// global variables for waterMap
+// global variables for data
 var facilityLocations = [],
     citiesMA = [],
     plants = [],
-    ghg = {};
+    ghg = {},
+    GHGsum = 0.0;
 
 // Holden, MA (~center of Massachusetts) -- for center
 var centerOfMA = [42.358734, -71.849239];
 
 // global variables for visualization instances
-var facilityMap;
-
-var co2Savings;
+var facilityMap,
+    co2Savings,
+    usageCostScatter;
 
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
@@ -35,7 +36,6 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     facilityLocations = regionsServed;
     citiesMA = massCities;
     plants = plantsData;
-	GHGsum = 0.0;
 
     GHGdata.forEach(function(d){
 	ghg[d.FY] = d["GHG factor"];
@@ -87,7 +87,7 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	});
     });
 	
-    // waterMap.js clean up data
+    // clean up data for waterMap.js
     facilityLocations.forEach(function(d) {
         d.Latitude = +d.Latitude;
         d.Longitude = +d.Longitude;
@@ -97,4 +97,5 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     // instantiate visualizations
     facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
 	co2Savings = new co2Savings("co2-Savings", GHGsum);
+    usageCostScatter = new UsageCostScatter("usagecost-scatter", )
 }
