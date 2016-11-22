@@ -12,6 +12,8 @@ var centerOfMA = [42.358734, -71.849239];
 // global variables for visualization instances
 var facilityMap;
 
+var co2Savings;
+
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
 
@@ -33,6 +35,7 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     facilityLocations = regionsServed;
     citiesMA = massCities;
     plants = plantsData;
+	GHGsum = 0.0;
 
     GHGdata.forEach(function(d){
 	ghg[d.FY] = d["GHG factor"];
@@ -53,28 +56,27 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	if(d.USDperKWh != ""){
 	    if(Math.abs((d.Rate-d.USDperKWh)/d.USDperKWh)>1e-1){
 		cnt++;
-		console.log(cnt, "Rate! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
+		//console.log(cnt, "Rate! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
 	    }
 	}
     });
 
-    console.log(plants);
+   // console.log(plants);
     var nested = d3.nest()
 	.key(function(d) { return d.Facility;})
     	.key(function(d) { return d.Type;})
 	.entries(plants);
-    console.log("nested", nested);
+    //console.log("nested", nested);
 
     nested.forEach(function(d){
 	d.values.forEach(function(data, index){
-	    var GHGsum = 0.0;
 	    data.values.forEach(function(d2, i2){
 		if((+d2.FY)>=13){
-		    console.log(data, d2.FY, d2.GHGlbs, d2.GHG);		    
+		    //console.log(data, d2.FY, d2.GHGlbs, d2.GHG);
 		    GHGsum += d2.GHG;
 		}
 	    });
-	    console.log(d.key, "GHGsum: ", GHGsum);
+	    //console.log(d.key, "GHGsum: ", GHGsum);
 	});
     });
 	
@@ -87,4 +89,5 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
     // instantiate visualizations
     facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
+	co2Savings = new co2Savings("co2-Savings", GHGsum);
 }
