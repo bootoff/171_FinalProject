@@ -38,10 +38,17 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	ghg[d.FY] = d["GHG factor"];
     });
 
+    // We decided to drop the Chelmsford data.
+    plants = plants.filter(function(d){ return d.Facility!="Chelmsford Water District" });
+
     // SavingsUSD and SavingsKWh are derived from the Usage data, and there
     // seem to be errors.  I suggest that we drop the versions in the CSV and
     // just generate new versions, as needed.
-    plants.forEach(function(d) { delete d.SavingsUSD; delete d.SavingsKWh; });
+    //
+    plants.forEach(function(d) {
+	delete d.SavingsUSD;
+	delete d.SavingsKWh;
+    });
 
     plants.forEach(function(d) {
 	if(d.ElectricityGenerationKWh != ""){
