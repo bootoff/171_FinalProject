@@ -5,7 +5,8 @@ var facilityLocations = [],
     citiesMA = [],
     plants = [],
     ghg = {},
-    GHGsum = 0.0;
+    GHGsum = 0.0,
+    cnt = 0;
 
 // Holden, MA (~center of Massachusetts) -- for center
 var centerOfMA = [42.358734, -71.849239];
@@ -15,8 +16,11 @@ var facilityMap,
     co2Savings,
     usageCostScatter;
 
+
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
+
+
 
 
 // WORK WITH DATA ------------------------------------------------
@@ -29,7 +33,6 @@ queue()
     .defer(d3.csv, "data/ghg.csv")
     .await(createVis);
 
-var cnt = 0;
 // clean up data and create visualizations
 function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
