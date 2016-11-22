@@ -50,18 +50,31 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	delete d.SavingsKWh;
     });
 
+    // Computing GHG emissions
     plants.forEach(function(d) {
 	if(d.ElectricityGenerationKWh != ""){
 	    d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
 	}else{
 	    d.GHG = "";
 	}
-	d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
+    });
+    
+    // Trying to regularized the cost rates
+    plants.forEach(function(d) {
+
+	// There are a few missing UsageUSD values;
+	if(d.UsageUSD == "" && d.UsageKWh != "" && d.USDperKWh != ""){
+	    d.UsageUSD = (+d.UsageKWh) * (+d.USDperKWh);	    
+	}
+	
 	if(d.USDperKWh != ""){
-	    if(Math.abs((d.Rate-d.USDperKWh)/d.USDperKWh)>1e-1){
-		cnt++;
-		console.log(cnt, "Rate! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
-	    }
+	    d.Rate = (+d.USDperKWh);
+	}else if(d.UsageUSD != "" && d.UsageKWh != ""){
+	    d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
+	}else {
+	    cnt++;
+	    d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
+	    console.log(cnt, "RATE! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
 	}
     });
 
@@ -70,7 +83,6 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	.key(function(d) { return d.Facility;})
     	.key(function(d) { return d.Type;})
 	.entries(plants);
-    console.log("nested", nested);
 
     var metricTonsPerLb = 0.000453592;
     nested.forEach(function(d){
