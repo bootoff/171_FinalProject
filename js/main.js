@@ -60,11 +60,24 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
     console.log(plants);
     var nested = d3.nest()
-    	.key(function(d) { return d.Type;})
 	.key(function(d) { return d.Facility;})
+    	.key(function(d) { return d.Type;})
 	.entries(plants);
-    console.log(nested);
+    console.log("nested", nested);
 
+    nested.forEach(function(d){
+	d.values.forEach(function(data, index){
+	    var GHGsum = 0.0;
+	    data.values.forEach(function(d2, i2){
+		if((+d2.FY)>=13){
+		    console.log(data, d2.FY, d2.GHGlbs, d2.GHG);		    
+		    GHGsum += d2.GHG;
+		}
+	    });
+	    console.log(d.key, "GHGsum: ", GHGsum);
+	});
+    });
+	
     // waterMap.js clean up data
     facilityLocations.forEach(function(d) {
         d.Latitude = +d.Latitude;
