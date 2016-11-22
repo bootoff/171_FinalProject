@@ -5,47 +5,49 @@
  *  @param _data            -- Array with all stations of the bike-sharing network
  */
 
-UsageCostScatter = function(_parentElement, _facilityData, _cityData, _mapPosition) {
+UsageCostScatter = function(_parentElement, _allData) {
 
     this.parentElement = _parentElement;
-    this.facilityData = _facilityData ;
-    this.cityData = _cityData;
-    this.location = _mapPosition;
+    this.allData = _allData;
 
     this.initVis();
 };
 
+// define svg size and margins
+var margin = {top: 10, right: 10, bottom: 40, left: 40};
+var width = 700 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
+    offset = 30;
+
 /*
- *  Initialize Massachusetts state map
+ *  Initialize scatter plot
  */
 
 FacilityMap.prototype.initVis = function() {
     var vis = this;
 
-    // instantiate new state map
-    vis.map = L.map(vis.parentElement).setView(vis.location, 8);
+    // add svg
+    var svg = d3.select("#chart-area")
+        .append("svg")
+        .attr("width", (width + margin.left + margin.right))
+        .attr("height", (height + margin.top + margin.bottom))
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top +")");
 
-    // load and display tile layer on map
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(vis.map);
-
-    // MARKERS --------------------------------------------------
-
-    // create layer group
-    facilityMarkers = L.layerGroup().addTo(vis.map);
-
-    // create markers; add them to marker layer group
-    vis.facilityData.forEach(function(d) {
-        var popupContent = d["Name of Plant"];
-        var newMarker = L.marker([d.Latitude, d.Longitude])
-            .bindPopup(popupContent);
-        facilityMarkers.addLayer(newMarker);
-    });
+    // scale functions
+    var xScale = d3.scale.log()
+        .domain([incomeMin, incomeMax])
+        .range([0, width]);
+    var yScale = d3.scale.linear()
+        .domain([lifeExpectancyMin, lifeExpectancyMax])
+        .range([height, 0]);
+    var rScale = d3.scale.linear()
+        .domain([populationMin, populationMax])
+        .range([4, 30]);
+    var colorScale = d3.scale.category10()
+        .domain([categories]);
 
     vis.wrangleData();
-
-
 };
 
 

@@ -1,19 +1,26 @@
 // GLOBAL VARS ETC. ----------------------------------------------
 
-// global variables for waterMap
+// global variables for data
 var facilityLocations = [],
     citiesMA = [],
     plants = [],
-    ghg = {};
+    ghg = {},
+    GHGsum = 0.0,
+    cnt = 0;
 
 // Holden, MA (~center of Massachusetts) -- for center
 var centerOfMA = [42.358734, -71.849239];
 
 // global variables for visualization instances
-var facilityMap;
+var facilityMap,
+    co2Savings,
+    usageCostScatter;
+
 
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
+
+
 
 
 // WORK WITH DATA ------------------------------------------------
@@ -26,7 +33,6 @@ queue()
     .defer(d3.csv, "data/ghg.csv")
     .await(createVis);
 
-var cnt = 0;
 // clean up data and create visualizations
 function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
@@ -74,11 +80,10 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	}else {
 	    cnt++;
 	    d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
-	    console.log(cnt, "RATE! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
 	}
     });
 
-    console.log(plants);
+   // console.log(plants);
     var nested = d3.nest()
 	.key(function(d) { return d.Facility;})
     	.key(function(d) { return d.Type;})
@@ -87,14 +92,12 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     var metricTonsPerLb = 0.000453592;
     nested.forEach(function(d){
 	d.values.forEach(function(data, index){
-	    var GHGsum = 0.0;
 	    data.values.forEach(function(d2, i2){
 		if((+d2.FY)>=13){
-		    //console.log(data, d2.FY, d2.GHGlbs, d2.GHG);		    
 		    GHGsum += d2.GHG*metricTonsPerLb;
 		}
 	    });
-	    console.log(d.key, "GHGsum: ", GHGsum);
+	    //console.log(d.key, "GHGsum: ", GHGsum);
 	});
     });
 
@@ -103,7 +106,8 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	    console.log("plant: ", d.Facility, d.FY, d.UsageKWh, d.ElectricityGenerationKWh);
 	}
     });
-    // waterMap.js clean up data
+
+    // clean up data for waterMap.js
     facilityLocations.forEach(function(d) {
         d.Latitude = +d.Latitude;
         d.Longitude = +d.Longitude;
@@ -112,4 +116,6 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
     // instantiate visualizations
     facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
+	co2Savings = new co2Savings("co2-Savings", GHGsum);
+    usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
 }
