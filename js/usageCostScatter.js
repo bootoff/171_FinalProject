@@ -5,10 +5,10 @@
  *  @param _data            -- Array with all stations of the bike-sharing network
  */
 
-UsageCostScatter = function(_parentElement, _usageCostData) {
+UsageCostScatter = function(_parentElement, _allData) {
 
     this.parentElement = _parentElement;
-    this.usageCostData = _usageCostData;
+    this.allData = _allData;
 
     this.initVis();
 };

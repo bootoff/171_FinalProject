@@ -100,5 +100,5 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     // instantiate visualizations
     facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
 	co2Savings = new co2Savings("co2-Savings", GHGsum);
-    usageCostScatter = new UsageCostScatter("usagecost-scatter", )
+    usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
 }
