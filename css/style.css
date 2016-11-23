@@ -29,7 +29,6 @@ h1 .sub-headline {
 }
 
 /* facilityMap.js */
-
 #facility-map {
     height: 500px;
     margin: 20px;
@@ -37,7 +36,6 @@ h1 .sub-headline {
 }
 
 /* usageCostScatter.js */
-
 .line {
     /*display: none;*/
     fill: none;
