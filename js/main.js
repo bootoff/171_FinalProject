@@ -5,9 +5,7 @@ var facilityLocations = [],
     citiesMA = [],
     plants = [],
     ghg = {},
-    GHGsum = [],
-    EnergyGenerationSum = {},
-    UsageKWhSum = {},
+    SummaryData = [],
     NumYears = {},
     defaultUSDperKWh = 0.20,
     metricTonsPerLb = 0.000453592;
@@ -96,78 +94,45 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     console.log(plants);
     var nested = d3.nest()
 	.key(function(d) { return d.Facility;})
-    	//.key(function(d) { return d.Type;})
 	.entries(plants);
 
     nested.forEach(function(d, index){
-	GHGsum[index] = {};
-	GHGsum[index].sum = 0.0;
-	GHGsum[index].key = d.key;
 
-	console.log(d);
+	SummaryData[index] = {};
+	SummaryData[index].savings_USD_sum = 0.0;	
+	SummaryData[index].ghg_sum = 0.0;
+	SummaryData[index].num_years = 0;	
+	SummaryData[index].key = d.key;
+	SummaryData[index].energy_sum = 0.0;
+	SummaryData[index].usage_sum = 0.0;
+
     	d.values.forEach(function(data, i2){
-	    //console.log(data);
-	    if((+data.FY)>=13){
-		GHGsum[index].sum += data.GHG*metricTonsPerLb;
+
+	    if(data.ElectricityGenerationKWh != "" && (+data.FY)>=10){
+
+		SummaryData[index].ghg_sum += data.GHG*metricTonsPerLb;
+		SummaryData[index].energy_sum += (+data.ElectricityGenerationKWh);
+		SummaryData[index].usage_sum  += (+data.UsageKWh);
+		SummaryData[index].savings_USD_sum += (+data.ElectricityGenerationKWh)*(+data.Rate);
+		SummaryData[index].num_years  += 1;
+		
 	    }
 
 	});
-	    
-	console.log(GHGsum[index].key, "GHGsum: ", GHGsum[index].sum);
+
     });
- 
-    nested.forEach(function(d, index){
-	EnergyGeneratoinSum[in
-	data1.values.forEach(function(data2, index){
-	    EnergyGenerationSum[data1.key] = 0.0;
-	    UsageKWhSum[data1.key] = 0.0;
-	    NumYears[data1.key] = 0;
-	    data2.values.forEach(function(data3, i2){
-		if(data3.ElectricityGenerationKWh != "" && (+data3.FY)>=10){
-		    EnergyGenerationSum[data1.key] += (+data3.ElectricityGenerationKWh);
-		    UsageKWhSum[data1.key] += (+data3.UsageKWh);
-		    NumYears[data1.key] += 1;
-		}
-	    });
-	    console.log(data1.key, "EnergyGenerationSum: ", EnergyGenerationSum[data1.key], "UsageKWhSum: ", UsageKWhSum[data1.key], "NumYears: ", NumYears[data1.key]);		
-	});
-    });
+
+    var SavingsKWh = 0;
+    var SavingsUSD = 0;
+    var SavingsGHG = 0;
     
-    plants.forEach(function(d, index){
-	if(d.ElectricityGenerationKWh != ""){
-	    console.log("plant: ", d.Facility, d.FY, d.UsageKWh, d.ElectricityGenerationKWh);
-	}
+    SummaryData.forEach(function(data, index){
+	SavingsKWh += data.energy_sum;
+	SavingsUSD += data.savings_USD_sum;
+	SavingsGHG += data.ghg_sum;		
     });
-   
-
-    /*
-    for(key in GHGsum){
-	console.log(key, GHGsum[key]);
-    }
-    */
-
-    nested.forEach(function(data1){
-	data1.values.forEach(function(data2, index){
-	    EnergyGenerationSum[data1.key] = 0.0;
-	    UsageKWhSum[data1.key] = 0.0;
-	    NumYears[data1.key] = 0;
-	    data2.values.forEach(function(data3, i2){
-		if(data3.ElectricityGenerationKWh != "" && (+data3.FY)>=10){
-		    EnergyGenerationSum[data1.key] += (+data3.ElectricityGenerationKWh);
-		    UsageKWhSum[data1.key] += (+data3.UsageKWh);
-		    NumYears[data1.key] += 1;
-		}
-	    });
-	    console.log(data1.key, "EnergyGenerationSum: ", EnergyGenerationSum[data1.key], "UsageKWhSum: ", UsageKWhSum[data1.key], "NumYears: ", NumYears[data1.key]);		
-	});
-    });
+    console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
     
-    plants.forEach(function(d, index){
-	if(d.ElectricityGenerationKWh != ""){
-	    console.log("plant: ", d.Facility, d.FY, d.UsageKWh, d.ElectricityGenerationKWh);
-	}
-    });
-
     // clean up data for waterMap.js
     facilityLocations.forEach(function(d) {
         d.Latitude = +d.Latitude;
@@ -175,7 +140,7 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
         d["Towns served"] = d["Towns served"].split(',');
     });
 
-    console.log(GHGsum);
+    console.log(SummaryData);
     
     // instantiate visualizations
     facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
