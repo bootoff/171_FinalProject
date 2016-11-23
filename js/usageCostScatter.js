@@ -68,13 +68,12 @@ UsageCostScatter.prototype.wrangleData = function() {
     var usageCostMax = d3.max(vis.displayData, function(d) {
         return d.UsageUSD;
     });
-    console.log(usageKWhMax);
     var yearExtent = [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
     vis.x = d3.scale.linear()
         .domain([0, usageKWhMax])
         .range([0, vis.width]);
     vis.y = d3.scale.linear()
-        .domain([0, (usageCostMax + 1000)])
+        .domain([0, (usageCostMax + 100000)])
         .range([vis.height, 0]);
     vis.colorScale = d3.scale.category10()
         .domain(yearExtent);
@@ -89,7 +88,6 @@ UsageCostScatter.prototype.wrangleData = function() {
 
     // Update the visualization
     vis.updateVis();
-
 };
 
 
@@ -99,6 +97,25 @@ UsageCostScatter.prototype.wrangleData = function() {
 
 UsageCostScatter.prototype.updateVis = function() {
     var vis = this;
+
+    // line-drawing function
+    vis.drawLine = d3.svg.line()
+        .x(function(d) {
+            return vis.x(d.UsageKWh);
+        })
+        .y(function(d) {
+            return vis.y(d.UsageUSD);
+        })
+        .interpolate("linear");
+
+    // draw (hidden) lines
+    vis.svg.selectAll(".line")
+        .data(vis.displayData)
+        .enter()
+        .append("path")
+        .attr("class", "line")
+        .transition()
+        .attr("d", vis.drawLine(vis.displayData));
 
     // draw data points
     vis.svg.selectAll(".point")

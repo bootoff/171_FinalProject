@@ -28,12 +28,20 @@ h1 .sub-headline {
     height: 950px;
 }
 
-/* Viz-related styling */
+/* facilityMap.js */
 
-#water-map {
+#facility-map {
     height: 500px;
     margin: 20px;
     width: 100%;
+}
+
+/* usageCostScatter.js */
+
+.line {
+    /*display: none;*/
+    fill: none;
+    stroke: gray;
 }
 
 /****************/
