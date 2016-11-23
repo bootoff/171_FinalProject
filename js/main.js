@@ -5,7 +5,10 @@ var facilityLocations = [],
     citiesMA = [],
     plants = [],
     ghg = {},
-    GHGsum = {},
+    GHGsum = [],
+    EnergyGenerationSum = {},
+    UsageKWhSum = {},
+    NumYears = {},
     defaultUSDperKWh = 0.20,
     metricTonsPerLb = 0.000453592;
 
@@ -98,13 +101,15 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
     nested.forEach(function(d){
 	d.values.forEach(function(data, index){
-	    GHGsum[d.key] = 0.0;
+	    GHGsum[index] = {};
+	    GHGsum[index].sum = 0.0;
+	    GHGsum[index].key = d.key;
 	    data.values.forEach(function(d2, i2){
 		if((+d2.FY)>=13){
-		    GHGsum[d.key] += d2.GHG*metricTonsPerLb;
+		    GHGsum[index].sum += d2.GHG*metricTonsPerLb;
 		}
 	    });
-	    console.log(d.key, "GHGsum: ", GHGsum[d.key]);
+	    console.log(GHGsum[index].key, "GHGsum: ", GHGsum[index].sum);
 	});
     });
 
@@ -114,11 +119,17 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 
     nested.forEach(function(data1){
 	data1.values.forEach(function(data2, index){
+	    EnergyGenerationSum[data1.key] = 0.0;
+	    UsageKWhSum[data1.key] = 0.0;
+	    NumYears[data1.key] = 0;
 	    data2.values.forEach(function(data3, i2){
 		if(data3.ElectricityGenerationKWh != "" && (+data3.FY)>=10){
-		    console.log(data3.Facility, data3.Type, data3.FY, data3.UsageKWh, data3.ElectricityGenerationKWh, data3.ElectricityGenerationKWh/data3.UsageKWh);
+		    EnergyGenerationSum[data1.key] += (+data3.ElectricityGenerationKWh);
+		    UsageKWhSum[data1.key] += (+data3.UsageKWh);
+		    NumYears[data1.key] += 1;
 		}
 	    });
+	    console.log(data1.key, "EnergyGenerationSum: ", EnergyGenerationSum[data1.key], "UsageKWhSum: ", UsageKWhSum[data1.key], "NumYears: ", NumYears[data1.key]);		
 	});
     });
     
