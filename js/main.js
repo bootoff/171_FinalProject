@@ -1,27 +1,38 @@
 // GLOBAL VARS ETC. ----------------------------------------------
 
-// global variables for data
-var facilityLocations = [],
-    citiesMA = [],
-    plants = [],
+// global variables for primary datasets
+var citiesMA = [], // GeoJSON - cities in MA
+    dataByFacility = [], // array[19] of facilities and respective data
+    facilityLocations = [], // lat, long for pilot program facilities
+    plants = [], // primary data set - pilot program results
+    SummaryData = [], //
     ghg = {},
-    SummaryData = [],
-    AnnualData = [],
-    NumYears = {},
+    AnnualData = [];
+
+// global variables - miscellaneous
+var centerOfMA = [42.358734, -71.849239], // Holden, MA -- for centering facilityMap
+    ghg = {}, // GHG conversion rates for each FY
+    GHGsum = 0.0,
     defaultUSDperKWh = 0.20,
     metricTonsPerLb = 0.000453592;
-
-// Holden, MA (~center of Massachusetts) -- for center
-var centerOfMA = [42.358734, -71.849239];
 
 // global variables for visualization instances
 var facilityMap,
     co2Savings,
     usageCostScatter;
 
-
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
+
+
+// INSTANTIATE VISUALIZATIONS ------------------------------------------------------------
+
+// create visualizations
+function createVis() {
+    facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
+    co2Savings = new co2Savings("co2-Savings", GHGsum);
+    usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
+}
 
 
 
@@ -34,18 +45,46 @@ queue()
     .defer(d3.json, "data/mass_cities.json")
     .defer(d3.csv, "data/plants.csv")
     .defer(d3.csv, "data/ghg.csv")
-    .await(createVis);
+    .await(wrangleData);
 
-// clean up data and create visualizations
-function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
+// clean up data
+function wrangleData(error, regionsServed, massCities, plantsData, GHGdata) {
+    if (!error) {
+        // store loaded data
+        citiesMA = massCities;
+        facilityLocations = regionsServed;
+        plants = plantsData;
 
-    facilityLocations = regionsServed;
-    citiesMA = massCities;
-    plants = plantsData;
+        // wrangle "plants" dataset
+        wranglePlants();
 
-    // Making the ghg factor dictionary.
-    GHGdata.forEach(function(d){
-	ghg[d.FY] = d["GHG factor"];
+        // wrangle "dataByFacility" dataset
+        wrangleDataByFacility();
+
+        // wrangle "SummaryData" dataset
+        wrangleSummaryData();
+
+        // wrangle data for facilityMap.js
+        wrangleFacilityMap();
+
+        // Make the ghg factor dictionary.
+        GHGdata.forEach(function (d) {
+            ghg[d.FY] = d["GHG factor"];
+        });
+
+        // create visualizations
+        createVis();
+    }
+}
+
+// wrangle "plants" dataset
+function wranglePlants() {
+    plants.forEach(function (d) {
+        d.ElectricityGenerationKWh = +d.ElectricityGenerationKWh;
+        d.GHGlbs = +d.GHGlbs;
+        d.USDperKWh = +d.USDperKWh;
+        d.UsageKWh = +d.UsageKWh;
+        d.UsageUSD = +d.UsageUSD;
     });
 
     // We decided to drop the Chelmsford data.
@@ -56,46 +95,73 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     // just generate new versions, as needed.
     //
     plants.forEach(function(d) {
-	delete d.SavingsUSD;
-	delete d.SavingsKWh;
+        delete d.SavingsUSD;
+        delete d.SavingsKWh;
     });
 
     // Computing GHG emissions from primary data, rather than using
     // the values in the excel sheets.
     plants.forEach(function(d) {
-	if(d.ElectricityGenerationKWh != ""){
-	    d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
-	}else{
-	    d.GHG = "";
-	}
+        if(d.ElectricityGenerationKWh != ""){
+            d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
+        }else{
+            d.GHG = "";
+        }
     });
-    
+
     // Regularizing the cost rates
     plants.forEach(function(d) {
 
-	// There are a few missing UsageUSD values;
-	// fill them in where possible.
-	if(d.UsageUSD == "" && d.UsageKWh != "" && d.USDperKWh != ""){
-	    d.UsageUSD = (+d.UsageKWh) * (+d.USDperKWh);	    
-	}
+        // There are a few missing UsageUSD values;
+        // fill them in where possible.
+        if(d.UsageUSD == "" && d.UsageKWh != "" && d.USDperKWh != ""){
+            d.UsageUSD = (+d.UsageKWh) * (+d.USDperKWh);
+        }
 
-	if(d.USDperKWh != ""){
-	    // If there as a rate in the csv file, use it.
-	    d.Rate = (+d.USDperKWh);
-	}else if(d.UsageUSD != "" && d.UsageKWh != ""){
-	    // If the rate is missing in the csv file but we
-	    // have the usage in USD and KWh, compute the rate
-	    d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
-	}else {
-	    // Otherwise, just assume a defaultUSDperKWh;
-	    d.Rate = defaultUSDperKWh;
-	}
+        if(d.USDperKWh != ""){
+            // If there as a rate in the csv file, use it.
+            d.Rate = (+d.USDperKWh);
+        }else if(d.UsageUSD != "" && d.UsageKWh != ""){
+            // If the rate is missing in the csv file but we
+            // have the usage in USD and KWh, compute the rate
+            d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
+        }else {
+            // Otherwise, just assume a defaultUSDperKWh;
+            d.Rate = defaultUSDperKWh;
+        }
+    });
+}
+
+// create "dataByFacility" dataset
+function wrangleDataByFacility() {
+    // get unique names of facilities
+    var uniqueFacilities = d3.map(plants, function(d) {
+        return d.Facility;
+    }).keys();
+
+    // put unique facilities into array of objects
+    dataByFacility = uniqueFacilities.map(function(d) {
+        return {
+            "id": d,
+            "values": []
+        };
     });
 
+    // populate each facility object with data by FY
+    dataByFacility.forEach(function(d) {
+        d.values = plants.filter(function(d2) {
+            if (d.id == d2.Facility)
+                return d;
+        });
+    });
+}
+
+// wrangle "SummaryData" dataset
+function wrangleSummaryData() {
     console.log(plants);
     var nested = d3.nest()
-	.key(function(d) { return d.Facility;})
-	.entries(plants);
+        .key(function(d) { return d.Facility;})
+        .entries(plants);
 
     console.log(nested);
         
@@ -128,11 +194,11 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     var SavingsKWh = 0;
     var SavingsUSD = 0;
     var SavingsGHG = 0;
-    
+
     SummaryData.forEach(function(data, index){
-	SavingsKWh += data.energy_sum;
-	SavingsUSD += data.savings_USD_sum;
-	SavingsGHG += data.ghg_sum;		
+        SavingsKWh += data.energy_sum;
+        SavingsUSD += data.savings_USD_sum;
+        SavingsGHG += data.ghg_sum;
     });
     console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
 
@@ -171,6 +237,12 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     
     // clean up data for waterMap.js
     facilityLocations.forEach(function(d) {
+    console.log(SummaryData);
+}
+
+// wrangle data for facilityMap.js
+function wrangleFacilityMap() {
+    facilityLocations.forEach(function (d) {
         d.Latitude = +d.Latitude;
         d.Longitude = +d.Longitude;
         d["Towns served"] = d["Towns served"].split(',');
@@ -184,3 +256,4 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	co2Savings = new Co2Savings("co2-Savings", GHGsum);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
 }
+

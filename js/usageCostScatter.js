@@ -5,49 +5,50 @@
  *  @param _data            -- Array with all stations of the bike-sharing network
  */
 
-UsageCostScatter = function(_parentElement, _allData) {
-
+UsageCostScatter = function(_parentElement, _data) {
     this.parentElement = _parentElement;
-    this.allData = _allData;
+    this.data = _data;
 
     this.initVis();
 };
-
-// define svg size and margins
-var margin = {top: 10, right: 10, bottom: 40, left: 40};
-var width = 700 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    offset = 30;
 
 /*
  *  Initialize scatter plot
  */
 
-FacilityMap.prototype.initVis = function() {
+UsageCostScatter.prototype.initVis = function() {
     var vis = this;
 
+    // define svg size and margins
+    vis.margin = {top: 30, right: 10, bottom: 60, left: 100},
+        vis.width = 700 - vis.margin.left - vis.margin.right,
+        vis.height = 500 - vis.margin.top - vis.margin.bottom,
+        vis.offset = 50;
+
+
     // add svg
-    var svg = d3.select("#chart-area")
+    vis.svg = d3.select("#usagecost-scatter")
         .append("svg")
-        .attr("width", (width + margin.left + margin.right))
-        .attr("height", (height + margin.top + margin.bottom))
+        .attr("width", (vis.width + vis.margin.left + vis.margin.right))
+        .attr("height", (vis.height + vis.margin.top + vis.margin.bottom))
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top +")");
+        .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +")");
 
-    // scale functions
-    var xScale = d3.scale.log()
-        .domain([incomeMin, incomeMax])
-        .range([0, width]);
-    var yScale = d3.scale.linear()
-        .domain([lifeExpectancyMin, lifeExpectancyMax])
-        .range([height, 0]);
-    var rScale = d3.scale.linear()
-        .domain([populationMin, populationMax])
-        .range([4, 30]);
-    var colorScale = d3.scale.category10()
-        .domain([categories]);
-
+    // wrangle data
     vis.wrangleData();
+
+    // draw axis labels
+    vis.svg.append("text")
+        .attr("class", "label x-label")
+        .attr("x", (vis.width / 2))
+        .attr("y", vis.height + vis.offset)
+        .text("Usage Cost (USD)");
+    vis.svg.append("text")
+        .attr("class", "label y-label")
+        .attr("x", -(vis.height / 2))
+        .attr("y", -(vis.offset * 1.5))
+        .attr("transform", "rotate(-90)")
+        .text("Usage (KWh)");
 };
 
 
@@ -55,15 +56,38 @@ FacilityMap.prototype.initVis = function() {
  *  Data wrangling
  */
 
-FacilityMap.prototype.wrangleData = function() {
+UsageCostScatter.prototype.wrangleData = function() {
     var vis = this;
 
-    // Currently no data wrangling/filtering needed
-    // vis.displayData = vis.data;
+    vis.displayData = vis.data;
+
+    // scale functions
+    var usageKWhMax = d3.max(vis.displayData, function(d) {
+        return d.UsageKWh;
+    });
+    var usageCostMax = d3.max(vis.displayData, function(d) {
+        return d.UsageUSD;
+    });
+    var yearExtent = [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
+    vis.x = d3.scale.linear()
+        .domain([0, usageKWhMax])
+        .range([0, vis.width]);
+    vis.y = d3.scale.linear()
+        .domain([0, (usageCostMax + 100000)])
+        .range([vis.height, 0]);
+    vis.colorScale = d3.scale.category10()
+        .domain(yearExtent);
+
+    // axis functions
+    vis.xAxis = d3.svg.axis()
+        .scale(vis.x)
+        .orient("bottom");
+    vis.yAxis = d3.svg.axis()
+        .scale(vis.y)
+        .orient("left");
 
     // Update the visualization
     vis.updateVis();
-
 };
 
 
@@ -71,6 +95,51 @@ FacilityMap.prototype.wrangleData = function() {
  *  The drawing function
  */
 
-FacilityMap.prototype.updateVis = function() {
+UsageCostScatter.prototype.updateVis = function() {
+    var vis = this;
 
+    // line-drawing function
+    vis.drawLine = d3.svg.line()
+        .x(function(d) {
+            return vis.x(d.UsageKWh);
+        })
+        .y(function(d) {
+            return vis.y(d.UsageUSD);
+        })
+        .interpolate("linear");
+
+    // draw (hidden) lines
+    vis.svg.selectAll(".line")
+        .data(vis.displayData)
+        .enter()
+        .append("path")
+        .attr("class", "line")
+        .transition()
+        .attr("d", vis.drawLine(vis.displayData));
+
+    // draw data points
+    vis.svg.selectAll(".point")
+        .data(vis.displayData)
+        .enter()
+        .append("circle")
+        .attr("class", "point")
+        .attr("cx", function(d) {
+            return vis.x(d.UsageKWh);
+        })
+        .attr("cy", function(d) {
+            return vis.y(d.UsageUSD);
+        })
+        .attr("r", 5)
+        .style("fill", function(d) {
+            return vis.colorScale(d.FY);
+        });
+
+    // draw axes
+    vis.svg.append("g")
+        .attr("class", "axis x-axis")
+        .attr("transform", "translate(0, " + vis.height + ")")
+        .call(vis.xAxis);
+    vis.svg.append("g")
+        .attr("class", "axis y-axis")
+        .call(vis.yAxis);
 };
