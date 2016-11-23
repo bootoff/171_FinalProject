@@ -160,7 +160,7 @@ function wrangleDataByFacility() {
 
 // wrangle "SummaryData" dataset
 function wrangleSummaryData() {
-    //console.log(plants);
+    console.log(plants);
     var nested = d3.nest()
         .key(function(d) { return d.Facility;})
         .entries(plants);
@@ -196,9 +196,9 @@ function wrangleSummaryData() {
         SavingsUSD += data.savings_USD_sum;
         SavingsGHG += data.ghg_sum;
     });
-    //console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
+    console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
 
-    //console.log(SummaryData);
+    console.log(SummaryData);
 }
 
 // wrangle data for facilityMap.js

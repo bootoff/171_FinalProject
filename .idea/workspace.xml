@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6543679-cda8-4df9-9671-f61d8a18ab6d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/usageCostScatter.js" afterPath="$PROJECT_DIR$/js/usageCostScatter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
     </list>
     <ignored path="171_FinalProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,17 +35,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+            <state relative-caret-position="42">
+              <caret line="162" column="4" selection-start-line="162" selection-start-column="4" selection-end-line="162" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="usageCostScatter.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="usageCostScatter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
@@ -83,9 +83,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/data/plants.csv" />
-        <option value="$PROJECT_DIR$/js/main.js" />
         <option value="$PROJECT_DIR$/js/facilityMap.js" />
         <option value="$PROJECT_DIR$/js/usageCostScatter.js" />
+        <option value="$PROJECT_DIR$/js/main.js" />
       </list>
     </option>
   </component>
@@ -231,12 +231,12 @@
       <workItem from="1479663869425" duration="1081000" />
       <workItem from="1479840459768" duration="4659000" />
       <workItem from="1479923786484" duration="282000" />
-      <workItem from="1479929578679" duration="12690000" />
+      <workItem from="1479929578679" duration="12739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36231000" />
+    <option name="totallyTimeSpent" value="36280000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="660" height="777" extended-state="0" />
@@ -646,14 +646,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -662,6 +654,14 @@
             <element signature="n#!!doc" expanded="true" />
             <marker date="1479942341000" expanded="true" signature="603:4034" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="162" column="4" selection-start-line="162" selection-start-column="4" selection-end-line="162" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
