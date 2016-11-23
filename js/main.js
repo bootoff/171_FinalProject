@@ -1,7 +1,7 @@
 // GLOBAL VARS ETC. ----------------------------------------------
 
 // global variables for primary datasets
-var citiesMA = [], // GeoJSON - cities in MA
+var citiesMA = [], // geoJSON - cities in MA
     dataByFacility = [], // array[19] of facilities and respective data
     facilityLocations = [], // lat, long for pilot program facilities
     plants = [], // primary data set - pilot program results
@@ -33,7 +33,7 @@ L.Icon.Default.imagePath = 'img/';
 function createVis() {
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
     co2Savings = new co2Savings("co2-Savings", GHGsum);
-    usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
+    usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
 }
 
 
@@ -160,7 +160,7 @@ function wrangleDataByFacility() {
 
 // wrangle "SummaryData" dataset
 function wrangleSummaryData() {
-    console.log(plants);
+    //console.log(plants);
     var nested = d3.nest()
         .key(function(d) { return d.Facility;})
         .entries(plants);
@@ -196,9 +196,9 @@ function wrangleSummaryData() {
         SavingsUSD += data.savings_USD_sum;
         SavingsGHG += data.ghg_sum;
     });
-    console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
+    //console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
 
-    console.log(SummaryData);
+    //console.log(SummaryData);
 }
 
 // wrangle data for facilityMap.js

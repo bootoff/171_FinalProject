@@ -2,7 +2,9 @@
 /*
  *  FacilityMap - Object constructor function
  *  @param _parentElement   -- HTML element in which to draw the visualization
- *  @param _data            -- Array with all stations of the bike-sharing network
+ *  @param _facilityData    -- Array with locations of facilities
+ *  @param _cityData        -- geoJSON with MA city boundaries
+ *  @param _mapPosition     -- lat, long where the map should be centered
  */
 
 FacilityMap = function(_parentElement, _facilityData, _cityData, _mapPosition) {

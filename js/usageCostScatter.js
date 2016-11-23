@@ -2,12 +2,14 @@
 /*
  *  UsageCostScatter - Object constructor function
  *  @param _parentElement   -- HTML element in which to draw the visualization
- *  @param _data            -- Array with all stations of the bike-sharing network
+ *  @param _data            -- Flat array of data from all facilities
+ *  @param _dataRolledUp    -- Array of unique facility objects with data for each
  */
 
-UsageCostScatter = function(_parentElement, _data) {
+UsageCostScatter = function(_parentElement, _data, _dataRolledUp) {
     this.parentElement = _parentElement;
     this.data = _data;
+    this.dataRoll = _dataRolledUp;
 
     this.initVis();
 };
@@ -42,13 +44,13 @@ UsageCostScatter.prototype.initVis = function() {
         .attr("class", "label x-label")
         .attr("x", (vis.width / 2))
         .attr("y", vis.height + vis.offset)
-        .text("Usage Cost (USD)");
+        .text("Usage (KWh)");
     vis.svg.append("text")
         .attr("class", "label y-label")
         .attr("x", -(vis.height / 2))
         .attr("y", -(vis.offset * 1.5))
         .attr("transform", "rotate(-90)")
-        .text("Usage (KWh)");
+        .text("Usage Cost (USD)");
 };
 
 
