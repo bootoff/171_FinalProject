@@ -110,14 +110,19 @@ UsageCostScatter.prototype.updateVis = function() {
         })
         .interpolate("linear");
 
-    // draw (hidden) lines
-    vis.svg.selectAll(".line")
-        .data(vis.displayData)
+    var facility = vis.svg.selectAll(".facility")
+        .data(vis.dataRoll)
         .enter()
-        .append("path")
+        .append("g")
+        .attr("class", "facility");
+
+    // draw (hidden) lines
+    facility.append("path")
         .attr("class", "line")
         .transition()
-        .attr("d", vis.drawLine(vis.displayData));
+        .attr("d", function(d) {
+            return vis.drawLine(d.values);
+        });
 
     // draw data points
     vis.svg.selectAll(".point")
