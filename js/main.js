@@ -96,26 +96,55 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     console.log(plants);
     var nested = d3.nest()
 	.key(function(d) { return d.Facility;})
-    	.key(function(d) { return d.Type;})
+    	//.key(function(d) { return d.Type;})
 	.entries(plants);
 
-    nested.forEach(function(d){
-	d.values.forEach(function(data, index){
-	    GHGsum[index] = {};
-	    GHGsum[index].sum = 0.0;
-	    GHGsum[index].key = d.key;
-	    data.values.forEach(function(d2, i2){
-		if((+d2.FY)>=13){
-		    GHGsum[i2].sum += d2.GHG*metricTonsPerLb;
+    nested.forEach(function(d, index){
+	GHGsum[index] = {};
+	GHGsum[index].sum = 0.0;
+	GHGsum[index].key = d.key;
+
+	console.log(d);
+    	d.values.forEach(function(data, i2){
+	    //console.log(data);
+	    if((+data.FY)>=13){
+		GHGsum[index].sum += data.GHG*metricTonsPerLb;
+	    }
+
+	});
+	    
+	console.log(GHGsum[index].key, "GHGsum: ", GHGsum[index].sum);
+    });
+ 
+    nested.forEach(function(d, index){
+	EnergyGeneratoinSum[in
+	data1.values.forEach(function(data2, index){
+	    EnergyGenerationSum[data1.key] = 0.0;
+	    UsageKWhSum[data1.key] = 0.0;
+	    NumYears[data1.key] = 0;
+	    data2.values.forEach(function(data3, i2){
+		if(data3.ElectricityGenerationKWh != "" && (+data3.FY)>=10){
+		    EnergyGenerationSum[data1.key] += (+data3.ElectricityGenerationKWh);
+		    UsageKWhSum[data1.key] += (+data3.UsageKWh);
+		    NumYears[data1.key] += 1;
 		}
 	    });
-	    console.log(GHGsum[index].key, "GHGsum: ", GHGsum[index].sum);
+	    console.log(data1.key, "EnergyGenerationSum: ", EnergyGenerationSum[data1.key], "UsageKWhSum: ", UsageKWhSum[data1.key], "NumYears: ", NumYears[data1.key]);		
 	});
     });
+    
+    plants.forEach(function(d, index){
+	if(d.ElectricityGenerationKWh != ""){
+	    console.log("plant: ", d.Facility, d.FY, d.UsageKWh, d.ElectricityGenerationKWh);
+	}
+    });
+   
 
+    /*
     for(key in GHGsum){
 	console.log(key, GHGsum[key]);
     }
+    */
 
     nested.forEach(function(data1){
 	data1.values.forEach(function(data2, index){
@@ -146,8 +175,10 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
         d["Towns served"] = d["Towns served"].split(',');
     });
 
+    console.log(GHGsum);
+    
     // instantiate visualizations
     facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
-	co2Savings = new co2Savings("co2-Savings", GHGsum);
+	co2Savings = new Co2Savings("co2-Savings", GHGsum);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
 }
