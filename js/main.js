@@ -106,7 +106,7 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
 	    GHGsum[index].key = d.key;
 	    data.values.forEach(function(d2, i2){
 		if((+d2.FY)>=13){
-		    GHGsum[index].sum += d2.GHG*metricTonsPerLb;
+		    GHGsum[i2].sum += d2.GHG*metricTonsPerLb;
 		}
 	    });
 	    console.log(GHGsum[index].key, "GHGsum: ", GHGsum[index].sum);
