@@ -62,8 +62,6 @@ function wrangleData(error, regionsServed, massCities, plantsData, GHGdata) {
 
         // wrangle "dataByFacility" dataset
         wrangleDataByFacility();
-        console.log(dataByFacility);
-
 
         // wrangle "SummaryData" dataset
         wrangleSummaryData();
