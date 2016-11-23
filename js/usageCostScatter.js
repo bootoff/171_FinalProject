@@ -61,23 +61,6 @@ UsageCostScatter.prototype.wrangleData = function() {
 
     vis.displayData = vis.data;
 
-    // get unique names of facilities
-    var uniqueFacilities = d3.map(vis.data, function(d) {
-        return d.Facility;
-    }).keys();
-
-    // put unique facilities into array of objects
-    vis.facilities = uniqueFacilities.map(function(d) {
-        return {
-            "id": d,
-            "values": []
-        };
-    });
-
-    // populate each facility object
-
-    console.log(vis.facilities);
-
     // scale functions
     var usageKWhMax = d3.max(vis.displayData, function(d) {
         return d.UsageKWh;

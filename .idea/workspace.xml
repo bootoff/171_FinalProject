@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6543679-cda8-4df9-9671-f61d8a18ab6d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/usageCostScatter.js" afterPath="$PROJECT_DIR$/js/usageCostScatter.js" />
     </list>
     <ignored path="171_FinalProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,8 +40,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1068">
-              <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+            <state relative-caret-position="105">
+              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -48,11 +50,11 @@
       <file leaf-file-name="usageCostScatter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="72" column="24" selection-start-line="72" selection-start-column="24" selection-end-line="72" selection-end-column="24" />
+            <state relative-caret-position="192">
+              <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <marker date="1479936518000" expanded="true" signature="483:4200" ph="{...}" />
+                <marker date="1479939587000" expanded="true" signature="483:3799" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -82,8 +84,8 @@
         <option value="$PROJECT_DIR$/js/waterMap.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/style.css" />
-        <option value="$PROJECT_DIR$/js/usageCostScatter.js" />
         <option value="$PROJECT_DIR$/data/plants.csv" />
+        <option value="$PROJECT_DIR$/js/usageCostScatter.js" />
         <option value="$PROJECT_DIR$/js/main.js" />
       </list>
     </option>
@@ -96,7 +98,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="944" />
+    <option name="width" value="660" />
     <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -230,15 +232,15 @@
       <workItem from="1479663869425" duration="1081000" />
       <workItem from="1479840459768" duration="4659000" />
       <workItem from="1479923786484" duration="282000" />
-      <workItem from="1479929578679" duration="8939000" />
+      <workItem from="1479929578679" duration="10301000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32480000" />
+    <option name="totallyTimeSpent" value="33842000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="944" height="777" extended-state="0" />
+    <frame x="0" y="23" width="660" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27762803" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -275,7 +277,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/js/usageCostScatter.js</url>
-          <line>128</line>
+          <line>111</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
@@ -326,7 +328,7 @@
           <caret line="46" column="2" selection-start-line="46" selection-start-column="2" selection-end-line="46" selection-end-column="2" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1479936518000" expanded="true" signature="483:4200" ph="{...}" />
+            <marker date="1479939587000" expanded="true" signature="483:3799" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -629,6 +631,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/plants.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="73" column="7" selection-start-line="73" selection-start-column="7" selection-end-line="73" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -645,29 +655,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/plants.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="73" column="7" selection-start-line="73" selection-start-column="7" selection-end-line="73" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="72" column="24" selection-start-line="72" selection-start-column="24" selection-end-line="72" selection-end-column="24" />
+        <state relative-caret-position="192">
+          <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1479936518000" expanded="true" signature="483:4200" ph="{...}" />
+            <marker date="1479939587000" expanded="true" signature="483:3799" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1068">
-          <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+        <state relative-caret-position="105">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
           <folding />
         </state>
       </provider>

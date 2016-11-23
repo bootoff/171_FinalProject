@@ -1,14 +1,17 @@
 // GLOBAL VARS ETC. ----------------------------------------------
 
-// global variables for data
-var centerOfMA = [42.358734, -71.849239], // Holden, MA -- for centering facilityMap
-    citiesMA = [], // GeoJSON - cities in MA
-    cnt = 0,
+// global variables for primary datasets
+var citiesMA = [], // GeoJSON - cities in MA
+    dataByFacility = [], // array[19] of facilities and respective data
     facilityLocations = [], // lat, long for pilot program facilities
+    plants = [], // primary data set - pilot program results
+    SummaryData = []; //
+
+// global variables - miscellaneous
+var centerOfMA = [42.358734, -71.849239], // Holden, MA -- for centering facilityMap
+    cnt = 0,
     ghg = {}, // GHG conversion rates for each FY
     GHGsum = 0.0,
-    plants = [], // primary data set - pilot program results
-    SummaryData = [],
     NumYears = {},
     defaultUSDperKWh = 0.20,
     metricTonsPerLb = 0.000453592;
@@ -56,6 +59,11 @@ function wrangleData(error, regionsServed, massCities, plantsData, GHGdata) {
 
         // wrangle "plants" dataset
         wranglePlants();
+
+        // wrangle "dataByFacility" dataset
+        wrangleDataByFacility();
+        console.log(dataByFacility);
+
 
         // wrangle "SummaryData" dataset
         wrangleSummaryData();
@@ -128,9 +136,33 @@ function wranglePlants() {
     });
 }
 
+// create "dataByFacility" dataset
+function wrangleDataByFacility() {
+    // get unique names of facilities
+    var uniqueFacilities = d3.map(plants, function(d) {
+        return d.Facility;
+    }).keys();
+
+    // put unique facilities into array of objects
+    dataByFacility = uniqueFacilities.map(function(d) {
+        return {
+            "id": d,
+            "values": []
+        };
+    });
+
+    // populate each facility object with data by FY
+    dataByFacility.forEach(function(d) {
+        d.values = plants.filter(function(d2) {
+            if (d.id == d2.Facility)
+                return d;
+        });
+    });
+}
+
 // wrangle "SummaryData" dataset
 function wrangleSummaryData() {
-    console.log(plants);
+    //console.log(plants);
     var nested = d3.nest()
         .key(function(d) { return d.Facility;})
         .entries(plants);
@@ -166,9 +198,9 @@ function wrangleSummaryData() {
         SavingsUSD += data.savings_USD_sum;
         SavingsGHG += data.ghg_sum;
     });
-    console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
+    //console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
 
-    console.log(SummaryData);
+    //console.log(SummaryData);
 }
 
 // wrangle data for facilityMap.js
