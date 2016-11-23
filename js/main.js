@@ -41,34 +41,33 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     plants = plantsData;
 
     GHGdata.forEach(function(d){
-	ghg[d.FY] = d["GHG factor"];
+		ghg[d.FY] = d["GHG factor"];
     });
 
     // We decided to drop the Chelmsford data.
-    plants = plants.filter(function(d){ return d.Facility!="Chelmsford Water District" });
+    plants = plants.filter(function(d) { return d.Facility!="Chelmsford Water District" });
 
     // SavingsUSD and SavingsKWh are derived from the Usage data, and there
     // seem to be errors.  I suggest that we drop the versions in the CSV and
     // just generate new versions, as needed.
-    //
     plants.forEach(function(d) {
-	delete d.SavingsUSD;
-	delete d.SavingsKWh;
+		delete d.SavingsUSD;
+		delete d.SavingsKWh;
     });
 
     plants.forEach(function(d) {
-	if(d.ElectricityGenerationKWh != ""){
-	    d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
-	}else{
-	    d.GHG = "";
-	}
-	d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
-	if(d.USDperKWh != ""){
-	    if(Math.abs((d.Rate-d.USDperKWh)/d.USDperKWh)>1e-1){
-		cnt++;
-		//console.log(cnt, "Rate! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
-	    }
-	}
+		if(d.ElectricityGenerationKWh != ""){
+			d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
+		}else{
+			d.GHG = "";
+		}
+		d.Rate = (+d.UsageUSD)/(+d.UsageKWh);
+		if(d.USDperKWh != ""){
+			if(Math.abs((d.Rate-d.USDperKWh)/d.USDperKWh)>1e-1){
+			cnt++;
+			//console.log(cnt, "Rate! ", "USDperKWh: ", d.USDperKWh, ", calcuated Rate: ", d.Rate.toFixed(4), d);
+			}
+		}
     });
 
    // console.log(plants);
@@ -79,18 +78,26 @@ function createVis(error, regionsServed, massCities, plantsData, GHGdata) {
     //console.log("nested", nested);
 
     nested.forEach(function(d){
-	d.values.forEach(function(data, index){
-	    data.values.forEach(function(d2, i2){
-		if((+d2.FY)>=13){
-		    //console.log(data, d2.FY, d2.GHGlbs, d2.GHG);
-		    GHGsum += d2.GHG;
-		}
-	    });
-	    //console.log(d.key, "GHGsum: ", GHGsum);
-	});
+		d.values.forEach(function(data, index){
+			data.values.forEach(function(d2, i2){
+				if((+d2.FY)>=13) {
+					GHGsum += d2.GHG;
+				}
+			});
+			//console.log(d.key, "GHGsum: ", GHGsum);
+		});
     });
-	
-    // clean up data for waterMap.js
+
+	// numify "plants" data
+    plants.forEach(function(d) {
+        d.ElectricityGenerationKWh = +d.ElectricityGenerationKWh;
+        d.GHGlbs = +d.GHGlbs;
+        d.USDperKWh = +d.USDperKWh;
+        d.UsageKWh = +d.UsageKWh;
+        d.UsageUSD = +d.UsageUSD;
+    });
+
+    // numify facilityLocations (FOR waterMap.js)
     facilityLocations.forEach(function(d) {
         d.Latitude = +d.Latitude;
         d.Longitude = +d.Longitude;

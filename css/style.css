@@ -24,10 +24,35 @@ h1 .sub-headline {
     height: 950px;
 }
 
+#chart3 {
+    height: 950px;
+}
+
 /* Viz-related styling */
 
 #water-map {
     height: 500px;
     margin: 20px;
     width: 100%;
+}
+
+/****************/
+/*     CHART    */
+/****************/
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line,
+.domain {
+    fill: none;
+    stroke: #888;
+    shape-rendering: crispEdges;
+}
+
+.axis-label {
+    fill: #888;
+    font-size: 10px;
 }
