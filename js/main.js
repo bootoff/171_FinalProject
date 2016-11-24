@@ -158,86 +158,76 @@ function wrangleDataByFacility() {
 
 // wrangle "SummaryData" dataset
 function wrangleSummaryData() {
-    console.log(plants);
+    //console.log(plants);
     var nested = d3.nest()
-        .key(function(d) { return d.Facility;})
+        .key(function (d) {
+            return d.Facility;
+        })
         .entries(plants);
 
-    console.log(nested);
-        
-    nested.forEach(function(d, index){
+    //console.log(nested);
 
-	SummaryData[index] = {};
-	SummaryData[index].key = d.key;
-	SummaryData[index].savings_USD_sum = 0.0;	
-	SummaryData[index].ghg_sum = 0.0;
-	SummaryData[index].num_years = 0;	
-	SummaryData[index].energy_sum = 0.0;
-	SummaryData[index].usage_sum = 0.0;
+    nested.forEach(function (d, index) {
+        SummaryData[index] = {};
+        SummaryData[index].key = d.key;
+        SummaryData[index].savings_USD_sum = 0.0;
+        SummaryData[index].ghg_sum = 0.0;
+        SummaryData[index].num_years = 0;
+        SummaryData[index].energy_sum = 0.0;
+        SummaryData[index].usage_sum = 0.0;
 
-    	d.values.forEach(function(data, i2){
-
-	    if(data.ElectricityGenerationKWh != "" && (+data.FY)>=10){
-
-		SummaryData[index].ghg_sum += data.GHG*metricTonsPerLb;
-		SummaryData[index].energy_sum += (+data.ElectricityGenerationKWh);
-		SummaryData[index].usage_sum  += (+data.UsageKWh);
-		SummaryData[index].savings_USD_sum += (+data.ElectricityGenerationKWh)*(+data.Rate);
-		SummaryData[index].num_years  += 1;
-		
-	    }
-
-	});
-
+        d.values.forEach(function (data, i2) {
+            if (data.ElectricityGenerationKWh != "" && (+data.FY) >= 10) {
+                SummaryData[index].ghg_sum += data.GHG * metricTonsPerLb;
+                SummaryData[index].energy_sum += (+data.ElectricityGenerationKWh);
+                SummaryData[index].usage_sum += (+data.UsageKWh);
+                SummaryData[index].savings_USD_sum += (+data.ElectricityGenerationKWh) * (+data.Rate);
+                SummaryData[index].num_years += 1;
+            }
+        });
     });
 
     var SavingsKWh = 0;
     var SavingsUSD = 0;
     var SavingsGHG = 0;
 
-    SummaryData.forEach(function(data, index){
+    SummaryData.forEach(function (data, index) {
         SavingsKWh += data.energy_sum;
         SavingsUSD += data.savings_USD_sum;
         SavingsGHG += data.ghg_sum;
     });
-    console.log("Savings (Millions of KWH): ", SavingsKWh/1e6, "Savings (Millions USD): ", SavingsUSD/1e6, "Savings (Tons): ", SavingsGHG);
+    //console.log("Savings (Millions of KWH): ", SavingsKWh / 1e6, "Savings (Millions USD): ", SavingsUSD / 1e6, "Savings (Tons): ", SavingsGHG);
 
     var nestedFY = d3.nest()
-	.key(function(d) { return d.FY;})
-	.entries(plants);
+        .key(function (d) {
+            return d.FY;
+        })
+        .entries(plants);
 
-    console.log(nestedFY);    
+    //console.log(nestedFY);
 
-    nestedFY.forEach(function(d, index){
+    nestedFY.forEach(function (d, index) {
 
-	AnnualData[index] = {};
-	AnnualData[index].key = d.key;
-	AnnualData[index].savings_USD_sum = 0.0;	
-	AnnualData[index].ghg_sum = 0.0;
-	AnnualData[index].num_facilities = 0;	
-	AnnualData[index].energy_sum = 0.0;
-	AnnualData[index].usage_sum = 0.0;
-	
-    	d.values.forEach(function(data, i2){
+        AnnualData[index] = {};
+        AnnualData[index].key = d.key;
+        AnnualData[index].savings_USD_sum = 0.0;
+        AnnualData[index].ghg_sum = 0.0;
+        AnnualData[index].num_facilities = 0;
+        AnnualData[index].energy_sum = 0.0;
+        AnnualData[index].usage_sum = 0.0;
 
-	    console.log(data);
-	    
-	    if(data.ElectricityGenerationKWh != "" && (+data.FY)>=10){
+        d.values.forEach(function (data, i2) {
+            //console.log(data);
 
-		AnnualData[index].ghg_sum += data.GHG*metricTonsPerLb;
-		AnnualData[index].energy_sum += (+data.ElectricityGenerationKWh);
-		AnnualData[index].usage_sum  += (+data.UsageKWh);
-		AnnualData[index].savings_USD_sum += (+data.ElectricityGenerationKWh)*(+data.Rate);
-		AnnualData[index].num_facilities  += 1;
-		
-	    }
-	});
+            if (data.ElectricityGenerationKWh != "" && (+data.FY) >= 10) {
+                AnnualData[index].ghg_sum += data.GHG * metricTonsPerLb;
+                AnnualData[index].energy_sum += (+data.ElectricityGenerationKWh);
+                AnnualData[index].usage_sum += (+data.UsageKWh);
+                AnnualData[index].savings_USD_sum += (+data.ElectricityGenerationKWh) * (+data.Rate);
+                AnnualData[index].num_facilities += 1;
+            }
+        });
     });
-
-    
-    // clean up data for waterMap.js
-    facilityLocations.forEach(function(d) {
-    console.log(SummaryData);
 }
 
 // wrangle data for facilityMap.js
@@ -247,13 +237,5 @@ function wrangleFacilityMap() {
         d.Longitude = +d.Longitude;
         d["Towns served"] = d["Towns served"].split(',');
     });
-
-    console.log(AnnualData);    
-    console.log(SummaryData);
-    
-    // instantiate visualizations
-    facilityMap = new FacilityMap("water-map", facilityLocations, citiesMA, centerOfMA);
-	co2Savings = new Co2Savings("co2-Savings", GHGsum);
-    usageCostScatter = new UsageCostScatter("usagecost-scatter", plants);
 }
 
