@@ -1,16 +1,16 @@
 //
-//co2Savings = new co2Savings("co2-Savings", GHGsum);
+//Co2Savings = new co2Savings("co2-Savings", GHGsum);
 //console.log("Janina");
 
 
-co2Savings = function(_parentElement, _GHGsum){
+Co2Savings = function(_parentElement, _GHGsum){
     this.parentElement = _parentElement;
     this.GHGsum = _GHGsum;
 
     this.initVis();
 };
 
-co2Savings.prototype.initVis = function() {
+Co2Savings.prototype.initVis = function() {
 
     var vis = this;
 
@@ -25,7 +25,7 @@ co2Savings.prototype.initVis = function() {
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
-}
+};
     // Scales and axes
     // vis.x = d3.scale.ordinal()
     //     .rangeRoundBands([0, vis.width])
