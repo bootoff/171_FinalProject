@@ -30,7 +30,7 @@ L.Icon.Default.imagePath = 'img/';
 // create visualizations
 function createVis() {
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
-    co2Savings = new co2Savings("co2-Savings", GHGsum);
+    co2Savings = new Co2Savings("co2-Savings", GHGsum);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
 }
 
