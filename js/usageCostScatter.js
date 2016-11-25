@@ -148,6 +148,9 @@ UsageCostScatter.prototype.updateVis = function() {
         .style("fill", function(d) {
             return vis.colorScale(d.FY);
         })
+        .attr("data-legend",function(d) {
+            return "20" + d.FY;
+        })
         .on("mouseover", vis.tip.show)
         .on("mouseout", vis.tip.hide);
 
@@ -159,4 +162,11 @@ UsageCostScatter.prototype.updateVis = function() {
     vis.svg.append("g")
         .attr("class", "axis y-axis")
         .call(vis.yAxis);
+
+    vis.legend = vis.svg.append("g")
+        .attr("class","legend")
+        .attr("transform","translate(50,30)")
+        .style("font-size","12px")
+        .call(d3.legend);
+
 };

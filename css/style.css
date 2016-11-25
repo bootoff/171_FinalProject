@@ -100,3 +100,13 @@ h1 .sub-headline {
     top: 100%;
     left: 0;
 }
+
+/********************/
+/*      Legend      */
+/********************/
+
+
+.legend rect {
+    fill:white;
+    stroke:black;
+    opacity:0.8;}
