@@ -37,7 +37,6 @@ h1 .sub-headline {
 
 /* usageCostScatter.js */
 .line {
-    /*display: none;*/
     fill: none;
     stroke: gray;
 }

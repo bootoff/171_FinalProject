@@ -14,6 +14,7 @@ UsageCostScatter = function(_parentElement, _data, _dataRolledUp) {
     this.initVis();
 };
 
+
 /*
  *  Initialize scatter plot
  */
@@ -40,7 +41,7 @@ UsageCostScatter.prototype.initVis = function() {
         .attr("class", "d3-tip")
         .offset([-10,0])
         .html(function(d) {
-            return d.Facility + "<br/>20" + d.FY + "<br/>Usage: " + d.UsageKWh  + " KWh<br/>Usage: $" + d.UsageUSD;
+            return d.Facility + "<br/>20" + d.FY + "<br/>" + d.UsageKWh  + " KWh<br/>$" + d.UsageUSD;
         });
     vis.svg.call(vis.tip);
 
@@ -69,7 +70,10 @@ UsageCostScatter.prototype.initVis = function() {
 UsageCostScatter.prototype.wrangleData = function() {
     var vis = this;
 
-    vis.displayData = vis.data;
+    vis.displayData = vis.data.filter(function(d) {
+        if ((d.UsageKWh != 0) && (d.UsageUSD != 0))
+            return d;
+    });
 
     // scale functions
     var usageKWhMax = d3.max(vis.displayData, function(d) {
@@ -122,7 +126,10 @@ UsageCostScatter.prototype.updateVis = function() {
         .data(vis.dataRoll)
         .enter()
         .append("g")
-        .attr("class", "facility");
+        .attr("class", function(d) {
+            return "facility facility-" + vis.spaceFormat(d.id);
+        })
+        .style("display", "none");
 
     // draw (hidden) lines
     facility.append("path")
@@ -151,8 +158,16 @@ UsageCostScatter.prototype.updateVis = function() {
         .attr("data-legend",function(d) {
             return "20" + d.FY;
         })
-        .on("mouseover", vis.tip.show)
-        .on("mouseout", vis.tip.hide);
+        .on("mouseover", function(d) {
+            vis.tip.show(d);
+            vis.svg.selectAll(".facility-" + vis.spaceFormat(d.Facility))
+                .style("display", null);
+        })
+        .on("mouseout", function(d) {
+            vis.tip.hide(d);
+            vis.svg.selectAll(".facility-" + vis.spaceFormat(d.Facility))
+                .style("display", "none");
+        });
 
     // draw axes
     vis.svg.append("g")
@@ -169,4 +184,13 @@ UsageCostScatter.prototype.updateVis = function() {
         .style("font-size","12px")
         .call(d3.legend);
 
+};
+
+
+// remove non-selector characters from strings
+UsageCostScatter.prototype.spaceFormat = function(str) {
+    str = str.replace(/\s+/g, '_');
+    str = str.replace("(", '-');
+    str = str.replace(")", '');
+    return str;
 };
