@@ -24,12 +24,36 @@ FacilityMap = function(_parentElement, _facilityData, _cityData, _mapPosition) {
 FacilityMap.prototype.initVis = function() {
     var vis = this;
 
+    // STATE MAP ------------------------------------------------
+
     // instantiate new state map
     vis.map = L.map(vis.parentElement).setView(vis.location, 8);
 
     // load and display tile layer on map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(vis.map);
+
+    // CITY MAPS ------------------------------------------------
+
+    // add visibility attribute for cities
+    vis.cityData.features.forEach(function(d) {
+        d.properties.show_city = false;
+    });
+
+    // style for cities
+    var cityStyle = {
+        fill: "blue",
+        weight: 1,
+        opacity: 0.5
+    };
+
+    // add city boundaries to map (hidden)
+    vis.cities = L.geoJson(vis.cityData, {
+        style: cityStyle,
+        filter: function(feature) {
+            return feature.properties.show_city;
+        }
     }).addTo(vis.map);
 
     // MARKERS --------------------------------------------------
@@ -39,13 +63,20 @@ FacilityMap.prototype.initVis = function() {
 
     // create markers; add them to marker layer group
     vis.facilityData.forEach(function(d) {
-        var popupContent = d["Name of Plant"];
-        var newMarker = L.marker([d.Latitude, d.Longitude])
-            .bindPopup(popupContent);
+        var popupContent = d.nameOfFacility;
+        var newMarker = L.marker([d.latitude, d.longitude])
+            .bindPopup(popupContent)
+            .on("mouseover", function() {
+                console.log(d.townsServed);
+            })
+            .on("mouseout", function() {
+                console.log("1");
+            });
         facilityMarkers.addLayer(newMarker);
     });
 
     vis.wrangleData();
+
 
 
 };
@@ -62,7 +93,7 @@ FacilityMap.prototype.wrangleData = function() {
     // vis.displayData = vis.data;
 
     // Update the visualization
-    vis.updateVis();
+    //vis.updateVis();
 
 };
 

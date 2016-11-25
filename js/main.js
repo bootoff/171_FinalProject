@@ -234,9 +234,9 @@ function wrangleSummaryData() {
 // wrangle data for facilityMap.js
 function wrangleFacilityMap() {
     facilityLocations.forEach(function (d) {
-        d.Latitude = +d.Latitude;
-        d.Longitude = +d.Longitude;
-        d["Towns served"] = d["Towns served"].split(',');
+        d.latitude = +d.latitude;
+        d.longitude = +d.longitude;
+        d.townsServed = d.townsServed.split(',');
     });
 }
 
