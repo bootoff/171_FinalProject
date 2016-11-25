@@ -106,12 +106,25 @@
         </div>
     </section>
 
+
     <!-- Chart2 Section -->
     <section id="chart2" class="services-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>CO2 Emission Savings</h1>
+                   <!--<h1>CO2 Emission Savings</h1>-->
+
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="rankingType">Select</label>
+                    <select class="form-control" id="ranking-type">
+                        <option value="savings_USD_sum">Cost Savings in US$</option>
+                        <option value="energy_sum">Energy Total </option>
+                        <option value="ghg_sum">Greenhouse Gas Emissions Reduction</option>
+
+
+                    </select>
+
                     <div id="co2-Savings"></div>
                 </div>
             </div>
@@ -145,6 +158,7 @@
     <script src="js/generationBar.js"></script>
     <script src="js/usageCostLine.js"></script>
     <script src="js/usageCostScatter.js"></script>
+    <script src="js/comparisonStacked.js"></script>
 
     <!-- Controller / load data -->
     <script src="js/main.js"></script>
