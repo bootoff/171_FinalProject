@@ -27,7 +27,6 @@ UsageCostScatter.prototype.initVis = function() {
         vis.height = 500 - vis.margin.top - vis.margin.bottom,
         vis.offset = 50;
 
-
     // add svg
     vis.svg = d3.select("#usagecost-scatter")
         .append("svg")
@@ -36,8 +35,14 @@ UsageCostScatter.prototype.initVis = function() {
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +")");
 
-    // wrangle data
-    vis.wrangleData();
+    // initialize tooltip
+    vis.tip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-10,0])
+        .html(function(d) {
+            return d.Facility + "<br/>20" + d.FY + "<br/>Usage: " + d.UsageKWh  + " KWh<br/>Usage: $" + d.UsageUSD;
+        });
+    vis.svg.call(vis.tip);
 
     // draw axis labels
     vis.svg.append("text")
@@ -51,6 +56,9 @@ UsageCostScatter.prototype.initVis = function() {
         .attr("y", -(vis.offset * 1.5))
         .attr("transform", "rotate(-90)")
         .text("Usage Cost (USD)");
+
+    // wrangle data
+    vis.wrangleData();
 };
 
 
@@ -139,7 +147,9 @@ UsageCostScatter.prototype.updateVis = function() {
         .attr("r", 5)
         .style("fill", function(d) {
             return vis.colorScale(d.FY);
-        });
+        })
+        .on("mouseover", vis.tip.show)
+        .on("mouseout", vis.tip.hide);
 
     // draw axes
     vis.svg.append("g")

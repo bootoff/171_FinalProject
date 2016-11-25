@@ -16,7 +16,6 @@ Co2Savings = function(_parentElement, _data){
 
 
 Co2Savings.prototype.initVis = function() {
-
     var vis = this;
 
     vis.margin = {top: 30, right: 10, bottom: 60, left: 100};
