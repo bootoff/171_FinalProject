@@ -39,7 +39,7 @@ function createVis() {
     var myEventHandler = {};
     
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
-    co2Savings = new co2Savings("co2-Savings", GHGsum);
+    //co2Savings = new Co2Savings("co2-Savings", GHGsum);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
 
