@@ -40,6 +40,15 @@ SquaresChart.prototype.initVis = function(){
 	$(vis.eventHandler).trigger("selectionChanged", vis.category);
     });
 
+    vis.tip = d3.tip()
+	.attr('class', 'd3-tip')
+	.offset([-10, 0])
+	.html(function(d) {
+	    return "<span style='color:red'>" + d.Facility + "<br>" + d.FY + "</span>";
+	});
+
+    vis.svg.call(vis.tip);
+
     // Scales and axes
 
     // (Filter, aggregate, modify data)
@@ -171,6 +180,9 @@ SquaresChart.prototype.updateVis = function(){
 
     squares.enter()
 	.append("rect")
+	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
+        .on('mouseover', vis.tip.show)
+    	.on('mouseout', function(d, index) { vis.tip.hide(d)})
 	.attr("class", "square")
 	.style("fill", "gray")
 	.style("stroke-opacity", 0.5)
