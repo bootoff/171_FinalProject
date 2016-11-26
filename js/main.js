@@ -111,7 +111,8 @@ function wranglePlants() {
     });
 
     // We decided to drop the Chelmsford data.
-    plants = plants.filter(function(d){ return d.Facility!="Chelmsford Water District" });
+    plants = plants.filter(function(d) { return d.Facility != "Chelmsford Water District" });
+
 
     // SavingsUSD and SavingsKWh are derived from the Usage data, and there
     // seem to be errors.  I suggest that we drop the versions in the CSV and
@@ -249,9 +250,9 @@ function wrangleSummaryData() {
 // wrangle data for facilityMap.js
 function wrangleFacilityMap() {
     facilityLocations.forEach(function (d) {
-        d.Latitude = +d.Latitude;
-        d.Longitude = +d.Longitude;
-        d["Towns served"] = d["Towns served"].split(',');
+        d.latitude = +d.latitude;
+        d.longitude = +d.longitude;
+        d.townsServed = d.townsServed.split(',');
     });
 }
 

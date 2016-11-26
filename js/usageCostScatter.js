@@ -14,6 +14,7 @@ UsageCostScatter = function(_parentElement, _data, _dataRolledUp) {
     this.initVis();
 };
 
+
 /*
  *  Initialize scatter plot
  */
@@ -27,7 +28,6 @@ UsageCostScatter.prototype.initVis = function() {
         vis.height = 500 - vis.margin.top - vis.margin.bottom,
         vis.offset = 50;
 
-
     // add svg
     vis.svg = d3.select("#usagecost-scatter")
         .append("svg")
@@ -36,8 +36,14 @@ UsageCostScatter.prototype.initVis = function() {
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +")");
 
-    // wrangle data
-    vis.wrangleData();
+    // initialize tooltip
+    vis.tip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-10,0])
+        .html(function(d) {
+            return d.Facility + "<br/>20" + d.FY + "<br/>" + d.UsageKWh  + " KWh<br/>$" + d.UsageUSD;
+        });
+    vis.svg.call(vis.tip);
 
     // draw axis labels
     vis.svg.append("text")
@@ -51,6 +57,9 @@ UsageCostScatter.prototype.initVis = function() {
         .attr("y", -(vis.offset * 1.5))
         .attr("transform", "rotate(-90)")
         .text("Usage Cost (USD)");
+
+    // wrangle data
+    vis.wrangleData();
 };
 
 
@@ -61,7 +70,10 @@ UsageCostScatter.prototype.initVis = function() {
 UsageCostScatter.prototype.wrangleData = function() {
     var vis = this;
 
-    vis.displayData = vis.data;
+    vis.displayData = vis.data.filter(function(d) {
+        if ((d.UsageKWh != 0) && (d.UsageUSD != 0))
+            return d;
+    });
 
     // scale functions
     var usageKWhMax = d3.max(vis.displayData, function(d) {
@@ -114,7 +126,10 @@ UsageCostScatter.prototype.updateVis = function() {
         .data(vis.dataRoll)
         .enter()
         .append("g")
-        .attr("class", "facility");
+        .attr("class", function(d) {
+            return "facility facility-" + vis.spaceFormat(d.id);
+        })
+        .style("display", "none");
 
     // draw (hidden) lines
     facility.append("path")
@@ -139,6 +154,19 @@ UsageCostScatter.prototype.updateVis = function() {
         .attr("r", 5)
         .style("fill", function(d) {
             return vis.colorScale(d.FY);
+        })
+        .attr("data-legend",function(d) {
+            return "20" + d.FY;
+        })
+        .on("mouseover", function(d) {
+            vis.tip.show(d);
+            vis.svg.selectAll(".facility-" + vis.spaceFormat(d.Facility))
+                .style("display", null);
+        })
+        .on("mouseout", function(d) {
+            vis.tip.hide(d);
+            vis.svg.selectAll(".facility-" + vis.spaceFormat(d.Facility))
+                .style("display", "none");
         });
 
     // draw axes
@@ -149,4 +177,20 @@ UsageCostScatter.prototype.updateVis = function() {
     vis.svg.append("g")
         .attr("class", "axis y-axis")
         .call(vis.yAxis);
+
+    vis.legend = vis.svg.append("g")
+        .attr("class","legend")
+        .attr("transform","translate(50,30)")
+        .style("font-size","12px")
+        .call(d3.legend);
+
+};
+
+
+// remove non-selector characters from strings
+UsageCostScatter.prototype.spaceFormat = function(str) {
+    str = str.replace(/\s+/g, '_');
+    str = str.replace("(", '-');
+    str = str.replace(")", '');
+    return str;
 };

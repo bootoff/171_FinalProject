@@ -72,6 +72,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Usage vs. Cost Scatter Plot</h1>
+                    <!-- Viz placeholder -->
                     <div id="usagecost-scatter"></div>
                 </div>
             </div>
@@ -106,12 +107,25 @@
         </div>
     </section>
 
+
     <!-- Chart2 Section -->
     <section id="chart2" class="services-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>CO2 Emission Savings</h1>
+                   <!--<h1>CO2 Emission Savings</h1>-->
+
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="ranking-type">Select</label>
+                    <select class="form-control" id="ranking-type">
+                        <option value="savings_USD_sum">Cost Savings in US$</option>
+                        <option value="energy_sum">Energy Total </option>
+                        <option value="ghg_sum">Greenhouse Gas Emissions Reduction</option>
+
+
+                    </select>
+
                     <div id="co2-Savings"></div>
                 </div>
             </div>
@@ -158,6 +172,7 @@
     <script src="js/d3.tip.js"></script>
     <script src="js/queue.v1.min.js"></script>
     <script src="js/topojson.v1.min.js"></script>
+    <script src="js/d3.legend.js"></script>
 
     <!-- Include custom visualizations -->
     <script src="js/comparisonLine.js"></script>
@@ -169,6 +184,7 @@
     <script src="js/usageCostLine.js"></script>
     <script src="js/usageCostScatter.js"></script>
     <script src="js/squareschart.js"></script>    
+    <script src="js/comparisonStacked.js"></script>
 
     <!-- Controller / load data -->
     <script src="js/main.js"></script>
