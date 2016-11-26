@@ -118,6 +118,29 @@
         </div>
     </section>
 
+    <!-- Chart4 Section -->
+    <section id="chart4" class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                  <h1>Data Grid</h1>
+		  <form class="form-inline">
+		    <div class="form-group">
+		      <label for="rankingType">Select</label>
+		      <select class="form-control" id="squares-type">
+			<option value="savingsUSD">Cost Savings in US$</option>
+			<option value="ElectricityGenerationKWh">Energy Total </option>
+			<option value="GHG">Greenhouse Gas Emissions Reduction</option>
+		      </select>
+		    </div>
+		  </form>
+		  <div id="squares-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -145,6 +168,7 @@
     <script src="js/generationBar.js"></script>
     <script src="js/usageCostLine.js"></script>
     <script src="js/usageCostScatter.js"></script>
+    <script src="js/squareschart.js"></script>    
 
     <!-- Controller / load data -->
     <script src="js/main.js"></script>

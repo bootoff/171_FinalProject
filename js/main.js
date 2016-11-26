@@ -7,6 +7,7 @@ var citiesMA = [], // geoJSON - cities in MA
     plants = [], // primary data set - pilot program results
     SummaryData = [], //
     ghg = {},
+    ghg_tmp = {},
     AnnualData = [];
 
 // global variables - miscellaneous
@@ -25,13 +26,28 @@ var facilityMap,
 L.Icon.Default.imagePath = 'img/';
 
 
+
+
+
 // INSTANTIATE VISUALIZATIONS ------------------------------------------------------------
 
 // create visualizations
 function createVis() {
+
+    // Create event handler
+    
+    var myEventHandler = {};
+    
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
-    co2Savings = new Co2Savings("co2-Savings", GHGsum);
+    co2Savings = new co2Savings("co2-Savings", GHGsum);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
+    squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
+
+    $(myEventHandler).bind("selectionChanged", function(event, category){
+	console.log("handler: ", category);
+	squaresChart.onSelectionChange(event, category);
+    });    
+    
 }
 
 
@@ -55,6 +71,11 @@ function wrangleData(error, regionsServed, massCities, plantsData, GHGdata) {
         facilityLocations = regionsServed;
         plants = plantsData;
 
+        // Make the ghg factor dictionary.
+        GHGdata.forEach(function (d) {
+            ghg[d.FY] = +d["GHG factor"];
+        });
+
         // wrangle "plants" dataset
         wranglePlants();
 
@@ -67,13 +88,9 @@ function wrangleData(error, regionsServed, massCities, plantsData, GHGdata) {
         // wrangle data for facilityMap.js
         wrangleFacilityMap();
 
-        // Make the ghg factor dictionary.
-        GHGdata.forEach(function (d) {
-            ghg[d.FY] = d["GHG factor"];
-        });
-
         // create visualizations
         createVis();
+
     }
 }
 
@@ -82,6 +99,12 @@ function wranglePlants() {
     plants.forEach(function (d) {
         d.ElectricityGenerationKWh = +d.ElectricityGenerationKWh;
         d.GHGlbs = +d.GHGlbs;
+
+	// Note that the GHG emissions can be computed from the UsageKWh
+	// primary data, rather than using the values in the excel sheets.
+	// They are not independent.
+
+        d.GHG = d.GHGlbs;
         d.USDperKWh = +d.USDperKWh;
         d.UsageKWh = +d.UsageKWh;
         d.UsageUSD = +d.UsageUSD;
@@ -99,15 +122,6 @@ function wranglePlants() {
         delete d.SavingsKWh;
     });
 
-    // Computing GHG emissions from primary data, rather than using
-    // the values in the excel sheets.
-    plants.forEach(function(d) {
-        if(d.ElectricityGenerationKWh != ""){
-            d.GHG = (+d.ElectricityGenerationKWh)*ghg[d.FY];
-        }else{
-            d.GHG = "";
-        }
-    });
 
     // Regularizing the cost rates
     plants.forEach(function(d) {
@@ -129,6 +143,8 @@ function wranglePlants() {
             // Otherwise, just assume a defaultUSDperKWh;
             d.Rate = defaultUSDperKWh;
         }
+
+	d.savingsUSD = d.ElectricityGenerationKWh * d.Rate;
     });
 }
 
