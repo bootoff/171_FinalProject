@@ -44,7 +44,7 @@ SquaresChart.prototype.initVis = function(){
 	.attr('class', 'd3-tip')
 	.offset([-10, 0])
 	.html(function(d) {
-	    return "<span style='color:red'>" + d.Facility + "<br>" + d.FY + "</span>";
+	    return "<span style='color:red'>" + d.Facility + "<br>" + d.FY + "<br>" + d[vis.category] + "</span>";
 	});
 
     vis.svg.call(vis.tip);
