@@ -1,5 +1,3 @@
-// http://www.easton.ma.us/departments/dpw/water_division/photovoltaic.php
-
 // GLOBAL VARS ETC. ----------------------------------------------
 
 // global variables for primary datasets
@@ -8,20 +6,21 @@ var citiesMA = [], // geoJSON - cities in MA
     facilityLocations = [], // lat, long for pilot program facilities
     plants = [], // primary data set - pilot program results
     SummaryData = [], //
-    ghg = {},
-    ghg_tmp = {},
+    //ghg = {},
+    //ghg_tmp = {},
     AnnualData = [];
 
 // global variables - miscellaneous
 var centerOfMA = [42.358734, -71.849239], // Holden, MA -- for centering facilityMap
     ghg = {}, // GHG conversion rates for each FY
-    GHGsum = 0.0,
+    //GHGsum = 0.0,
     defaultUSDperKWh = 0.20,
     metricTonsPerLb = 0.000453592;
 
 // global variables for visualization instances
 var facilityMap,
     co2Savings,
+    squaresChart,
     usageCostScatter;
 
 // specify path to Leaflet images: in [dir]/img
@@ -37,7 +36,6 @@ L.Icon.Default.imagePath = 'img/';
 function createVis() {
 
     // Create event handler
-    
     var myEventHandler = {};
     
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
@@ -46,10 +44,9 @@ function createVis() {
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
-	console.log("handler: ", category);
-	squaresChart.onSelectionChange(event, category);
-    });    
-    
+	    console.log("handler: ", category);
+	    squaresChart.onSelectionChange(event, category);
+    });
 }
 
 
