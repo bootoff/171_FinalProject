@@ -38,23 +38,19 @@ of those sections to manage the look and feel of the site. */
     background: #fff;
 }
 
-.about-section {
+.chart {
     height: 100%;
-    padding-top: 150px;
+    margin-bottom: 100px;
+    min-height: 800px;
+    padding-top: 100px;
     text-align: center;
     background: #eee;
 }
 
-.services-section {
+.content {
     height: 100%;
-    padding-top: 150px;
+    margin-bottom:100px;
+    padding-top: 100px;
     text-align: center;
     background: #fff;
-}
-
-.contact-section {
-    height: 100%;
-    padding-top: 150px;
-    text-align: center;
-    background: #eee;
-}
+ }

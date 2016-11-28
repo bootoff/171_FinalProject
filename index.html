@@ -46,18 +46,12 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a class="page-scroll" href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#chart1">Chart1</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#chart2">Chart2</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#chart3">Chart3</a>
-                    </li>
+                    <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
+                    <li><a class="page-scroll" href="#intro">Intro</a></li>
+                    <li><a class="page-scroll" href="#chart1">Chart1</a></li>
+                    <li><a class="page-scroll" href="#chart2">Chart2</a></li>
+                    <li><a class="page-scroll" href="#chart3">Chart3</a></li>
+                    <li><a class="page-scroll" href="#chart4">Chart4</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -65,9 +59,79 @@
         <!-- /.container -->
     </nav>
 
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Project Background</h1>
+                    <a class="btn btn-default page-scroll" href="#about">Data visualization</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Chart3 Section -->
-    <section id="chart3" class="contact-section">
+    <!-- Facility Map -->
+    <section id="chart1" class="chart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Facility Map</h1>
+                    <!-- Viz placeholder -->
+                    <div id="facility-map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content 2 -->
+    <section id="content2" class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Content</h1>
+                    <!-- Content goes here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CO2 Emission Savings -->
+    <section id="chart2" class="chart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1>CO2 Emission Savings</h1>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="ranking-type">Select</label>
+                            <select class="form-control" id="ranking-type">
+                                <option value="savings_USD_sum">Cost Savings in US$</option>
+                                <option value="energy_sum">Energy Total </option>
+                                <option value="ghg_sum">Greenhouse Gas Emissions Reduction</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div id="co2-Savings"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content 3 -->
+    <section id="content3" class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Content</h1>
+                    <!-- Content goes here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage-Cost Scatter Plot -->
+    <section id="chart3" class="chart">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -79,76 +143,35 @@
         </div>
     </section>
 
-    <!-- Intro Section -->
-    <section id="intro" class="intro-section">
+    <!-- Content 4 -->
+    <section id="content4" class="content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Project Background!</h1>
-                    <p></p>
-                    <a class="btn btn-default page-scroll" href="#about">Data visualization</a>
-                </div>
-                <div class="col-lg-12">
-                    <!-- Viz placeholder -->
-                    <div id="facility-map"></div>
+                    <h1>Content</h1>
+                    <!-- Content goes here -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Chart1 Section -->
-    <section id="chart1" class="about-section">
+    <!-- Squares Chart -->
+    <section id="chart4" class="chart">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Chart1</h1>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Chart2 Section -->
-    <section id="chart2" class="services-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                   <!--<h1>CO2 Emission Savings</h1>-->
-
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="ranking-type">Select</label>
-                    <select class="form-control" id="ranking-type">
-                        <option value="savings_USD_sum">Cost Savings in US$</option>
-                        <option value="energy_sum">Energy Total </option>
-                        <option value="ghg_sum">Greenhouse Gas Emissions Reduction</option>
-
-
-                    </select>
-
-                    <div id="co2-Savings"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chart4 Section -->
-    <section id="chart4" class="services-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                  <h1>Data Grid</h1>
-		  <form class="form-inline">
-		    <div class="form-group">
-		      <label for="rankingType">Select</label>
-		      <select class="form-control" id="squares-type">
-			<option value="savingsUSD">Cost Savings (USD)</option>
-			<option value="ElectricityGenerationKWh">Energy Generated (KWh)</option>
-			<option value="GHG">Greenhouse Gas Emissions Reduction (tons)</option>
-		      </select>
-		    </div>
-		  </form>
-		  <div id="squares-chart"></div>
+                    <h1>Data Grid</h1>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="squares-type">Select</label>
+                            <select class="form-control" id="squares-type">
+                                <option value="savingsUSD">Cost Savings (USD)</option>
+                                <option value="ElectricityGenerationKWh">Energy Generated (KWh)</option>
+                                <option value="GHG">Greenhouse Gas Emissions Reduction (tons)</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div id="squares-chart"></div>
                 </div>
             </div>
         </div>

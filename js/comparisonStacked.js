@@ -106,14 +106,14 @@ Co2Savings.prototype.initVis = function() {
 Co2Savings.prototype.wrangleData = function() {
     var vis = this;
 
-    console.log(vis);
+    //console.log(vis);
 
     vis.displayData = vis.data;
 
     //console.log(vis.displayData);  //unsorted
 
     vis.category = d3.select("#ranking-type").property("value");
-    console.log(vis.category);
+    //console.log(vis.category);
 
     vis.displayData.sort(function (x, y) {
         return y[vis.category] - x[vis.category]
@@ -133,7 +133,7 @@ Co2Savings.prototype.wrangleData = function() {
         vis.updateVisualization()
     });
     vis.updateVisualization()
-}
+};
 
 
 // Render visualization
@@ -144,7 +144,7 @@ Co2Savings.prototype.updateVisualization = function() {
 
         vis.displayData = vis.data;
 
-        console.log(vis.displayData); //sorted
+        //console.log(vis.displayData); //sorted
 
         vis.y.domain([0, d3.max(vis.displayData, function (d) {
         return d[vis.category];
@@ -155,7 +155,7 @@ Co2Savings.prototype.updateVisualization = function() {
     // })
 
         var selection = d3.select("#ranking-type").property("value");
-        console.log("THIS IS THE " + selection);
+        //console.log("THIS IS THE " + selection);
 
         vis.x.domain(vis.displayData.map(function (d) {
            // return d[selection];

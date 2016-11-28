@@ -103,7 +103,7 @@ FacilityMap.prototype.wrangleData = function() {
         d.properties.name = vis.reformat(d.properties.name);
     });
 
-    console.log(vis.cityData);
+    //console.log(vis.cityData);
 
     // vis.displayData = vis.data;
 
