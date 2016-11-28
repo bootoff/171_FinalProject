@@ -38,7 +38,7 @@ FacilityMap.prototype.initVis = function() {
 
     // add visibility attribute for cities
     vis.cityData.features.forEach(function(d) {
-        d.properties.show_city = false;
+        d.properties.show_city = true;
     });
 
     // style for cities
@@ -48,13 +48,19 @@ FacilityMap.prototype.initVis = function() {
         opacity: 0.5
     };
 
+
+    // idea: add one layer to the map, with all towns served, for each facility
     // add city boundaries to map (hidden)
     vis.cities = L.geoJson(vis.cityData, {
-        style: cityStyle,
         filter: function(feature) {
             return feature.properties.show_city;
-        }
-    }).addTo(vis.map);
+        },
+        id: function(feature) {
+            return feature.properties.name;
+        },
+        style: cityStyle
+    })
+        .addTo(vis.map);
 
     // MARKERS --------------------------------------------------
 
@@ -67,7 +73,13 @@ FacilityMap.prototype.initVis = function() {
         var newMarker = L.marker([d.latitude, d.longitude])
             .bindPopup(popupContent)
             .on("mouseover", function() {
-                console.log(d.townsServed);
+                d.townsServed.forEach(function(d) {
+                    vis.cityData.features.forEach(function(d2) {
+                        if (d == d2.properties.name) {
+                            d.properties.show_city = false;
+                        }
+                    });
+                });
             })
             .on("mouseout", function() {
                 console.log("1");
@@ -75,10 +87,8 @@ FacilityMap.prototype.initVis = function() {
         facilityMarkers.addLayer(newMarker);
     });
 
+    // adjust geoJSON city names
     vis.wrangleData();
-
-
-
 };
 
 
@@ -89,12 +99,16 @@ FacilityMap.prototype.initVis = function() {
 FacilityMap.prototype.wrangleData = function() {
     var vis = this;
 
-    // Currently no data wrangling/filtering needed
+    vis.cityData.features.forEach(function(d) {
+        d.properties.name = vis.reformat(d.properties.name);
+    });
+
+    console.log(vis.cityData);
+
     // vis.displayData = vis.data;
 
     // Update the visualization
     //vis.updateVis();
-
 };
 
 
@@ -104,4 +118,11 @@ FacilityMap.prototype.wrangleData = function() {
 
 FacilityMap.prototype.updateVis = function() {
 
+};
+
+
+// remove unwanted strings from geoJSON city names
+FacilityMap.prototype.reformat = function(str) {
+    str = str.replace(", MA", '');
+    return str;
 };

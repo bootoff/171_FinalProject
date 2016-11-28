@@ -1,3 +1,5 @@
+// http://www.easton.ma.us/departments/dpw/water_division/photovoltaic.php
+
 // GLOBAL VARS ETC. ----------------------------------------------
 
 // global variables for primary datasets
@@ -168,7 +170,7 @@ function wrangleDataByFacility() {
     dataByFacility.forEach(function(d) {
         d.values = plants.filter(function(d2) {
             if (d.id == d2.Facility)
-                return d;
+                return d2;
         });
     });
 }
