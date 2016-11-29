@@ -36,31 +36,24 @@ FacilityMap.prototype.initVis = function() {
 
     // CITY MAPS ------------------------------------------------
 
-    // add visibility attribute for cities
-    vis.cityData.features.forEach(function(d) {
-        d.properties.show_city = true;
-    });
-
     // style for cities
     var cityStyle = {
         fill: "blue",
         weight: 1,
-        opacity: 0.5
+        opacity: 0.6,
+        visibility: "hidden"
     };
-
 
     // idea: add one layer to the map, with all towns served, for each facility
     // add city boundaries to map (hidden)
     vis.cities = L.geoJson(vis.cityData, {
-        filter: function(feature) {
-            return feature.properties.show_city;
-        },
-        id: function(feature) {
-            return feature.properties.name;
-        },
         style: cityStyle
-    })
-        .addTo(vis.map);
+    }).addTo(vis.map);
+
+    // set IDs for cities
+    vis.cities.eachLayer(function (layer) {
+        layer._path.id = 'feature-' + vis.removeSpaces(vis.reformat(layer.feature.properties.name));
+    });
 
     // MARKERS --------------------------------------------------
 
@@ -69,20 +62,25 @@ FacilityMap.prototype.initVis = function() {
 
     // create markers; add them to marker layer group
     vis.facilityData.forEach(function(d) {
-        var popupContent = d.nameOfFacility;
+        var popupContent = d.name;
         var newMarker = L.marker([d.latitude, d.longitude])
             .bindPopup(popupContent)
             .on("mouseover", function() {
-                d.townsServed.forEach(function(d) {
-                    vis.cityData.features.forEach(function(d2) {
-                        if (d == d2.properties.name) {
-                            d.properties.show_city = false;
-                        }
-                    });
+                // highlight the towns served by this facility
+                d.townsServed.forEach(function(d2) {
+                    d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
+                        .remove();
                 });
             })
             .on("mouseout", function() {
-                console.log("1");
+                // freshly add layer of all cities
+                vis.map.removeLayer(vis.cities);
+                vis.map.addLayer(vis.cities);
+
+                // set IDs for cities
+                vis.cities.eachLayer(function (layer) {
+                    layer._path.id = 'feature-' + vis.removeSpaces(vis.reformat(layer.feature.properties.name));
+                });
             });
         facilityMarkers.addLayer(newMarker);
     });
@@ -124,5 +122,11 @@ FacilityMap.prototype.updateVis = function() {
 // remove unwanted strings from geoJSON city names
 FacilityMap.prototype.reformat = function(str) {
     str = str.replace(", MA", '');
+    return str;
+};
+
+// replace spaces by -'s
+FacilityMap.prototype.removeSpaces = function(str) {
+    str = str.replace(" ", "-");
     return str;
 };

@@ -122,7 +122,7 @@ Co2Savings.prototype.wrangleData = function() {
     d3.select("#ranking-type").on("change", function (d) {
         //Get the current selection
         var selection = d3.select("#ranking-type").property("value");
-        console.log("this is the " + selection);
+        //console.log("this is the " + selection);
 
         vis.displayData.sort(function (a, b) {
             return b[selection] - a[selection]

@@ -44,7 +44,7 @@ function createVis() {
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
-	    console.log("handler: ", category);
+	    //console.log("handler: ", category);
 	    squaresChart.onSelectionChange(event, category);
     });
 }
@@ -56,18 +56,18 @@ function createVis() {
 
 // load data asynchronously
 queue()
-    .defer(d3.csv, "data/regions_served.csv")
+    .defer(d3.csv, "data/towns_served.csv")
     .defer(d3.json, "data/mass_cities.json")
     .defer(d3.csv, "data/plants.csv")
     .defer(d3.csv, "data/ghg.csv")
     .await(wrangleData);
 
 // clean up data
-function wrangleData(error, regionsServed, massCities, plantsData, GHGdata) {
+function wrangleData(error, townsServed, massCities, plantsData, GHGdata) {
     if (!error) {
         // store loaded data
         citiesMA = massCities;
-        facilityLocations = regionsServed;
+        facilityLocations = townsServed;
         plants = plantsData;
 
         // Make the ghg factor dictionary.
