@@ -9,7 +9,7 @@ Co2Savings = function(_parentElement, _data){
     this.parentElement = _parentElement;
     this.data = _data;
 
-    //console.log(this.data);
+    console.log(this.data);
 
     this.initVis();
 };
@@ -31,7 +31,6 @@ Co2Savings.prototype.initVis = function() {
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
-
 
 
     // Scales and axes
@@ -56,14 +55,25 @@ Co2Savings.prototype.initVis = function() {
         .orient("left")
         .ticks(10);
 
+
+    //tool tip
+    vis.tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+            return "<span style='color:red'>" + d.key + "<br>" + "<br>" + d[vis.category] + "</span>";
+        });
+
+    vis.svg.call(vis.tip);
+
     vis.svg.append("g")
-        .attr("class", "x-axis axis")
-        .attr("transform", "translate(0," + vis.height + ")")
-       // .attr("transform", "rotate(-65)")
-        .call(vis.xAxis)
-        .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("transform", "rotate(-65)");
+         //.attr("class", "x-axis axis")
+         //.attr("transform", "translate(0," + vis.height + ")")
+        //.attr("transform", "rotate(-65)")
+    //     .call(vis.xAxis)
+        // .selectAll("text")
+        //     .style("text-anchor", "end")
+        //     .attr("transform", "rotate(-65)");
 
     vis.svg.append("g")
         .attr("class", "y-axis axis")
@@ -85,7 +95,7 @@ Co2Savings.prototype.initVis = function() {
         .attr("x", vis.width/2)
         .attr("y", vis.height + vis.offset)
         .style("text-anchor", "end")
-        .text("Plant Facilities");
+         .text("Plant Facilities");
 
     vis.svg.append("text")
         .attr("class", "label y-label")
@@ -106,9 +116,10 @@ Co2Savings.prototype.initVis = function() {
 Co2Savings.prototype.wrangleData = function() {
     var vis = this;
 
-    //console.log(vis);
+    //console.log(vis.tip);
 
     vis.displayData = vis.data;
+    vis.svg.call(vis.tip);
 
     //console.log(vis.displayData);  //unsorted
 
@@ -122,7 +133,7 @@ Co2Savings.prototype.wrangleData = function() {
     d3.select("#ranking-type").on("change", function (d) {
         //Get the current selection
         var selection = d3.select("#ranking-type").property("value");
-        //console.log("this is the " + selection);
+        console.log("this is the " + selection);
 
         vis.displayData.sort(function (a, b) {
             return b[selection] - a[selection]
@@ -133,7 +144,7 @@ Co2Savings.prototype.wrangleData = function() {
         vis.updateVisualization()
     });
     vis.updateVisualization()
-};
+}
 
 
 // Render visualization
@@ -142,7 +153,10 @@ Co2Savings.prototype.updateVisualization = function() {
 
         var vis = this;
 
+        //console.log(vis.tip);
         vis.displayData = vis.data;
+
+        vis.svg.call(vis.tip);
 
         //console.log(vis.displayData); //sorted
 
@@ -184,7 +198,10 @@ Co2Savings.prototype.updateVisualization = function() {
             })
             .attr("height", function (d) {
                 return vis.height - vis.y(d.savings_USD_sum);
-            });
+            })
+            .on('mouseover', vis.tip.show)
+            .on('mouseout', function(d, index) { vis.tip.hide(d)});
+    ;
 
 
         vis.svg.select(".y-axis")
@@ -198,8 +215,9 @@ Co2Savings.prototype.updateVisualization = function() {
 
 
         rect.enter().append("rect")
-            .attr("class", "bar");
-
+            .attr("class", "bar")
+            .on('mouseover', vis.tip.show)
+            .on('mouseout', function(d, index) { vis.tip.hide(d)});
 
         rect.exit().remove();
 
