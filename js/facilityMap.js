@@ -40,7 +40,6 @@ FacilityMap.prototype.initVis = function() {
     var cityStyle = {
         fill: "blue",
         weight: 1,
-        opacity: 0.6,
         visibility: "hidden"
     };
 
