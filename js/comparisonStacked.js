@@ -61,7 +61,9 @@ Co2Savings.prototype.initVis = function() {
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-            return "<span style='color:red'>" + d.key + "<br>" + "<br>" + d[vis.category] + "</span>";
+            return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
+                 "<br>" + "<span style='color:#bdbdbd'>" +  d[vis.category] + "<br>"+
+                "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
         });
 
     vis.svg.call(vis.tip);
@@ -183,11 +185,11 @@ Co2Savings.prototype.updateVisualization = function() {
         })
         ]);
 
-        vis.svg.selectAll("bar")
+        vis.svg.selectAll(".bar")
             .data(vis.displayData)
             .enter()
             .append("rect")
-            .style("fill", "orange")
+            .attr("class", "bar")
             .attr("x", function (d) {
                 return vis.x(d.key);
             })
@@ -240,3 +242,4 @@ Co2Savings.prototype.updateVisualization = function() {
 
 
     }
+
