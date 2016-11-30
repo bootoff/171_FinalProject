@@ -33,6 +33,14 @@ h1 .sub-headline {
     stroke: gray;
 }
 
+/* comparisonStacked */
+.bar:hover {
+    fill: #2ca25f ;
+}
+.bar {
+    fill: #99d8c9;
+}
+
 /****************/
 /*     CHART    */
 /****************/
