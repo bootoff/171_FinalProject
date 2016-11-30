@@ -80,22 +80,43 @@ SquaresChart.prototype.wrangleData = function(){
 	return +d[vis.category];
     });
 
-    vis.cMin = d3.min(vis.displayData, function(d){
-	return +d[vis.category];
-    });
+    var nonZero = vis.displayData.filter(function(d){return +d[vis.category] > 0;});
 
+    /*
+    vis.cMin = d3.min(vis.displayData,
+		      function(d){
+			  return +d[vis.category];
+		      });
+		      */
+
+    vis.cMin = d3.min(nonZero,
+			function(d){
+			    return +d[vis.category];
+			});
+    
     vis.x = d3.scale.linear()
         .domain([vis.minFY, vis.maxFY])
-        .range([0, vis.width]);
+        .range([0, (vis.maxFY-vis.minFY)*(cellWidth+cellPadding)]);
+
+    var mySet = new Set();
+    vis.displayData.forEach(function(d){ mySet.add(d.Facility); });
+    var facilities = Array.from(mySet);
+    //console.log(facilities);
 
     vis.y = d3.scale.ordinal()
-	.domain(vis.displayData.map(function(d) {return d.Facility; }))    
-	.rangeRoundBands([vis.height, vis.width], .1);
+	.domain(facilities)
+	.rangeRoundBands([0, facilities.length*(cellHeight+cellPadding)]);
 
     vis.opacity = d3.scale.linear()
         .domain([vis.cMin, vis.cMax])
         .range([0.05, 1.0]);
 
+    /*
+    vis.opacityNZ = d3.scale.linear()
+        .domain([vis.cMinNZ, vis.cMax])
+        .range([0.05, 1.0]);
+	*/
+    
     // axis functions
     vis.xAxis = d3.svg.axis()
         .scale(vis.x)
@@ -103,7 +124,7 @@ SquaresChart.prototype.wrangleData = function(){
 
     vis.yAxis = d3.svg.axis()
         .scale(vis.y)
-        .orient("left");
+        .orient("right");
 
     vis.nested = d3.nest()
         .key(function (d) {
@@ -158,7 +179,17 @@ SquaresChart.prototype.wrangleData = function(){
 	})
     	.attr("class", "row");
 
-    
+    vis.svg.append("g")
+	.attr("class", "x-axis axis")
+	.attr("transform", "translate(" + (vis.margin.left + (cellWidth+cellPadding)*0.5) + "," + (cellHeight + cellPadding)*21 + ")")
+	.call(vis.xAxis);
+
+    vis.svg.append("g")
+        .attr("class", "y-axis axis")
+	//.attr("transform", "translate(" + (vis.margin.left) + ", " + (cellHeight+cellPadding)*(21*0.5) + ")")    
+	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")    
+        .call(vis.yAxis);
+
     // Update the visualization
     vis.updateVis();
     
@@ -194,9 +225,12 @@ SquaresChart.prototype.updateVis = function(){
 
     squares
 	.attr("class", "square")
-	.style("fill", "gray")
+	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : "red";})
 	.style("stroke-opacity", 0.5)
-	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })
+	.style("opacity",
+	       function(d, i, j){
+		   return (+d[vis.category]==0) ? 0.05 : vis.opacity(d[vis.category]);
+	       })
 	.attr("x", function(d, i, j) { return (cellWidth + cellPadding) * i; })
 	.attr("y", 0)
 	.attr("height", cellHeight)
