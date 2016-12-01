@@ -76,7 +76,7 @@ svg.call(tooltip);
 // return a single data point based on selection box choice
 function dataReturn(d) {
     if (currSelection == "KwH")
-        return d.SavingsKWH;
+        return d.ElectricityGenerationKWh;
     else if (currSelection == "USD")
         return d.SavingsUSD;
 }
@@ -87,17 +87,17 @@ function dataReturn(d) {
 
 // load CSV file
 function loadData() {
-    d3.csv("data/linechart.csv", function (error, csv) {
+    d3.csv("data/plants.csv", function (error, csv) {
         csv.forEach(function (d) {
             // convert to 'date object' || numify strings
             d.FY = formatDate.parse(d.FY);
-            d.Facility = +d.Facility;
-            d.Type = +d.Type;
         });
 
         // store loaded data
         rawData = csv;
         sortedData = csv;
+
+	console.log(sortedData);
 
         // draw visualization for the first time
         updateVisualization();
@@ -115,15 +115,20 @@ d3.select("#y-var").on("change", function() {
 }
 // render visualization
 function updateVisualization() {
+
 	// scale function domains
     var dateExtent = d3.extent(sortedData, function(d) {
         return d.FY;
     });
     var yMax = d3.max(sortedData, function(d) {
+	console.log(dataReturn(d));
         return dataReturn(d);
-	});
+    });
+
+    console.log(yMax);
+    
     x.domain(dateExtent);
-	y.domain([0, yMax]);
+    y.domain([0, yMax]);
 
     // draw line graph || draw data points
     svg.selectAll(".line")
@@ -139,7 +144,6 @@ function updateVisualization() {
         .duration(800)
         .call(yAxis);
 
-
     // update y-axis label
     //document.getElementById("y-label").innerHTML = varFormat(currSelection);
 }
@@ -147,7 +151,7 @@ function updateVisualization() {
 // render line graph
 function updateLine() {
     // data join
-    var dataSelection = d3.select(".line-chart")
+    var dataSelection = d3.select("#line-chart")
         .selectAll(".line")
         .data(sortedData);
 
@@ -162,10 +166,12 @@ function updateLine() {
             return x(d.FY);
         })
         .y(function(d) {
+	    console.log("d:", y(dataReturn(d)));
             return y(dataReturn(d));
         })
         .interpolate("linear");
 
+    console.log("here");
 
     dataSelection
         .transition()
