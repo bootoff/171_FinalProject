@@ -97,7 +97,7 @@ function loadData() {
         rawData = csv;
         sortedData = csv;
 
-	console.log(sortedData);
+	//console.log(sortedData);
 
         // draw visualization for the first time
         updateVisualization();
@@ -121,11 +121,11 @@ function updateVisualization() {
         return d.FY;
     });
     var yMax = d3.max(sortedData, function(d) {
-	console.log(dataReturn(d));
+	//console.log(dataReturn(d));
         return dataReturn(d);
     });
 
-    console.log(yMax);
+    //console.log(yMax);
     
     x.domain(dateExtent);
     y.domain([0, yMax]);
@@ -166,12 +166,12 @@ function updateLine() {
             return x(d.FY);
         })
         .y(function(d) {
-	    console.log("d:", y(dataReturn(d)));
+	    //console.log("d:", y(dataReturn(d)));
             return y(dataReturn(d));
         })
         .interpolate("linear");
 
-    console.log("here");
+    //console.log("here");
 
     dataSelection
         .transition()
@@ -210,7 +210,7 @@ function updatePoints() {
         .attr("cy", function(d) {
             return y(dataReturn(d));
         });
-console.log("print")
+//console.log("print")
     // exit
     dataSelection.exit()
         .remove();
