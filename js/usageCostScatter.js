@@ -118,7 +118,7 @@ UsageCostScatter.prototype.wrangleData = function() {
     var counter = 0;
     vis.dataRoll.forEach(function(d, i) {
         d.values.forEach(function() {
-            console.log(i);
+            //console.log(i);
             vis.data[counter].facilityNum = i;
             counter++;
         })

@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f6543679-cda8-4df9-9671-f61d8a18ab6d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/comparisonStacked.js" afterPath="$PROJECT_DIR$/js/comparisonStacked.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/elecSavingsLine3.js" afterPath="$PROJECT_DIR$/js/elecSavingsLine3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/usageCostScatter.js" afterPath="$PROJECT_DIR$/js/usageCostScatter.js" />
     </list>
     <ignored path="171_FinalProject.iws" />
@@ -28,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="240">
+              <caret line="76" column="103" selection-start-line="76" selection-start-column="103" selection-end-line="76" selection-end-column="103" />
               <folding />
             </state>
           </provider>
@@ -61,13 +60,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="usageCostScatter.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="usageCostScatter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-768">
-              <caret line="116" column="57" selection-start-line="116" selection-start-column="57" selection-end-line="116" selection-end-column="57" />
+            <state relative-caret-position="192">
+              <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="14" />
               <folding>
-                <marker date="1480619324000" expanded="true" signature="604:7389" ph="{...}" />
+                <marker date="1480619464000" expanded="true" signature="604:7391" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -98,13 +97,13 @@
         <option value="$PROJECT_DIR$/js/d3.legend.js" />
         <option value="$PROJECT_DIR$/data/regions_served.csv" />
         <option value="$PROJECT_DIR$/css/scrolling-nav.css" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/main.js" />
         <option value="$PROJECT_DIR$/js/facilityMap.js" />
         <option value="$PROJECT_DIR$/js/elecSavingsLine3.js" />
         <option value="$PROJECT_DIR$/js/comparisonStacked.js" />
-        <option value="$PROJECT_DIR$/js/usageCostScatter.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/js/usageCostScatter.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -116,7 +115,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="943" />
+    <option name="width" value="559" />
     <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -302,12 +301,12 @@
       <workItem from="1480114942205" duration="260000" />
       <workItem from="1480187526992" duration="10113000" />
       <workItem from="1480369387484" duration="6130000" />
-      <workItem from="1480614784634" duration="3725000" />
+      <workItem from="1480614784634" duration="3880000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73786000" />
+    <option name="totallyTimeSpent" value="73941000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -319,7 +318,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="943" height="777" extended-state="0" />
+    <frame x="0" y="23" width="559" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19854015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -605,14 +604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/usageCostLine.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -640,17 +631,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/facilityMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1480382234000" expanded="true" signature="1029:1035" ph="©" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -682,13 +662,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/facilityMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1480382234000" expanded="true" signature="1029:1035" ph="©" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-768">
-          <caret line="116" column="57" selection-start-line="116" selection-start-column="57" selection-end-line="116" selection-end-column="57" />
+        <state relative-caret-position="192">
+          <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="14" />
           <folding>
-            <marker date="1480619324000" expanded="true" signature="604:7389" ph="{...}" />
+            <marker date="1480619464000" expanded="true" signature="604:7391" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="76" column="103" selection-start-line="76" selection-start-column="103" selection-end-line="76" selection-end-column="103" />
+          <folding />
         </state>
       </provider>
     </entry>
