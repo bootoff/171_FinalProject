@@ -62,7 +62,7 @@ Co2Savings.prototype.initVis = function() {
         .offset([-10, 0])
         .html(function(d) {
             return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
-                 "<br>" + "<span style='color:#bdbdbd'>" +  d[vis.category] + "<br>"+
+                "<br>" + "<span style='color:#bdbdbd'>" +  d[vis.category].toFixed(2) + "<br>"+
                 "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
         });
 

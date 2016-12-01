@@ -41,6 +41,14 @@ h1 .sub-headline {
     fill: #99d8c9;
 }
 
+/* squareschart */
+.square:hover {
+    stroke: 1;
+}
+.square {
+    stroke: 0;    
+}
+
 /****************/
 /*     CHART    */
 /****************/

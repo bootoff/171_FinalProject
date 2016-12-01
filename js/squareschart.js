@@ -1,6 +1,12 @@
 // Based on lab10 concept.
 
-var cellHeight = 20, cellWidth = 20, cellPadding = 5;    
+var cellHeight = 20, cellWidth = 20, cellPadding = 5;
+
+var label = {"savingsUSD" : "USD",
+	     "ElectricityGenerationKWh": "KWh",
+	     "GHG" : "tons"};
+
+
 
 /*
  * SquaresChart - Object constructor function
@@ -44,7 +50,10 @@ SquaresChart.prototype.initVis = function(){
 	.attr('class', 'd3-tip')
 	.offset([-10, 0])
 	.html(function(d) {
-	    return "<span style='color:red'>" + d.Facility + "<br>" + d.FY + "<br>" + d[vis.category] + "</span>";
+            return "Plant: " + "<span style='color:#bdbdbd'>" + d.Facility + "<br>" + "</span>" +
+                "<br>" + "FY: " + "<span style='color:#bdbdbd'>" +  d.FY + "<br>"+ "</span>" +
+                "<br>" + label[vis.category] + ": " + "<span style='color:#bdbdbd'>" + d[vis.category].toFixed(2) + "<br>"+ "</span>";
+	    //return "Plant: <span style='color:red'>" + d.Facility + "<br>" + "FY: " + d.FY + "<br>" + d[vis.category] + "</span>";
 	});
 
     vis.svg.call(vis.tip);
@@ -212,8 +221,13 @@ SquaresChart.prototype.updateVis = function(){
     squares.enter()
 	.append("rect")
 	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
-        .on('mouseover', vis.tip.show)
-    	.on('mouseout', function(d, index) { vis.tip.hide(d)})
+        .on('mouseover', function(d, index){
+            d3.select(this).style("fill", function(d){ return "green"});
+	    vis.tip.show(d)})
+        .on("mouseout", function(d, i) {
+            d3.select(this).style("fill", function(d, index) {
+		return (+d[vis.category]==0) ? "gray" : "red";});
+	    vis.tip.hide(d)})
 	.attr("class", "square")
 	.style("fill", "gray")
 	.style("stroke-opacity", 0.5)
