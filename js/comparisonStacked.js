@@ -2,11 +2,14 @@
  * Created by Janina on 11/24/2016.
  */
 
+// to do: x axis
+// color bars by years in project (4, 5, or 6)
+
 Co2Savings = function(_parentElement, _data){
     this.parentElement = _parentElement;
     this.data = _data;
 
-    //console.log(this.data);
+    console.log(this.data);
 
     this.initVis();
 };
@@ -30,7 +33,6 @@ Co2Savings.prototype.initVis = function() {
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
-
     // Scales and axes
     vis.x = d3.scale.ordinal()
         .rangeRoundBands([0, vis.width], 0.2);
@@ -45,8 +47,8 @@ Co2Savings.prototype.initVis = function() {
     //THIS IS NOT WORKING:
     vis.AxisGroup = vis.svg.append("g")
         .attr("class", "x-axis group")
-        .attr("transform", "translate(0," + vis.height + ")rotate(-65)")
-        .call(vis.xAxis);
+        .call(vis.xAxis)
+        .attr("transform", "translate(0," + vis.height + ")rotate(-65)");
 
     vis.svg.append("text")
         .attr("class", "label x-label")
@@ -61,7 +63,7 @@ Co2Savings.prototype.initVis = function() {
         .offset([-10, 0])
         .html(function(d) {
             return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
-                "<br>" + "<span style='color:#bdbdbd'>" +  d[vis.category].toFixed(2) + "<br>"+
+                 "<br>" + "<span style='color:#bdbdbd'>" +  d[vis.category] + "<br>"+
                 "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
         });
 
@@ -71,10 +73,7 @@ Co2Savings.prototype.initVis = function() {
 }
 
 
-/*
- * Data wrangling
- */
-
+// Data wrangling:
 
 Co2Savings.prototype.wrangleData = function() {
     var vis = this;
@@ -140,11 +139,16 @@ Co2Savings.prototype.updateVisualization = function() {
 
         vis.svg.select("g").remove();
 
+        vis.colorScale = d3.scale.category20();
+
         vis.svg.selectAll(".bar")
             .data(vis.displayData)
             .enter()
             .append("rect")
             .attr("class", "bar")
+            .style("fill", function(d) {
+                return vis.colorScale(d.num_years);
+            })
             .attr("x", function (d) {
                 return vis.x(d.key);
             })
@@ -156,9 +160,28 @@ Co2Savings.prototype.updateVisualization = function() {
             .attr("height", function (d) {
                 return vis.height - vis.y(d.savings_USD_sum);
             })
-            .on('mouseover', vis.tip.show)
-            .on('mouseout', function(d, index) { vis.tip.hide(d)});
+            .attr("data-legend",function(d) {
+                return  d.num_years + " yr total";
+            })
+            .on("mouseover", function(d, index) {
+                d3.select(this)
+                    .style("fill", "green");
+                vis.tip.show(d);
+            })
+            .on('mouseout', function(d, index) {
+                d3.select(this)
+                    .style("fill", function(d) {
+                    return vis.colorScale(d.num_years);
+                });
+                vis.tip.hide(d)});
 
+    //attribute data-legend-pos
+
+    vis.legend = vis.svg.append("g")
+        .attr("class","legend")
+        .attr("transform","translate(500,10)")
+        .style("font-size","12px")
+        .call(d3.legend);
 
         var rect = vis.svg.selectAll("rect")
             .data(vis.displayData);
@@ -173,9 +196,6 @@ Co2Savings.prototype.updateVisualization = function() {
         rect
             .transition()
             .duration(800)
-            // .attr("x", function (d) {
-            //     return vis.x(d[selection]);
-            // })
             .attr("y", function (d) {
                 return vis.y(d[selection]);
             })
@@ -185,6 +205,5 @@ Co2Savings.prototype.updateVisualization = function() {
             })
             .transition()
             .delay(800)
-
 
     }
