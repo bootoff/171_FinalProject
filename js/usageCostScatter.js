@@ -104,14 +104,14 @@ UsageCostScatter.prototype.wrangleData = function() {
         ['#fff7f3','#fde0dd','#fcc5c0','#fa9fb5','#f768a1'], //9
         ['#dd3497','#ae017e','#7a0177','#49006a','#000000'],
         ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0'],
-        ['#225ea8','#253494','#081d58','#000000','#000000'],
-        ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529','#000000'],
-        ['#ffffe5','#fff7bc','#fee391','#fec44f','#fe9929','#ec7014','#cc4c02','#993404','#662506','#000000'], //14
+        ['#225ea8','#253494','#081d58','#ffffff','#ffffff'],
+        ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529','#ffffff'],
+        ['#ffffe5','#fff7bc','#fee391','#fec44f','#fe9929','#ec7014','#cc4c02','#993404','#662506','#ffffff'], //14
         ['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6'],
-        ['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704','#000000'],
-        ['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d','#000000'],
-        ['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b','#000000'],
-        ['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b','#000000']  //19
+        ['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704','#ffffff'],
+        ['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d','#ffffff'],
+        ['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b','#ffffff'],
+        ['#f7fcf5','#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b','#ffffff']  //19
     ];
 
     // enumerate the facilities in vis.data (for use with vis.colors)
