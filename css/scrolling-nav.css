@@ -35,7 +35,7 @@ of those sections to manage the look and feel of the site. */
     height: 100%;
     padding-top: 150px;
     text-align: center;
-    background-image: url(img1/water1.jpg);
+    background-image: url(water1.jpg);
     background-size: cover;
 }
 
@@ -53,6 +53,6 @@ of those sections to manage the look and feel of the site. */
     margin-bottom:100px;
     padding-top: 100px;
     text-align: center;
-    background-image: url(img1/water1.jpg);
+    background-image: url(water1.jpg);
     background-size: cover;
  }
