@@ -37,6 +37,11 @@ of those sections to manage the look and feel of the site. */
     text-align: center;
     background-image: url(water1.jpg);
     background-size: cover;
+    
+    
+}
+.intro {
+
 }
 
 .chart {
@@ -53,6 +58,36 @@ of those sections to manage the look and feel of the site. */
     margin-bottom:100px;
     padding-top: 100px;
     text-align: center;
+    
+ }
+
+.content2 {
     background-image: url(water1.jpg);
     background-size: cover;
+}
+
+.content3 {
+    background-image: url(water1.jpg);
+    background-size: cover;
+}
+
+.content4 {
+    background-image: url(water1.jpg);
+    background-size: cover;
+}
+
+ .case {
+    height: 100%;
+    margin-bottom:100px;
+    padding-top: 100px;
+    text-align: center;
+    
  }
+ .backimage {
+    background-image: url(GLSD.jpg);
+    background-size: cover;
+    opacity: 0.3;
+ }
+ 
+
+
