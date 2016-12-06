@@ -153,6 +153,7 @@ TimeLine.prototype.updateVis = function() {
 /*
  *  The line-drawing function
  */
+
 TimeLine.prototype.updateLine = function(indexData) {
     var vis = this;
 
@@ -189,6 +190,7 @@ TimeLine.prototype.updateLine = function(indexData) {
 /*
  *  The point-drawing function
  */
+
 TimeLine.prototype.updatePoints = function(indexData) {
     var vis = this;
 
@@ -222,6 +224,7 @@ TimeLine.prototype.updatePoints = function(indexData) {
 /*
  *  format year text correctly
  */
+
 TimeLine.prototype.formatYear = function(str) {
     if (str.toString().length >1)
         str = "20" + str;
@@ -234,6 +237,7 @@ TimeLine.prototype.formatYear = function(str) {
 /*
  *  remove non-selector characters from strings
  */
+
 TimeLine.prototype.spaceFormat = function(str) {
     str = str.replace(/\s+/g, '_');
     str = str.replace("(", '-');
@@ -243,9 +247,10 @@ TimeLine.prototype.spaceFormat = function(str) {
 
 
 /*
- *
+ *  function to pass from event handler to vis update
  */
-TimeLine.prototype.onSelectionChange = function(category){
+
+TimeLine.prototype.onSelectionChange = function(){
     var vis = this;
 
     // update visualization
