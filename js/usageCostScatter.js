@@ -29,8 +29,6 @@ UsageCostScatter.prototype.initVis = function() {
         vis.height = 500 - vis.margin.top - vis.margin.bottom,
         vis.offset = 50;
 
-    console.log(vis.parentElement);
-
     // add svg
     vis.svg = d3.select("#" + vis.parentElement)
         .append("svg")
@@ -85,7 +83,7 @@ UsageCostScatter.prototype.wrangleData = function() {
     var usageCostMax = d3.max(vis.displayData, function(d) {
         return d.UsageUSD;
     });
-    var yearExtent = [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
+    // var yearExtent = [2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
     vis.x = d3.scale.linear()
         .domain([0, usageKWhMax])
         .range([0, vis.width]);

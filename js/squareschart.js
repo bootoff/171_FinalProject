@@ -24,7 +24,7 @@ SquaresChart = function(_parentElement, _data, _eventHandler){
     this.displayData = _data;
     this.eventHandler = _eventHandler;
     this.initVis();
-}
+};
 
 /*
  * Initialize visualization (static content; e.g. SVG area, axes)

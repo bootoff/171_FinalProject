@@ -210,8 +210,22 @@
     <section id="chart5" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <h1>Electricity Usage vs. Time</h1>
+                </div>
+                <!-- Select box to choose the y variable -->
+                <div class="col-md-12">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="timeline-select">Display: </label>
+                            <select class="form-control" id="timeline-select">
+                                <option value="savingsUSD">Electricity Savings (USD)</option>
+                                <option value="UsageUSD">Usage Cost (USD)</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-12">
                     <!-- Viz placeholder -->
                     <div id="timeline"></div>
                 </div>
