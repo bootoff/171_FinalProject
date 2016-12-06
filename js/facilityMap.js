@@ -1,5 +1,7 @@
-/* Based on lab 9: stationMap.js */
 /*
+ *  Author: Alma Lafler
+ *
+ *  Based on lab 9: stationMap.js
  *  FacilityMap - Object constructor function
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _facilityData    -- Array with locations of facilities

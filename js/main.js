@@ -21,7 +21,8 @@ var centerOfMA = [42.358734, -71.849239], // Holden, MA -- for centering facilit
 var facilityMap,
     co2Savings,
     squaresChart,
-    usageCostScatter;
+    usageCostScatter,
+    elecSavingsLine;
 
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
@@ -39,9 +40,10 @@ function createVis() {
     var myEventHandler = {};
     
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
-    co2Savings = new Co2Savings("co2-Savings", SummaryData);
+    co2Savings = new Co2Savings("comparison-stacked", SummaryData);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
+    elecSavingsLine = new ElecSavingsLine("elec-line", data);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
 	    //console.log("handler: ", category);

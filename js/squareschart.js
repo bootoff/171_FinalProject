@@ -1,4 +1,8 @@
-// Based on lab10 concept.
+/*
+ *  Author: Matt Holman
+ *
+ *  Based on lab10 concept.
+ */
 
 var cellHeight = 20, cellWidth = 20, cellPadding = 5;
 

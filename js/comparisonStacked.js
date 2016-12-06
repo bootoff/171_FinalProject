@@ -26,7 +26,7 @@ Co2Savings.prototype.initVis = function() {
         vis.offset = 50;
 
     // SVG drawing area
-    vis.svg = d3.select("#comparison-stacked")
+    vis.svg = d3.select("#" + vis.parentElement)
         .append("svg")
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)

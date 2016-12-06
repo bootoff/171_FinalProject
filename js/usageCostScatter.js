@@ -1,5 +1,6 @@
-/* Based on lab 9: stationMap.js */
 /*
+ *  Author: Alma Lafler
+ *
  *  UsageCostScatter - Object constructor function
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _data            -- Flat array of data from all facilities
@@ -28,8 +29,10 @@ UsageCostScatter.prototype.initVis = function() {
         vis.height = 500 - vis.margin.top - vis.margin.bottom,
         vis.offset = 50;
 
+    console.log(vis.parentElement);
+
     // add svg
-    vis.svg = d3.select("#usagecost-scatter")
+    vis.svg = d3.select("#" + vis.parentElement)
         .append("svg")
         .attr("width", (vis.width + vis.margin.left + vis.margin.right))
         .attr("height", (vis.height + vis.margin.top + vis.margin.bottom))
