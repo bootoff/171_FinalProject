@@ -36,18 +36,25 @@ L.Icon.Default.imagePath = 'img/';
 // create visualizations
 function createVis() {
 
-    // Create event handler
+    // squaresChart event handler
     var myEventHandler = {};
+
+    // timeLine event handler
+    var timeLineEventHandler = {};
     
     facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
     co2Savings = new Co2Savings("comparison-stacked", SummaryData);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
-    timeLine = new TimeLine("timeline", plants, dataByFacility);
+    timeLine = new TimeLine("timeline", plants, dataByFacility, timeLineEventHandler);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
 	    //console.log("handler: ", category);
 	    squaresChart.onSelectionChange(event, category);
+    });
+
+    $(timeLineEventHandler).bind("timeLineSelectChange", function(event, category) {
+        timeLine.onSelectionChange(event, category);
     });
 }
 

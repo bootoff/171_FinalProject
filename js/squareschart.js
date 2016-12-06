@@ -254,7 +254,7 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("height", cellHeight)
     	.attr("width", cellHeight);
 
-}
+};
 
 SquaresChart.prototype.onSelectionChange = function(category){
     var vis = this;
@@ -265,4 +265,4 @@ SquaresChart.prototype.onSelectionChange = function(category){
     vis.category = category;
 
     vis.wrangleData();
-}
+};

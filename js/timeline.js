@@ -10,12 +10,14 @@
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _data            -- Flat array of data from all facilities
  *  @param _dataRolledUp    -- Array of unique facility objects with data for each
+ *  @param _eventHandler    -- Event handler that manages selection box changes
  */
 
-TimeLine = function(_parentElement, _data, _dataRolledUp) {
+TimeLine = function(_parentElement, _data, _dataRolledUp, _eventHandler) {
     this.parentElement = _parentElement;
     this.data = _data;
     this.dataRoll = _dataRolledUp;
+    this.eventHandler = _eventHandler;
 
     this.initVis();
 };
@@ -42,6 +44,12 @@ TimeLine.prototype.initVis = function() {
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +")");
 
+    // Button for changing the selection type
+    d3.select("#timeline-select").on("change", function(){
+        vis.currSelection = d3.select("#timeline-select").property("value");
+        $(vis.eventHandler).trigger("timeLineSelectChange", vis.currSelection);
+    });
+
     // axis groups || (initial) axis labels
     vis.xAxisGroup = vis.svg.append("g")
         .attr("class", "axis x-axis")
@@ -62,6 +70,9 @@ TimeLine.prototype.initVis = function() {
         .attr("transform", "rotate(-90)")
         .text("Electricity Savings (USD)");
 
+    // initialize data selection
+    vis.currSelection = "savingsUSD";
+
     // wrangle data
     vis.wrangleData();
 };
@@ -81,7 +92,7 @@ TimeLine.prototype.wrangleData = function() {
         return d.FY;
     });
     var selectionExtent = d3.extent(vis.displayData, function(d) {
-        return d.savingsUSD;
+        return d[vis.currSelection];
     });
     // scale functions
     vis.x = d3.scale.linear()
@@ -129,6 +140,13 @@ TimeLine.prototype.updateVis = function() {
         .transition()
         .duration(800)
         .call(vis.yAxis);
+
+    // update y-axis label
+    var labels = {
+            "savingsUSD": "Electricity Savings (USD)",
+            "UsageUSD": "Usage Cost (USD)"
+    };
+    $("#y-label").text(labels[vis.currSelection]);
 };
 
 
@@ -153,7 +171,7 @@ TimeLine.prototype.updateLine = function(indexData) {
             return vis.x(d.FY);
         })
         .y(function(d) {
-            return vis.y(d.savingsUSD);
+            return vis.y(d[vis.currSelection]);
         })
         .interpolate("linear");
 
@@ -192,7 +210,7 @@ TimeLine.prototype.updatePoints = function(indexData) {
             return vis.x(d.FY);
         })
         .attr("cy", function(d) {
-            return vis.y(d.savingsUSD);
+            return vis.y(d[vis.currSelection]);
         });
 
     // exit
@@ -213,7 +231,9 @@ TimeLine.prototype.formatYear = function(str) {
 };
 
 
-// remove non-selector characters from strings
+/*
+ *  remove non-selector characters from strings
+ */
 TimeLine.prototype.spaceFormat = function(str) {
     str = str.replace(/\s+/g, '_');
     str = str.replace("(", '-');
@@ -223,10 +243,11 @@ TimeLine.prototype.spaceFormat = function(str) {
 
 
 /*
- *  Listen to selection box
+ *
  */
-d3.select("#timeline-select").on("change", function() {
-    // get selection and update visualization
-    vis.currSelection = d3.select("#timeline-select").property("value");
-    TimeLine.updateVis();
-});
+TimeLine.prototype.onSelectionChange = function(category){
+    var vis = this;
+
+    // update visualization
+    vis.wrangleData();
+};
