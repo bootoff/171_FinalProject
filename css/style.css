@@ -20,6 +20,36 @@ h1 .sub-headline {
     font-weight: 300;
 }
 
+.intro{
+    background-color: #F5EED2;
+
+            /* #CFDBCF; #46848C;*/
+}
+h2.text1 {
+    font-family: 'Abril Fatface', cursive;
+    color: #0B1C29;
+    text-align: center;
+    }
+
+h2.text2 {
+    font-family: 'Abril Fatface', cursive;
+    color: orange;
+    text-align: center;
+}
+
+h2.text3 {
+    font-family: 'Abril Fatface', cursive;
+    color:#74A6A3;
+    /*color: #CFDBCF;*/
+    text-align: center;
+}
+
+h2.text4 {
+    font-family: 'Slabo 27px', serif;
+    color:#46848C;
+    /*color: #CFDBCF;*/
+    text-align: center;
+}
 /* facilityMap */
 #facility-map {
     height: 550px;
