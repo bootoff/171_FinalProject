@@ -22,7 +22,7 @@ var facilityMap,
     co2Savings,
     squaresChart,
     usageCostScatter,
-    elecSavingsLine;
+    timeLine;
 
 // specify path to Leaflet images: in [dir]/img
 L.Icon.Default.imagePath = 'img/';
@@ -43,7 +43,7 @@ function createVis() {
     co2Savings = new Co2Savings("comparison-stacked", SummaryData);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
-    elecSavingsLine = new ElecSavingsLine("elec-line", data);
+    timeLine = new TimeLine("timeline", data);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
 	    //console.log("handler: ", category);

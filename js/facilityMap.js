@@ -2,7 +2,10 @@
  *  Author: Alma Lafler
  *
  *  Based on lab 9: stationMap.js
+ *  Shows general info about facilities on a map.
+ *
  *  FacilityMap - Object constructor function
+ *
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _facilityData    -- Array with locations of facilities
  *  @param _cityData        -- geoJSON with MA city boundaries

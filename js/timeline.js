@@ -1,13 +1,18 @@
 /*
  *  Author: Alma Lafler
  *
- *  ElecSavingsLine - Object constructor function
+ *  This visualization shows:
+ *  Trend of electricity savings, 2007-2016 (some facilities will have data starting in 2008, some in 2012)
+ *  Usage Cost for 21 facilities, 2007-2016
+ *
+ *  TimeLine - Object constructor function
+ *
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _data            -- Flat array of data from all facilities
  *  @param _dataRolledUp    -- Array of unique facility objects with data for each
  */
 
-ElecSavingsLine = function(_parentElement, _data, _dataRolledUp) {
+TimeLine = function(_parentElement, _data, _dataRolledUp) {
     this.parentElement = _parentElement;
     this.data = _data;
     this.dataRoll = _dataRolledUp;
@@ -20,7 +25,7 @@ ElecSavingsLine = function(_parentElement, _data, _dataRolledUp) {
  *  Initialize scatter plot
  */
 
-ElecSavingsLine.prototype.initVis = function() {
+TimeLine.prototype.initVis = function() {
     var vis = this;
 
     // define svg size and margins
@@ -68,7 +73,7 @@ ElecSavingsLine.prototype.initVis = function() {
  *  Data wrangling
  */
 
-ElecSavingsLine.prototype.wrangleData = function() {
+TimeLine.prototype.wrangleData = function() {
     var vis = this;
 
     vis.displayData = vis.data.filter(function(d) {
@@ -142,7 +147,7 @@ ElecSavingsLine.prototype.wrangleData = function() {
  *  The drawing function
  */
 
-ElecSavingsLine.prototype.updateVis = function() {
+TimeLine.prototype.updateVis = function() {
     var vis = this;
 
     // line-drawing function
@@ -222,7 +227,7 @@ ElecSavingsLine.prototype.updateVis = function() {
 
 
 // remove non-selector characters from strings
-ElecSavingsLine.prototype.spaceFormat = function(str) {
+TimeLine.prototype.spaceFormat = function(str) {
     str = str.replace(/\s+/g, '_');
     str = str.replace("(", '-');
     str = str.replace(")", '');
