@@ -30,8 +30,10 @@ FacilityMap.prototype.initVis = function() {
     vis.map = L.map(vis.parentElement).setView(vis.location, 8);
 
     // load and display tile layer on map
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        maxZoom: 10,
+        minZoom: 7
     }).addTo(vis.map);
 
     // CITY MAPS ------------------------------------------------
