@@ -43,7 +43,7 @@ function createVis() {
     co2Savings = new Co2Savings("comparison-stacked", SummaryData);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
-    timeLine = new TimeLine("timeline", plants);
+    timeLine = new TimeLine("timeline", plants, dataByFacility);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
 	    //console.log("handler: ", category);

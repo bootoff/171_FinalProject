@@ -42,7 +42,7 @@ UsageCostScatter.prototype.initVis = function() {
         .attr("class", "d3-tip")
         .offset([-10,0])
         .html(function(d) {
-            return d.Facility + "<br/>20" + d.FY + "<br/>" + d.UsageKWh  + " KWh<br/>$" + d.UsageUSD;
+            return d.Facility + "<br/>" + vis.formatYear(d.FY) + "<br/>" + d.UsageKWh  + " KWh<br/>$" + d.UsageUSD;
         });
     vis.svg.call(vis.tip);
 
@@ -226,5 +226,17 @@ UsageCostScatter.prototype.spaceFormat = function(str) {
     str = str.replace(/\s+/g, '_');
     str = str.replace("(", '-');
     str = str.replace(")", '');
+    return str;
+};
+
+
+/*
+ *  format year text correctly
+ */
+UsageCostScatter.prototype.formatYear = function(str) {
+    if (str.toString().length >1)
+        str = "20" + str;
+    else
+        str = "200" + str;
     return str;
 };

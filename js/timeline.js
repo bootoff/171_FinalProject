@@ -9,11 +9,13 @@
  *
  *  @param _parentElement   -- HTML element in which to draw the visualization
  *  @param _data            -- Flat array of data from all facilities
+ *  @param _dataRolledUp    -- Array of unique facility objects with data for each
  */
 
-TimeLine = function(_parentElement, _data) {
+TimeLine = function(_parentElement, _data, _dataRolledUp) {
     this.parentElement = _parentElement;
     this.data = _data;
+    this.dataRoll = _dataRolledUp;
 
     this.initVis();
 };
@@ -75,12 +77,15 @@ TimeLine.prototype.wrangleData = function() {
     // grab fresh instance of dataset
     vis.displayData = vis.data;
 
+    var yearExtent = d3.extent(vis.displayData, function(d) {
+        return d.FY;
+    });
     var selectionExtent = d3.extent(vis.displayData, function(d) {
         return d.savingsUSD;
     });
     // scale functions
     vis.x = d3.scale.linear()
-        .domain([2007, 2016])
+        .domain(yearExtent)
         .range([0, vis.width]);
     vis.y = d3.scale.linear()
         .domain(selectionExtent)
@@ -89,6 +94,9 @@ TimeLine.prototype.wrangleData = function() {
     // axis functions
     vis.xAxis = d3.svg.axis()
         .scale(vis.x)
+        .tickFormat(function(d) {
+            return vis.formatYear(d);
+        })
         .orient("bottom");
     vis.yAxis = d3.svg.axis()
         .scale(vis.y)
@@ -109,8 +117,10 @@ TimeLine.prototype.updateVis = function() {
     // draw line graph || draw data points
     vis.svg.selectAll(".line")
         .remove();
-    vis.updateLine();
-    vis.updatePoints();
+    vis.dataRoll.forEach(function(d) {
+        vis.updateLine(d);
+        vis.updatePoints(d);
+    });
 
     // update axes
     vis.svg.select(".x-axis")
@@ -125,17 +135,17 @@ TimeLine.prototype.updateVis = function() {
 /*
  *  The line-drawing function
  */
-TimeLine.prototype.updateLine = function() {
+TimeLine.prototype.updateLine = function(indexData) {
     var vis = this;
 
     // data join
-    var dataSelection = vis.svg.selectAll(".line")
-        .data(vis.displayData);
+    var dataSelection = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
+        .data(indexData.values);
 
     // enter
     dataSelection.enter()
         .append("path")
-        .attr("class", "line");
+        .attr("class", "line line-" + vis.spaceFormat(indexData.id));
 
     // line function || function call
     var drawLine = d3.svg.line()
@@ -151,7 +161,7 @@ TimeLine.prototype.updateLine = function() {
         .transition()
         .delay(700)
         .duration(800)
-        .attr("d", drawLine(vis.displayData));
+        .attr("d", drawLine(indexData.values));
 
     // exit
     dataSelection.exit()
@@ -161,18 +171,17 @@ TimeLine.prototype.updateLine = function() {
 /*
  *  The point-drawing function
  */
-TimeLine.prototype.updatePoints = function() {
+TimeLine.prototype.updatePoints = function(indexData) {
     var vis = this;
 
     // data join
-    var dataSelection = d3.select(".draw-area")
-        .selectAll(".tooltip-circle")
-        .data(vis.displayData);
+    var dataSelection = vis.svg.selectAll(".tooltip-circle-" + vis.spaceFormat(indexData.id))
+        .data(indexData.values);
 
     // enter
     dataSelection.enter()
         .append("circle")
-        .attr("class", "tooltip-circle")
+        .attr("class", "tooltip-circle-" + vis.spaceFormat(indexData.id))
         .attr("r", 5);
 
     // update tooltip circles
@@ -190,6 +199,28 @@ TimeLine.prototype.updatePoints = function() {
     dataSelection.exit()
         .remove();
 };
+
+
+/*
+ *  format year text correctly
+ */
+TimeLine.prototype.formatYear = function(str) {
+    if (str.toString().length >1)
+        str = "20" + str;
+    else
+        str = "200" + str;
+    return str;
+};
+
+
+// remove non-selector characters from strings
+TimeLine.prototype.spaceFormat = function(str) {
+    str = str.replace(/\s+/g, '_');
+    str = str.replace("(", '-');
+    str = str.replace(")", '');
+    return str;
+};
+
 
 /*
  *  Listen to selection box
