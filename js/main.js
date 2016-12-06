@@ -10,6 +10,9 @@ var citiesMA = [], // geoJSON - cities in MA
     //ghg_tmp = {},
     AnnualData = [];
 
+// Set ordinal color scale
+var colorScale = d3.scale.category20();
+
 // global variables - miscellaneous
 var centerOfMA = [42.358734, -71.849239], // Holden, MA -- for centering facilityMap
     ghg = {}, // GHG conversion rates for each FY
@@ -47,6 +50,7 @@ function createVis() {
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
     timeLine = new TimeLine("timeline", plants, dataByFacility, timeLineEventHandler);
+    stackedArea = new StackedAreaChart("stackedarea", dataByFacility, myEventHandler);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
 	    //console.log("handler: ", category);

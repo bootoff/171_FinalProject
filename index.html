@@ -3,6 +3,7 @@
 
 <head>
 
+  <!-- This is a new comment-->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -252,6 +253,29 @@
             </div>
         </div>
     </section>
+
+    <!-- Stacked Area -->
+    <section id="chart2" class="chart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1>Stacked Area</h1>
+                    <p>The chart shows the savings versus time for each facility.</p>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="ranking-type">Select</label>
+                            <select class="form-control" id="ranking-type">
+                                <option value="savings_USD_sum">Cost Savings (USD)</option>
+                                <option value="energy_sum">Energy Generated (KWh) </option>
+                                <option value="ghg_sum">Greenhouse Gas Emissions Reduction (tons)</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div id="stackedarea"></div>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
@@ -278,6 +302,7 @@
     <script src="js/usageCostScatter.js"></script>
     <script src="js/squareschart.js"></script>
     <script src="js/timeline.js"></script>
+    <script src="js/stackedAreaChart.js"></script>
     <!--UNUSED FILES:
     <script src="js/co2Savings.js"></script>
     <script src="js/comparisonLine.js"></script>
