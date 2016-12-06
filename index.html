@@ -3,6 +3,7 @@
 
 <head>
 
+  <!-- This is a new comment-->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +20,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 
     <!-- Bootstrap template courtesy of: Start Bootstrap - Scrolling Nav (http://startbootstrap.com/)
         Copyright 2013-2016 Start Bootstrap
@@ -59,7 +62,7 @@
         </div>
         <!-- /.container -->
     </nav>
-
+   
     <!-- Intro Section -->
     <section id="intro" class="intro-section">
         <div class="container">
@@ -82,6 +85,24 @@
 
         </div>
 
+    </section>
+    
+            <!-- Attention grabber Section -->
+    <section id="attention" class="attention-section">
+        <div class="container">
+            <div class="row">
+                <div class="intro">
+                    <h2 class = "text3"> Imagine driving </h2>
+                    <h2 class = "text1"> from <b>Boston</b> to <b>Perth</b> in Western Australia.</h2>
+                        <br>
+                    <h2 class = "text1"> That is 11'400 miles </h2>
+                        <br>
+                    <h2 class = "text1">or </h2> <h2 class = "text2"> 4.7 metric tons of CO2.</h2>
+                    <br>
+                    <h2 class = "text4"> Taking just 4340 cars off the road saves over 20'000 metric tons of CO2 emissions!</h2>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Facility Map -->
@@ -233,6 +254,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
 
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
@@ -240,6 +262,31 @@
     <!-- <script src="js/npm.js"></script> -->
 
 
+=======
+    <!-- Stacked Area -->
+    <section id="chart2" class="chart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1>Stacked Area</h1>
+                    <p>The chart shows the savings versus time for each facility.</p>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="ranking-type">Select</label>
+                            <select class="form-control" id="ranking-type">
+                                <option value="savings_USD_sum">Cost Savings (USD)</option>
+                                <option value="energy_sum">Energy Generated (KWh) </option>
+                                <option value="ghg_sum">Greenhouse Gas Emissions Reduction (tons)</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div id="stackedarea"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+>>>>>>> f4b7713c13ab6592b55780486acf70a036417d02
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -265,6 +312,7 @@
     <script src="js/usageCostScatter.js"></script>
     <script src="js/squareschart.js"></script>
     <script src="js/timeline.js"></script>
+    <script src="js/stackedAreaChart.js"></script>
     <!--UNUSED FILES:
     <script src="js/co2Savings.js"></script>
     <script src="js/comparisonLine.js"></script>
