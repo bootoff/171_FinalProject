@@ -21,6 +21,10 @@ h1 .sub-headline {
 }
 
 /* teaser*/
+.teaser{
+    background: white;
+}
+
 h1.text0{
     font-family: 'Archivo Black', sans-serif;
     font-size: 4em;
@@ -34,6 +38,16 @@ h2.text1 {
     text-align: left;
     border-bottom-left-radius: 0.4em;
     }
+h2.text4 {
+    font-family: 'Tinos', serif;
+    /*font-family: 'Slabo 27px', serif;*/
+    color:black;
+    /*color: #CFDBCF;*/
+    text-align: center;
+    font-size: 21px;
+    padding: 2.5em;
+    line-height: 1.8
+}
 
 /* facilityMap */
 #facility-map {
