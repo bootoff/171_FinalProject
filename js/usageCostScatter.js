@@ -48,12 +48,12 @@ UsageCostScatter.prototype.initVis = function() {
 
     // draw axis labels
     vis.svg.append("text")
-        .attr("class", "label x-label")
+        .attr("class", "label axis-label x-label")
         .attr("x", (vis.width / 2))
         .attr("y", vis.height + vis.offset)
         .text("Usage (KWh)");
     vis.svg.append("text")
-        .attr("class", "label y-label")
+        .attr("class", "label axis-label y-label")
         .attr("x", -(vis.height / 2))
         .attr("y", -(vis.offset * 1.5))
         .attr("transform", "rotate(-90)")
