@@ -55,6 +55,10 @@ h2.text4 {
     line-height: 1.8
 }
 
+#grid-scroll {
+    height: 1100px;
+}
+
 /* facilityMap */
 #facility-map {
     height: 550px;
