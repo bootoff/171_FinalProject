@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,11 +16,12 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/scrolling-nav.css">
     <link rel="stylesheet" href="css/leaflet.css">
+    <script src="https://use.fontawesome.com/baf5c4a3ac.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tinos" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
 
     <!-- Bootstrap template courtesy of: Start Bootstrap - Scrolling Nav (http://startbootstrap.com/)
         Copyright 2013-2016 Start Bootstrap
@@ -40,20 +42,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Massachusetts Water Treatment Facilities Energy Efficiency Project</a>
+               <a class="navbar-brand page-scroll" href="#page-top">Visualizing Green Energy</a>
             </div>
+            
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
-                    <li><a class="page-scroll" href="#intro">Intro</a></li>
-                    <li><a class="page-scroll" href="#chart1">Chart1</a></li>
-                    <li><a class="page-scroll" href="#chart2">Chart2</a></li>
-                    <li><a class="page-scroll" href="#chart3">Chart3</a></li>
-                    <li><a class="page-scroll" href="#chart4">Chart4</a></li>
-                    <li><a class="page-scroll" href="#chart5">Chart5</a></li>
+                    <li><a class="page-scroll" href="#intro">Background</a></li>
+                    <li><a class="page-scroll" href="#chart1">Facility Map</a></li>
+                    <li><a class="page-scroll" href="#chart2">Summary Stats</a></li>
+                    <li><a class="page-scroll" href="#chart3">Scatter plot</a></li>
+                    <li><a class="page-scroll" href="#chart4">Data grid</a></li>
+                    <li><a class="page-scroll" href="#chart5">Line chart</a></li>
+                    <li><a class="page-scroll" href="#about">About Us</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -61,48 +65,89 @@
         <!-- /.container -->
     </nav>
    
-    <!-- Intro Section -->
-    <section id="intro" class="intro-section">
+    <!-- Teaser Section -->
+    <section id="teaser" class="teaser-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><h1 class = "text0">Visualizing <span style="color: #2ca25f">Green Energy:</span> <br>A Pilot Project</h1></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><p style="float: left;"><img src="img/car_sketch.jpg"></p></div>
+                <div class="col-md-8"><h2 class = "text1">Reducing <b>20'397.53 metric tons</b> of CO2 emissions is equivalent to driving 103 times
+                    to the moon and back.</h2>
+                <h2 class = "text1">Large cuts in emissions can be achieved by targeting <b>water treatment facilities</b>, an industry 
+                    that uses large amounts of energy and produces high levels of emissions.</h2>
+                </div>
+            </div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-12"><p><img src="img/4tons.jpg"></p></div>-->
+            <!--</div>-->
+            <div class="row">
+                <div class="col-md-12"><h2 class = "text4"> This website showcases a <span style="color:#2ca25f"><b>green energy pilot</b></span> by the Massachusetts Energy and
+                    Environmental Affairs. 
+                    <br>
+                    To date, the pilot has <span style="color:#2ca25f"><b>resulted in</b></span> a reduction of <span style="color:#2ca25f"><b>CO2 emissions of over 20'000 metric tons</b></span>.
+                    This was achieved by implementing renewable energy technologies in 20 wastewater treatment facilities in 
+                    Massachusetts. 
+                   </h2></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- intro section-->
+    <section id="intro" class="content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Project Background</h1>
-                    <div class="row">
-                            <div class="col-md-6">
-                    <p class="lead text-justify"><small> Water treatment is one of the largest industries in terms of energy consumption.  Wastewater and drinking water treatment facilities are struggling to meet energy usage requirements and emissions standards.  Pilot studies have demonstrated that on-site renewable energy production can address both of these problems.  Additional state and federal investment would allow more communities to take advantage of this enormous opportunity.</small></p>
-                    </div>
-                            <div class="col-md-6">
-                    <p class="lead text-justify"><small>In 2007, the Executive Office of Energy and Environmental Affairs and Mass DEP launched a new program, Massachusetts Energy Management Pilot for Drinking water and Wastewater Treatment facilities, with a mission to identify, develop and implement energy saving measures at municipal water and wastewater facilities resulting in reduced pollution and financial savings of at least 20%. A total of 21 facilities across the state participated in this program, received up to $69 million for constructing the green infrastructure projects on-site from the State Loan program, The Massachusetts’ State Revolving Fund, in 2009. And all the facilities finished installation in 2012. </small></p>
+                    <h1 class="page-header">Project Background<br><br><br></h1>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                               <h4><i class="fa fa-fw fa-question"></i><b>The Problem</b></h4>
 
+                            </div>
+                            <div class="panel-body">
+                                <p> Water treatment facilities are among the highest energy-consuming industries.
+                                    Wastewater and drinking water facilities are struggling to meet federal emission standards and
+                                    energy-usage requirements, and are significant pollution contributors.</p>
+                            </div>
+                        </div>
                     </div>
-                    <!--<a href="// http://www.easton.ma.us/departments/dpw/water_division/photovoltaic.php">Example</a>-->
-                    <!--<a class="btn btn-default page-scroll" href="#chart1">Data visualization</a>-->
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4><i class="fa fa-fw fa-compass"></i><b>The Solution</b></h4>
+                            </div>
+                            <div class="panel-body">
+                                <p>Pilot projects have demonstrated that on-site renewable energy production in wastewater and drinking
+                                    water treatment facilities can reduce the facilities' energy consumption, and lower their CO2 emissions.
+                                <br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4><i class="fa fa-fw fa-tasks"></i><b>The Pilot Project</b></h4>
+                            </div>
+                            <div class="panel-body">
+                                <p>A Massachusetts state-sponsored pilot project was launched in 2010 with the goal of identifying,
+                                    developing, and implementing energy-saving measures at municipal water treatment facilities,
+                                    so as to reduce pollution and bring about financial savings of at least 20%.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="http://www.mass.gov/eea/agencies/massdep/climate-energy/energy/water-utilities/massachusetts-energy-management-pilot.html" class="btn btn-default">Learn More</a>
+                        </div>
                 </div>
             </div>
         </div>
-
-        </div>
-
-    </section>
+    </section> 
     
-            <!-- Attention grabber Section -->
-    <section id="attention" class="attention-section">
-        <div class="container">
-            <div class="row">
-                <div class="intro">
-                    <h2 class = "text3"> Imagine driving </h2>
-                    <h2 class = "text1"> from <b>Boston</b> to <b>Perth</b> in Western Australia.</h2>
-                        <br>
-                    <h2 class = "text1"> That is 11'400 miles </h2>
-                        <br>
-                    <h2 class = "text1">or </h2> <h2 class = "text2"> 4.7 metric tons of CO2.</h2>
-                    <br>
-                    <h2 class = "text4"> Taking just 4340 cars off the road saves over 20'000 metric tons of CO2 emissions!</h2>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
+   
     <!-- Facility Map -->
     <section id="chart1" class="chart">
         <div class="container">
@@ -112,27 +157,29 @@
                     <!-- Viz placeholder -->
                     <div id="facility-map"></div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Content 2 -->
-    <section id="content2" class="content content2">
+<!-- Content 2 -->
+   <!--  <section id="content2" class="content content2">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Content</h1>
-                    <!-- Content goes here -->
+                    
                 </div>
             </div>
         </div>
-    </section>
+    </section>  -->
+
 
     <!-- Summary Statistics -->
     <section id="chart2" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                    <h1>Summary Statistics</h1>
                     <p>The bar charts show the summary statistics for each treatment plant since joining the pilot project.</p>
                     <form class="form-inline">
@@ -147,52 +194,61 @@
                     </form>
                     <div id="comparison-stacked"></div>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                               <h4><i class="fa fa-database" aria-hidden="true"></i><b> Data sources</b></h4>
 
-    <!-- Content 3 -->
-    <section id="content3" class="content content3">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Content</h1>
-                    <!-- Content goes here -->
+                            </div>
+                            <div class="panel-body">
+                                <p>The data is collected from three main sources:</p>
+                                <ul>
+                                    <li align="justify">MassEnergyInsight Database (MA DOER)</li>
+                                    <li align="justify">Facility Response To Request</li>
+                                    <li align="justify">Powerdash, Solrenview, Facilities and State Vendor</li>
+                                </ul>
+                                <p align="justify">With the participation from both public and private sectors, facilities joined this project have achieved a higher energy efficiency and contribute largely to the climate change.</p>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     </section>
+
+    
 
     <!-- Usage-Cost Scatter Plot -->
     <section id="chart3" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <h1>Usage vs. Cost Scatter Plot</h1>
                     <!-- Viz placeholder -->
                     <div id="usagecost-scatter"></div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Content 4 -->
-    <section id="content4" class="content content4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Content</h1>
-                    <!-- Content goes here -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                               <h4><i class="fa fa-magic" aria-hidden="true"></i><b> Highlight</b></h4>
+
+                            </div>
+                            <div class="panel-body">
+                                <p align="justify">Two facilities have the total usage savings over 1 million dollars: Greater Lawrence Sanitary District and Ashland Drinking Water Facility. The large cost saving is based on many different factors, for example, the size of the facility, the energy generated on site, etc.</p>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     </section>
+<!-- 
+    
 
     <!-- Squares Chart -->
     <section id="chart4" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <h1>Data Grid</h1>
                     <form class="form-inline">
                         <div class="form-group">
@@ -206,12 +262,37 @@
                     </form>
                     <div id="squares-chart"></div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="row">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                               <h4><i class="fa fa-fw fa-leaf"></i><b> Greenhouse gas emission reduction</b></h4>
+
+                            </div>
+                            <div class="panel-body">
+                                <p align="justify"> The result of carbon dioxide emission reduction is notable. For all the participants, a total amount of 39.8 million lbs of CO2 was reduced since the project started in 2007. Waste Water Pilot contributed 49.1% of all the emission reduction. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                               <h4><i class="fa fa-fw fa-lightbulb-o"></i><b> Energy Generation</b></h4>
+
+                            </div>
+                            <div class="panel-body">
+                                <p align="justify"> Total energy generation on site among all the participants has reached $8.67 million. waste Water Pilot facilities contributed to 55.5% of the total generation. And Falmouth Wastewater Treatment Facility has produced the most renewable energy through wind power, which has a total amount of $2.2million over the past few years.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Content 5 -->
-    <section id="content5" class="content case">
+    <!-- <section id="content5" class="content case">
 
         <div class="container">
             <div class="row">
@@ -223,17 +304,17 @@
             </div>
         </div>
         <div class="content backimage"></div>
-    </section>
+    </section> -->
 
     <!-- Usage-Cost Scatter Plot -->
     <section id="chart5" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <h1>Electricity Usage vs. Time</h1>
                 </div>
                 <!-- Select box to choose the y variable -->
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="timeline-select">Display: </label>
@@ -244,36 +325,64 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-12">
+
+                <div class="col-lg-8">
                     <!-- Viz placeholder -->
                     <div id="timeline"></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                            <div class="panel-heading">
+                               <h4><i class="fa fa-fw fa-bolt"></i><b>Electricity Usage</b></h4>
+
+                            </div>
+                            <div class="panel-body">
+                                <p align="justify">Many of the facilities have experienced a increasing electricity savings in the past years. Reasons behind that are different, most of them have applied the fund in upgrading their equipement to improve energy efficiency. Others have reallocated resources to reduce their energy usage. Yet, because of the new equipments, and weather conditions in the winter, in some areas facilities have experienced an increase usage of electricity, which is reflected on the graph as downward sloping lines.</p>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stacked Area -->
-    <section id="chart6" class="chart">
+    <!-- <section id="chart6" class="chart">-->
+    <section id="about" class="content about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                   <h1>Stacked Area</h1>
-                    <p>The chart shows the savings versus time for each facility.</p>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="ranking-type">Select</label>
-                            <select class="form-control" id="ranking-type">
-                                <option value="savings_USD_sum">Cost Savings (USD)</option>
-                                <option value="energy_sum">Energy Generated (KWh) </option>
-                                <option value="ghg_sum">Greenhouse Gas Emissions Reduction (tons)</option>
-                            </select>
-                        </div>
-                    </form>
-                    <div id="stackedarea"></div>
+                    <h1 class="page-header">About Us</h1>                   
+                </div>                
+                <div class="col-lg-12">
+                    <h2 >Our Team</h2>
+                </div>
+                <div class="col-lg-3 col-sm-6 text-center">
+                    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                    <h3>Matthew Holman
+                        
+                    </h3>
+                    <p>Smithsonian Senior Astrophysicist</p>
+                </div>
+                <div class="col-lg-3 col-sm-6 text-center">
+                    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200"alt="">
+                    <h3>Alma Lafler</h3>
+                    <p>Harvard College Senior</p>
+                </div>
+                <div class="col-lg-3 col-sm-6 text-center">
+                    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                    <h3>Janina Mueller
+                    </h3>
+                    <p>Design Data Librarian, GSD</p>
+                </div>
+                <div class="col-lg-3 col-sm-6 text-center">
+                    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200"alt="">
+                    <h3>Karry Jiao</h3>
+                    <p>Harvard Kennedy School, MPP2</p>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
@@ -300,7 +409,6 @@
     <script src="js/usageCostScatter.js"></script>
     <script src="js/squareschart.js"></script>
     <script src="js/timeline.js"></script>
-    <script src="js/stackedAreaChart.js"></script>
     <!--UNUSED FILES:
     <script src="js/co2Savings.js"></script>
     <script src="js/comparisonLine.js"></script>

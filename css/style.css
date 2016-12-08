@@ -9,6 +9,7 @@ h1 {
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
+    font-family: 'Tinos', serif;
 }
 
 h1 .divider {
@@ -20,37 +21,36 @@ h1 .sub-headline {
     font-weight: 300;
 }
 
-/*.intro{
-    background-color: #F5EED2;
+/* teaser*/
 
-            #CFDBCF; #46848C;
-}*/
+.teaser{
+    background: white;
+}
+
+h1.text0{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 4em;
+    color: #006d2c;
+    margin-bottom: 1em;
+}
 
 h2.text1 {
-    font-family: 'Abril Fatface', cursive;
-    color: #0B1C29;
+    font-family: 'Tinos', serif;
+    color: #636363;
     text-align: center;
+    border-bottom-left-radius: 0.4em;
     }
-
-h2.text2 {
-    font-family: 'Abril Fatface', cursive;
-    color: orange;
-    text-align: center;
-}
-
-h2.text3 {
-    font-family: 'Abril Fatface', cursive;
-    color:#74A6A3;
-    /*color: #CFDBCF;*/
-    text-align: center;
-}
-
 h2.text4 {
-    font-family: 'Slabo 27px', serif;
-    color:#46848C;
+    font-family: 'Tinos', serif;
+    /*font-family: 'Slabo 27px', serif;*/
+    color:#4F545A;
     /*color: #CFDBCF;*/
     text-align: center;
+    font-size: 21px;
+    padding: 2.5em;
+    line-height: 1.8
 }
+
 /* facilityMap */
 #facility-map {
     height: 550px;
