@@ -50,7 +50,7 @@ function createVis() {
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
     timeLine = new TimeLine("timeline", plants, dataByFacility, timeLineEventHandler);
-    stackedArea = new StackedAreaChart("stackedarea", dataByFacility, myEventHandler);
+    //stackedArea = new StackedAreaChart("stackedarea", dataByFacility, myEventHandler);
 
     $(myEventHandler).bind("selectionChanged", function(event, category){
 	    //console.log("handler: ", category);
