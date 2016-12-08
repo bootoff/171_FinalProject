@@ -41,6 +41,7 @@ TimeLine.prototype.initVis = function() {
         .append("svg")
         .attr("width", (vis.width + vis.margin.left + vis.margin.right))
         .attr("height", (vis.height + vis.margin.top + vis.margin.bottom))
+        .attr("id", "timeline-svg")
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +")");
 
@@ -157,7 +158,11 @@ TimeLine.prototype.updateVis = function() {
 TimeLine.prototype.updateLine = function(indexData) {
     var vis = this;
 
-    // line-drawing function
+    // select
+    var dataSelection = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
+        .data(indexData.values);
+
+    // line function
     var drawLine = d3.svg.line()
         .x(function(d) {
             return vis.x(d.FY);
@@ -167,14 +172,10 @@ TimeLine.prototype.updateLine = function(indexData) {
         })
         .interpolate("linear");
 
-    // select
-    var dataSelection = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
-        .data(indexData.values);
-
     // enter & update
     dataSelection.enter()
         .append("path")
-        .attr("class", "line line-" + vis.spaceFormat(indexData.id))
+        .attr("class", "line vis-line line-" + vis.spaceFormat(indexData.id))
         .transition()
         .delay(700)
         .duration(800)
