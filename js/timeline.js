@@ -119,7 +119,7 @@ TimeLine.prototype.wrangleData = function() {
 
 
 /*
- *  Update function
+ *  The vis update function
  */
 
 TimeLine.prototype.updateVis = function() {
@@ -157,16 +157,7 @@ TimeLine.prototype.updateVis = function() {
 TimeLine.prototype.updateLine = function(indexData) {
     var vis = this;
 
-    // data join
-    var dataSelection = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
-        .data(indexData.values);
-
-    // enter
-    dataSelection.enter()
-        .append("path")
-        .attr("class", "line line-" + vis.spaceFormat(indexData.id));
-
-    // line function || function call
+    // line-drawing function
     var drawLine = d3.svg.line()
         .x(function(d) {
             return vis.x(d.FY);
@@ -176,7 +167,14 @@ TimeLine.prototype.updateLine = function(indexData) {
         })
         .interpolate("linear");
 
-    dataSelection
+    // select
+    var dataSelection = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
+        .data(indexData.values);
+
+    // enter & update
+    dataSelection.enter()
+        .append("path")
+        .attr("class", "line line-" + vis.spaceFormat(indexData.id))
         .transition()
         .delay(700)
         .duration(800)

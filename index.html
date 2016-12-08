@@ -49,14 +49,15 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
+                    <!-- Hidden li included to remove active class from 2nd from top link when scrolled up to top -->
+                    <!--<li class="hidden"><a class="page-scroll" href="#teaser"></a></li>-->
+                    <li class="hidden"><a class="page-scroll" href="#teaser"></a></li>
                     <li><a class="page-scroll" href="#intro">Background</a></li>
-                    <li><a class="page-scroll" href="#chart1">Facility Map</a></li>
-                    <li><a class="page-scroll" href="#chart2">Summary Stats</a></li>
-                    <li><a class="page-scroll" href="#chart3">Scatter plot</a></li>
-                    <li><a class="page-scroll" href="#chart4">Data grid</a></li>
-                    <li><a class="page-scroll" href="#chart5">Line chart</a></li>
+                    <li><a class="page-scroll" href="#map-scroll">Facility Map</a></li>
+                    <li><a class="page-scroll" href="#bar-scroll">Summary Stats</a></li>
+                    <li><a class="page-scroll" href="#grid-scroll">Data grid</a></li>
+                    <li><a class="page-scroll" href="#line-scroll">Line chart</a></li>
+                    <li><a class="page-scroll" href="#scatter-scroll">Scatter plot</a></li>
                     <li><a class="page-scroll" href="#about">About Us</a></li>
                 </ul>
             </div>
@@ -98,7 +99,7 @@
     <section id="intro" class="content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <h1 class="page-header">Project Background<br><br><br></h1>
                     <div class="col-md-4">
                         <div class="panel panel-default">
@@ -107,7 +108,7 @@
 
                             </div>
                             <div class="panel-body">
-                                <p> Water treatment facilities are among the highest energy-consuming industries.
+                                <p>Water treatment facilities are among the highest energy-consuming industries.
                                     Wastewater and drinking water facilities are struggling to meet federal emission standards and
                                     energy-usage requirements, and are significant pollution contributors.</p>
                             </div>
@@ -144,15 +145,13 @@
                 </div>
             </div>
         </div>
-    </section> 
-    
-    
+    </section>
    
     <!-- Facility Map -->
-    <section id="chart1" class="chart">
+    <section id="map-scroll" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <h1>Facility Map</h1>
                     <!-- Viz placeholder -->
                     <div id="facility-map"></div>
@@ -162,8 +161,8 @@
         </div>
     </section>
 
-<!-- Content 2 -->
-   <!--  <section id="content2" class="content content2">
+    <!-- Content 2 -->
+    <!--<section id="content2" class="content content2">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -176,10 +175,10 @@
 
 
     <!-- Summary Statistics -->
-    <section id="chart2" class="chart">
+    <section id="bar-scroll" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-8">
                    <h1>Summary Statistics</h1>
                     <p>The bar charts show the summary statistics for each treatment plant since joining the pilot project.</p>
                     <form class="form-inline">
@@ -215,40 +214,11 @@
         </div>
     </section>
 
-    
-
-    <!-- Usage-Cost Scatter Plot -->
-    <section id="chart3" class="chart">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1>Usage vs. Cost Scatter Plot</h1>
-                    <!-- Viz placeholder -->
-                    <div id="usagecost-scatter"></div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                            <div class="panel-heading">
-                               <h4><i class="fa fa-magic" aria-hidden="true"></i><b> Highlight</b></h4>
-
-                            </div>
-                            <div class="panel-body">
-                                <p align="justify">Two facilities have the total usage savings over 1 million dollars: Greater Lawrence Sanitary District and Ashland Drinking Water Facility. The large cost saving is based on many different factors, for example, the size of the facility, the energy generated on site, etc.</p>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<!-- 
-    
-
     <!-- Squares Chart -->
-    <section id="chart4" class="chart">
+    <section id="grid-scroll" class="chart">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-8">
                     <h1>Data Grid</h1>
                     <form class="form-inline">
                         <div class="form-group">
@@ -265,7 +235,7 @@
 
                 <div class="col-md-4">
                     <div class="row">
-                    <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                <h4><i class="fa fa-fw fa-leaf"></i><b> Greenhouse gas emission reduction</b></h4>
 
@@ -276,10 +246,9 @@
                         </div>
                     </div>
                     <div class="row">
-                    <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                <h4><i class="fa fa-fw fa-lightbulb-o"></i><b> Energy Generation</b></h4>
-
                             </div>
                             <div class="panel-body">
                                 <p align="justify"> Total energy generation on site among all the participants has reached $8.67 million. waste Water Pilot facilities contributed to 55.5% of the total generation. And Falmouth Wastewater Treatment Facility has produced the most renewable energy through wind power, which has a total amount of $2.2million over the past few years.</p>
@@ -306,12 +275,12 @@
         <div class="content backimage"></div>
     </section> -->
 
-    <!-- Usage-Cost Scatter Plot -->
-    <section id="chart5" class="chart">
+    <!-- Timeline: data by year Line Chart -->
+    <section id="line-scroll" class="chart">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1>Electricity Usage vs. Time</h1>
+                    <h1>Data Timeline</h1>
                 </div>
                 <!-- Select box to choose the y variable -->
                 <div class="col-md-8">
@@ -345,43 +314,69 @@
         </div>
     </section>
 
+    <!-- Usage-Cost Scatter Plot -->
+    <section id="scatter-scroll" class="chart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>Usage vs. Cost Scatter Plot</h1>
+                    <!-- Viz placeholder -->
+                    <div id="usagecost-scatter"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4><i class="fa fa-magic" aria-hidden="true"></i><b> Highlight</b></h4>
+
+                        </div>
+                        <div class="panel-body">
+                            <p align="justify">Two facilities have the total usage savings over 1 million dollars: Greater Lawrence Sanitary District and Ashland Drinking Water Facility. The large cost saving is based on many different factors, for example, the size of the facility, the energy generated on site, etc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <section id="chart6" class="chart">-->
     <section id="about" class="content about">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <h1 class="page-header">About Us</h1>                   
                 </div>                
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <h2 >Our Team</h2>
                 </div>
-                <div class="col-lg-3 col-sm-6 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
                     <h3>Matthew Holman
                         
                     </h3>
                     <p>Smithsonian Senior Astrophysicist</p>
                 </div>
-                <div class="col-lg-3 col-sm-6 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200"alt="">
                     <h3>Alma Lafler</h3>
                     <p>Harvard College Senior</p>
                 </div>
-                <div class="col-lg-3 col-sm-6 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
                     <h3>Janina Mueller
                     </h3>
                     <p>Design Data Librarian, GSD</p>
                 </div>
-                <div class="col-lg-3 col-sm-6 text-center">
+                <div class="col-md-3 col-sm-6 text-center">
                     <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200"alt="">
                     <h3>Karry Jiao</h3>
                     <p>Harvard Kennedy School, MPP2</p>
                 </div>
             </div>
         </div>
+    </section>
 
-    </section> -->
-    
 
     <!-- Load JS libraries -->
     <script src="js/jquery.min.js"></script>
