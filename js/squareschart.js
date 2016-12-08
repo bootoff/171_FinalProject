@@ -211,15 +211,13 @@ SquaresChart.prototype.wrangleData = function(){
     var FYDict = {};
     Object.keys(transposed).forEach(function(ky){
 	var elt = {};
-	Object.keys(label).forEach(function(d2){	
-	    elt[d2] = d3.sum(transposed[ky].map(function(d){return d[vis.category]}));
+	Object.keys(label).forEach(function(d2){
+	    elt[d2] = d3.sum(transposed[ky].map(function(d){
+		return d[d2]}));
 	});
 	FYDict[ky] = elt;
     });
 
-
-    console.log(FYDict);
-   
     var FYArray = [];
     for(var ky in FYDict){
 	FYArray.push({"key": ky, "value": FYDict[ky]});
@@ -245,10 +243,10 @@ SquaresChart.prototype.wrangleData = function(){
     vis.facilityArray = facilityArray;
 
     vis.y.domain(Object.keys(facilityDict));
-    vis.hbarlength.domain([0, d3.max(facilityArray, function(d){return d.value[vis.category]})]);
-    vis.vbarlength.domain([0, d3.max(FYArray, function(d){return d.value[vis.category]})]);    
+    vis.hbarlength.domain([0, d3.max(vis.facilityArray, function(d){return d.value[vis.category]})]);
+    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category]})]);    
+    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category]})]);    
 
-    console.log(facilityArray);
 
     var rows = vis.svg.selectAll(".row")
 	.data(vis.nested);
@@ -384,8 +382,7 @@ SquaresChart.prototype.updateVis = function(){
         .attr("transform", "rotate(45)")
 	.style("text-anchor", "start");    
 
-    console.log(vis.vbarlength.domain());
-    console.log(vis.hbarlength.domain());    
+    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category]})]);    
 
     vis.svg.select(".v.axis")
         .call(vis.vAxis)
