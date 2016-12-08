@@ -10,6 +10,10 @@ var label = {"savingsUSD" : "USD",
 	     "ElectricityGenerationKWh": "KWh",
 	     "GHG" : "tons"};
 
+var squareColor = {"savingsUSD" : "green",
+		   "ElectricityGenerationKWh": "blue",
+		   "GHG" : "red"};
+
 
 
 /*
@@ -36,8 +40,8 @@ SquaresChart.prototype.initVis = function(){
     // * TO-DO *
     vis.margin = { top: 20, right: 0, bottom: 20, left: 20 };
 
-    vis.width = 700 - vis.margin.left - vis.margin.right,
-    vis.height = 700 - vis.margin.top - vis.margin.bottom;
+    vis.width = 1000 - vis.margin.left - vis.margin.right,
+    vis.height = 1000 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
@@ -111,13 +115,17 @@ SquaresChart.prototype.wrangleData = function(){
         .domain([vis.minFY, vis.maxFY])
         .range([0, (vis.maxFY-vis.minFY)*(cellWidth+cellPadding)]);
 
+    vis.hbarlength = d3.scale.linear()
+        .range([0, 200]);  // need to fix this
+
+    vis.vbarlength = d3.scale.linear()
+        .range([0, 200]);  // need to fix this
+    
     var mySet = new Set();
     vis.displayData.forEach(function(d){ mySet.add(d.Facility); });
     var facilities = Array.from(mySet);
-    //console.log(facilities);
 
     vis.y = d3.scale.ordinal()
-	.domain(facilities)
 	.rangeRoundBands([0, facilities.length*(cellHeight+cellPadding)]);
 
     vis.opacity = d3.scale.linear()
@@ -139,10 +147,19 @@ SquaresChart.prototype.wrangleData = function(){
         .scale(vis.y)
         .orient("right");
 
+    vis.hAxis = d3.svg.axis()
+        .scale(vis.hbarlength)
+        .orient("bottom");
+
+    vis.vAxis = d3.svg.axis()
+        .scale(vis.vbarlength)
+        .orient("right");
+    
     vis.nested = d3.nest()
         .key(function (d) {
             return d.Facility;
         })
+	.sortKeys(d3.ascending)
 	.sortValues(function(a,b) { return a.FY - b.FY; })
         .entries(vis.displayData);
 
@@ -182,6 +199,57 @@ SquaresChart.prototype.wrangleData = function(){
 	
     });
 
+    var transposed = {};
+    var years = vis.nested[0].values.map(function(d){return d.FY});
+    years.forEach(function(yr){ transposed[yr] = []});
+    years.forEach(function(yr){
+	vis.nested.forEach(function(d2){
+	    d2.values.filter(function(x){return x.FY == yr}).forEach(function(y){transposed[yr].push(y)});
+	});
+    });
+
+    var FYDict = {};
+    Object.keys(transposed).forEach(function(ky){
+	var elt = {};
+	Object.keys(label).forEach(function(d2){	
+	    elt[d2] = d3.sum(transposed[ky].map(function(d){return d[vis.category]}));
+	});
+	FYDict[ky] = elt;
+    });
+
+
+    console.log(FYDict);
+   
+    var FYArray = [];
+    for(var ky in FYDict){
+	FYArray.push({"key": ky, "value": FYDict[ky]});
+    }
+
+    vis.FYArray = FYArray;
+    
+
+    var facilityDict = {};
+    vis.nested.forEach(function(d){
+	var elt = {};
+	Object.keys(label).forEach(function(d2){
+	    elt[d2] = d3.sum(d.values.map(function(x){return x[d2]}));
+	});
+	facilityDict[d.key] = elt;
+    });
+
+    var facilityArray = [];
+    for(var ky in facilityDict){
+	facilityArray.push({"key": ky, "value": facilityDict[ky]});
+    }
+
+    vis.facilityArray = facilityArray;
+
+    vis.y.domain(Object.keys(facilityDict));
+    vis.hbarlength.domain([0, d3.max(facilityArray, function(d){return d.value[vis.category]})]);
+    vis.vbarlength.domain([0, d3.max(FYArray, function(d){return d.value[vis.category]})]);    
+
+    console.log(facilityArray);
+
     var rows = vis.svg.selectAll(".row")
 	.data(vis.nested);
 
@@ -192,16 +260,26 @@ SquaresChart.prototype.wrangleData = function(){
 	})
     	.attr("class", "row");
 
+    
     vis.svg.append("g")
-	.attr("class", "x-axis axis")
+	.attr("class", "x axis")
 	.attr("transform", "translate(" + (vis.margin.left + (cellWidth+cellPadding)*0.5) + "," + (cellHeight + cellPadding)*21 + ")")
 	.call(vis.xAxis);
 
     vis.svg.append("g")
-        .attr("class", "y-axis axis")
+        .attr("class", "y axis")
 	//.attr("transform", "translate(" + (vis.margin.left) + ", " + (cellHeight+cellPadding)*(21*0.5) + ")")    
 	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")    
         .call(vis.yAxis);
+
+    vis.svg.append("g")
+	.attr("class", "h axis")
+	.attr("transform", "translate(" + (vis.margin.left + 520) + "," + ((cellHeight + cellPadding)*20 +30 ) + ")")
+
+    vis.svg.append("g")
+        .attr("class", "v axis")
+    	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + "," + (vis.margin.top + (cellHeight + cellPadding)*20 +30 ) + ")")
+    
 
     // Update the visualization
     vis.updateVis();
@@ -215,6 +293,50 @@ SquaresChart.prototype.wrangleData = function(){
 SquaresChart.prototype.updateVis = function(){
     var vis = this;
 
+    // Draw horizontal bars
+    var hbars = vis.svg.selectAll(".hbar")
+	.data(vis.facilityArray);
+
+    hbars.enter()
+	.append("g")
+	.attr("transform", function(d, index) {
+	    return "translate(" + (vis.margin.left + 520) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
+	})
+    	.attr("class", "hbar")
+	.append("rect")
+	.style("fill", squareColor[vis.category])
+	.attr("x", 0)
+	.attr("y", 0)
+	.attr("height", cellHeight)
+	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category])})
+
+    // Update
+    hbars.selectAll("rect")
+	.style("fill", squareColor[vis.category])    
+	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category])})
+
+    // Draw vertical bars
+    var vbars = vis.svg.selectAll(".vbar")
+	.data(vis.FYArray);
+
+    vbars.enter()
+	.append("g")
+	.attr("transform", function(d, index) {
+	    return "translate(" + (vis.margin.left + (cellWidth + cellPadding) * index) + "," + (vis.margin.top + (cellHeight + cellPadding) * 20 + 30) + ")"
+	})
+    	.attr("class", "vbar")
+	.append("rect")
+	.style("fill", squareColor[vis.category])
+	.attr("x", 0)
+	.attr("y", 0)
+	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category])})
+	.attr("width", cellWidth)
+
+    // Update
+    vbars.selectAll("rect")
+	.style("fill", squareColor[vis.category])    
+	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category])})    
+    
     // Draw squares
 
     var squares = vis.svg.selectAll(".row")
@@ -230,7 +352,7 @@ SquaresChart.prototype.updateVis = function(){
 	    vis.tip.show(d)})
         .on("mouseout", function(d, i) {
             d3.select(this).style("fill", function(d, index) {
-		return (+d[vis.category]==0) ? "gray" : "red";});
+		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
 	    vis.tip.hide(d)})
 	.attr("class", "square")
 	.style("fill", "gray")
@@ -243,7 +365,7 @@ SquaresChart.prototype.updateVis = function(){
 
     squares
 	.attr("class", "square")
-	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : "red";})
+	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
 	.style("stroke-opacity", 0.5)
 	.style("opacity",
 	       function(d, i, j){
@@ -254,6 +376,20 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("height", cellHeight)
     	.attr("width", cellHeight);
 
+    vis.svg.select(".h.axis")
+    	.call(vis.hAxis)
+	.selectAll("text")
+	.attr("y", 4)
+	.attr("x", 8)    
+        .attr("transform", "rotate(45)")
+	.style("text-anchor", "start");    
+
+    console.log(vis.vbarlength.domain());
+    console.log(vis.hbarlength.domain());    
+
+    vis.svg.select(".v.axis")
+        .call(vis.vAxis)
+    
 };
 
 SquaresChart.prototype.onSelectionChange = function(category){
