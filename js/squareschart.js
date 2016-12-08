@@ -251,12 +251,17 @@ SquaresChart.prototype.wrangleData = function(){
     var rows = vis.svg.selectAll(".row")
 	.data(vis.nested);
 
+    console.log(vis.nested);
+
     rows.enter()
 	.append("g")
+        .on('mouseover', function(d, index){
+	    vis.row = index;
+	})
 	.attr("transform", function(d, index) {
 	    return "translate(" + vis.margin.left + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
 	})
-    	.attr("class", "row");
+	.attr("class", function(d, index){ return "row row-"+ vis.spaceFormat(d.key);})
 
     
     vis.svg.append("g")
@@ -300,8 +305,8 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("transform", function(d, index) {
 	    return "translate(" + (vis.margin.left + 520) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
 	})
-    	.attr("class", "hbar")
 	.append("rect")
+	.attr("class", function(d, index){ return "hbar hbar-"+ vis.spaceFormat(d.key);})    
 	.style("fill", squareColor[vis.category])
 	.attr("x", 0)
 	.attr("y", 0)
@@ -317,13 +322,15 @@ SquaresChart.prototype.updateVis = function(){
     var vbars = vis.svg.selectAll(".vbar")
 	.data(vis.FYArray);
 
+    console.log(vis.FYArray);
+
     vbars.enter()
 	.append("g")
 	.attr("transform", function(d, index) {
 	    return "translate(" + (vis.margin.left + (cellWidth + cellPadding) * index) + "," + (vis.margin.top + (cellHeight + cellPadding) * 20 + 30) + ")"
 	})
-    	.attr("class", "vbar")
 	.append("rect")
+	.attr("class", function(d, index){ return "vbar vbar-"+ d.key;})        
 	.style("fill", squareColor[vis.category])
 	.attr("x", 0)
 	.attr("y", 0)
@@ -346,11 +353,18 @@ SquaresChart.prototype.updateVis = function(){
 	.append("rect")
 	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
         .on('mouseover', function(d, index){
-            d3.select(this).style("fill", function(d){ return "green"});
+	    vis.column = index;
+	    console.log(".hbar-"+vis.spaceFormat(d.Facility));
+	    //console.log(vis.spaceFormat(d.Facility));
+            d3.select(this).style("fill", function(d){ return "brown"});
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ console.log(x); return "brown"});
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ console.log(x); return "brown"});
 	    vis.tip.show(d)})
         .on("mouseout", function(d, i) {
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]})	    
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})	    
 	    vis.tip.hide(d)})
 	.attr("class", "square")
 	.style("fill", "gray")
@@ -398,4 +412,13 @@ SquaresChart.prototype.onSelectionChange = function(category){
     vis.category = category;
 
     vis.wrangleData();
+};
+
+// remove non-selector characters from strings
+// borrowed from Alma
+SquaresChart.prototype.spaceFormat = function(str) {
+    str = str.replace(/\s+/g, '_');
+    str = str.replace("(", '-');
+    str = str.replace(")", '');
+    return str;
 };
