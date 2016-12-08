@@ -22,6 +22,7 @@ h1 .sub-headline {
 }
 
 /* teaser*/
+
 .teaser{
     background: white;
 }
@@ -29,14 +30,14 @@ h1 .sub-headline {
 h1.text0{
     font-family: 'Archivo Black', sans-serif;
     font-size: 4em;
-    /*color: #2ca25f;*/
-    margin-bottom: 2em;
+    color: #006d2c;
+    margin-bottom: 1em;
 }
 
 h2.text1 {
     font-family: 'Tinos', serif;
-    color: #0B1C29;
-    text-align: left;
+    color: #636363;
+    text-align: center;
     border-bottom-left-radius: 0.4em;
     }
 h2.text4 {
