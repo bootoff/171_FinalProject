@@ -312,6 +312,16 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("y", 0)
 	.attr("height", cellHeight)
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category])})
+        .on('mouseover', function(d, index){
+	    console.log(d.key);
+            d3.select(this).style("fill", function(d){ return "brown"});
+	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return "brown"});
+	})
+        .on("mouseout", function(d, i) {
+            d3.select(this).style("fill", function(d, index) {
+		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
+	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return squareColor[vis.category]})
+	})
 
     // Update
     hbars.selectAll("rect")
@@ -336,6 +346,17 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("y", 0)
 	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category])})
 	.attr("width", cellWidth)
+        .on('mouseover', function(d, index){
+	    console.log(d.key);
+            d3.select(this).style("fill", function(d){ return "brown"});
+	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return "brown"});
+	})
+        .on("mouseout", function(d, i) {
+            d3.select(this).style("fill", function(d, index) {
+		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
+	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return squareColor[vis.category]})
+	})
+    
 
     // Update
     vbars.selectAll("rect")
@@ -366,7 +387,8 @@ SquaresChart.prototype.updateVis = function(){
 	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]})	    
 	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})	    
 	    vis.tip.hide(d)})
-	.attr("class", "square")
+	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})
+	//.attr("class", "square")
 	.style("fill", "gray")
 	.style("stroke-opacity", 0.5)
 	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })
@@ -376,7 +398,8 @@ SquaresChart.prototype.updateVis = function(){
     	.attr("width", cellHeight);
 
     squares
-	.attr("class", "square")
+	//.attr("class", "square")
+	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})    
 	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
 	.style("stroke-opacity", 0.5)
 	.style("opacity",
