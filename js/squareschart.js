@@ -255,9 +255,6 @@ SquaresChart.prototype.wrangleData = function(){
 
     rows.enter()
 	.append("g")
-        .on('mouseover', function(d, index){
-	    vis.row = index;
-	})
 	.attr("transform", function(d, index) {
 	    return "translate(" + vis.margin.left + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
 	})
@@ -324,7 +321,7 @@ SquaresChart.prototype.updateVis = function(){
 	})
 
     // Update
-    hbars.selectAll("rect")
+    hbars
 	.style("fill", squareColor[vis.category])    
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category])})
 
@@ -359,7 +356,7 @@ SquaresChart.prototype.updateVis = function(){
     
 
     // Update
-    vbars.selectAll("rect")
+    vbars
 	.style("fill", squareColor[vis.category])    
 	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category])})    
     
@@ -374,9 +371,6 @@ SquaresChart.prototype.updateVis = function(){
 	.append("rect")
 	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
         .on('mouseover', function(d, index){
-	    vis.column = index;
-	    console.log(".hbar-"+vis.spaceFormat(d.Facility));
-	    //console.log(vis.spaceFormat(d.Facility));
             d3.select(this).style("fill", function(d){ return "brown"});
 	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ console.log(x); return "brown"});
 	    d3.select(".vbar-"+d.FY).style("fill", function(x){ console.log(x); return "brown"});
@@ -431,7 +425,7 @@ SquaresChart.prototype.onSelectionChange = function(category){
 
 
     // Filter data depending on selected time period (brush)
-
+    vis.category = d3.select("#squares-type").property("value");
     vis.category = category;
 
     vis.wrangleData();
