@@ -209,8 +209,9 @@ UsageCostScatter.prototype.updatePoints = function(indexData) {
             return "20" + d.FY;
         })
         .on("mouseover", function(d) {
-            console.log(d);
             vis.tip.show(d);
+            //$("#timeline-svg").selectAll("line-" + vis.spaceFormat(indexData.id))
+            //    .style("fill", "blue");
             vis.svg.selectAll(".point-" + vis.spaceFormat(indexData.id))
                 .style("display", null);
         })

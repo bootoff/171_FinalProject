@@ -62,14 +62,6 @@ h2.text4 {
     width: 100%;
 }
 
-/* usageCostScatter */
-.vis-line {
-    fill: none;
-    shape-rendering: crispEdges;
-    stroke: gray;
-    stroke-width: 2px;
-}
-
 /* comparisonStacked */
 .bar:hover {
     fill: #2ca25f ;
@@ -84,6 +76,14 @@ h2.text4 {
 }
 .square {
     stroke: 0;    
+}
+
+/* timeLine & usageCostScatter */
+.vis-line {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: gray;
+    stroke-width: 2px;
 }
 
 /****************/
