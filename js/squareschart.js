@@ -99,13 +99,6 @@ SquaresChart.prototype.wrangleData = function(){
 
     var nonZero = vis.displayData.filter(function(d){return +d[vis.category] > 0;});
 
-    /*
-    vis.cMin = d3.min(vis.displayData,
-		      function(d){
-			  return +d[vis.category];
-		      });
-		      */
-
     vis.cMin = d3.min(nonZero,
 			function(d){
 			    return +d[vis.category];
@@ -212,8 +205,8 @@ SquaresChart.prototype.wrangleData = function(){
     Object.keys(transposed).forEach(function(ky){
 	var elt = {};
 	Object.keys(label).forEach(function(d2){
-	    elt[d2] = d3.sum(transposed[ky].map(function(d){
-		return d[d2]}));
+	    elt[d2] = {"sum": d3.sum(transposed[ky].map(function(d){return d[d2]})),
+		       "max": d3.max(transposed[ky].map(function(d){return d[d2]})), }
 	});
 	FYDict[ky] = elt;
     });
@@ -230,7 +223,7 @@ SquaresChart.prototype.wrangleData = function(){
     vis.nested.forEach(function(d){
 	var elt = {};
 	Object.keys(label).forEach(function(d2){
-	    elt[d2] = d3.sum(d.values.map(function(x){return x[d2]}));
+	    elt[d2] = {"sum": d3.sum(d.values.map(function(x){return x[d2]})), "max": d3.max(d.values.map(function(x){return x[d2]}))}
 	});
 	facilityDict[d.key] = elt;
     });
@@ -243,15 +236,13 @@ SquaresChart.prototype.wrangleData = function(){
     vis.facilityArray = facilityArray;
 
     vis.y.domain(Object.keys(facilityDict));
-    vis.hbarlength.domain([0, d3.max(vis.facilityArray, function(d){return d.value[vis.category]})]);
-    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category]})]);    
-    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category]})]);    
+    vis.hbarlength.domain([0, d3.max(vis.facilityArray, function(d){return d.value[vis.category].sum})]);
+    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
+    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
 
 
     var rows = vis.svg.selectAll(".row")
 	.data(vis.nested);
-
-    console.log(vis.nested);
 
     rows.enter()
 	.append("g")
@@ -308,28 +299,36 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("x", 0)
 	.attr("y", 0)
 	.attr("height", cellHeight)
-	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category])})
+	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
+	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
         .on('mouseover', function(d, index){
-	    console.log(d.key);
             d3.select(this).style("fill", function(d){ return "brown"});
-	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return "brown"});
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
+	    var tmpOpacity = d3.scale.linear()
+		.domain([0, d.value[vis.category].max])
+		.range([0.05, 1.0]);
+	    theSquares
+		.style("fill", function(x){ return "brown"})
+		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
-	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return squareColor[vis.category]})
-	})
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));	    
+	    theSquares
+		//.style("fill", function(x){ return squareColor[vis.category]})
+		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})	    
+		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    	    
+	});
 
     // Update
     hbars
 	.style("fill", squareColor[vis.category])    
-	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category])})
+	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 
     // Draw vertical bars
     var vbars = vis.svg.selectAll(".vbar")
 	.data(vis.FYArray);
-
-    console.log(vis.FYArray);
 
     vbars.enter()
 	.append("g")
@@ -341,24 +340,31 @@ SquaresChart.prototype.updateVis = function(){
 	.style("fill", squareColor[vis.category])
 	.attr("x", 0)
 	.attr("y", 0)
-	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category])})
+	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category].sum)})
 	.attr("width", cellWidth)
         .on('mouseover', function(d, index){
-	    console.log(d.key);
             d3.select(this).style("fill", function(d){ return "brown"});
-	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return "brown"});
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
+	    var tmpOpacity = d3.scale.linear()
+		.domain([0, d.value[vis.category].max])
+		.range([0.05, 1.0]);
+	    theSquares
+		.style("fill", function(x){ return "brown"})
+		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
-	    d3.selectAll(".square-"+vis.spaceFormat(d.key)).style("fill", function(x){ return squareColor[vis.category]})
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
+	    theSquares
+		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})	    
+		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    	    
 	})
     
-
     // Update
     vbars
 	.style("fill", squareColor[vis.category])    
-	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category])})    
+	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category].sum)})    
     
     // Draw squares
 
@@ -372,14 +378,14 @@ SquaresChart.prototype.updateVis = function(){
 	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
         .on('mouseover', function(d, index){
             d3.select(this).style("fill", function(d){ return "brown"});
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ console.log(x); return "brown"});
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ console.log(x); return "brown"});
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"});
 	    vis.tip.show(d)})
         .on("mouseout", function(d, i) {
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]})	    
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})	    
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]});
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]});
 	    vis.tip.hide(d)})
 	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})
 	//.attr("class", "square")
@@ -413,7 +419,7 @@ SquaresChart.prototype.updateVis = function(){
         .attr("transform", "rotate(45)")
 	.style("text-anchor", "start");    
 
-    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category]})]);    
+    vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
 
     vis.svg.select(".v.axis")
         .call(vis.vAxis)
