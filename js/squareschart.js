@@ -63,7 +63,8 @@ SquaresChart.prototype.initVis = function(){
     d3.select("#squares-sort").on("click", function(){
 	vis.alphabetical = !vis.alphabetical;
 	$(vis.eventHandler).trigger("selectionChanged", vis.category);
-    });
+        d3.select(this).html(vis.alphabetical ? "names " : "values" );
+    })
 
     vis.tip = d3.tip()
 	.attr('class', 'd3-tip')
