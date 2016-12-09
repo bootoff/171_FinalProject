@@ -230,8 +230,6 @@ SquaresChart.prototype.wrangleData = function(){
 	
     });
 
-    console.log(vis.nested);
-
     var transposed = {};
     var years = vis.nested[0].values.map(function(d){return d.FY});
     years.forEach(function(yr){ transposed[yr] = []});
@@ -277,11 +275,9 @@ SquaresChart.prototype.wrangleData = function(){
 
     // sorting arrays
     if(!vis.alphabetical){
-	console.log("here");
 	vis.facilityArray.sort(function(a, b){return a.value[vis.category].sum - b.value[vis.category].sum });
 	vis.nested.sort(function(a, b) { return facilityDict[a.key][vis.category].sum - facilityDict[b.key][vis.category].sum });
     }else{
-	console.log("there");	
 	vis.facilityArray.sort(function(a, b){return a.key - b.key });
 	vis.nested.sort(function(a, b) { return a.key - b.key });
     }
@@ -303,7 +299,6 @@ SquaresChart.prototype.wrangleData = function(){
 	})
 	.attr("class", function(d, index){ return "row row-"+ vis.spaceFormat(d.key);})
 
-    
     vis.svg.append("g")
 	.attr("class", "x axis")
 	.attr("transform", "translate(" + (vis.margin.left + (cellWidth+cellPadding)*0.5) + "," + (cellHeight + cellPadding)*21 + ")")
@@ -339,10 +334,14 @@ SquaresChart.prototype.wrangleData = function(){
 SquaresChart.prototype.updateVis = function(){
     var vis = this;
 
-    // Draw horizontal bars
-    var hbars = vis.svg.selectAll(".hbar")
-	.data(vis.facilityArray);
+    console.log(vis.facilityArray);
 
+    // Draw horizontal bars
+    var hbars = vis.svg.selectAll(".hbar").remove();
+
+    hbars = vis.svg.selectAll(".hbar")
+	.data(vis.facilityArray);
+    
     hbars.enter()
 	.append("g")
 	.attr("transform", function(d, index) {
@@ -382,7 +381,7 @@ SquaresChart.prototype.updateVis = function(){
         .duration(250)
 	.style("fill", squareColor[vis.category])    
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
-
+    
     // Draw vertical bars
     var vbars = vis.svg.selectAll(".vbar")
 	.data(vis.FYArray);
