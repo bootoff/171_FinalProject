@@ -74,13 +74,6 @@ h2.text4 {
     fill: #99d8c9;
 }
 
-/* squareschart */
-.square:hover {
-    stroke: 1;
-}
-.square {
-    stroke: 0;    
-}
 
 /* timeLine & usageCostScatter */
 .vis-line {
@@ -120,6 +113,7 @@ h2.text4 {
     display: block;
     font-weight: 600;
     margin-bottom: 5px;
+    pointer-events: none;    
 }
 
 .d3-tip {
@@ -128,6 +122,7 @@ h2.text4 {
     color: #fff;
     line-height: 1;
     padding: 12px;
+    pointer-events: none;
 }
 
 /* Creates a small triangle extender for the tooltip */

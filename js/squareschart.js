@@ -12,8 +12,10 @@ var label = {"savingsUSD" : "USD",
 
 var squareColor = {"savingsUSD" : "green",
 		   "ElectricityGenerationKWh": "blue",
-		   "GHG" : "red"};
+		   "GHG" : '#3182bd'};
+//"red"};
 
+//['#deebf7','#9ecae1','#3182bd']
 
 
 /*
@@ -43,6 +45,9 @@ SquaresChart.prototype.initVis = function(){
     vis.width = 1000 - vis.margin.left - vis.margin.right,
     vis.height = 1000 - vis.margin.top - vis.margin.bottom;
 
+    vis.alphabetical = true;
+    vis.alphabetical = false;
+
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
 	.attr("width", vis.width + vis.margin.left + vis.margin.right)
@@ -54,9 +59,15 @@ SquaresChart.prototype.initVis = function(){
 	$(vis.eventHandler).trigger("selectionChanged", vis.category);
     });
 
+        // Button for changing the selection type
+    d3.select("#squares-sort").on("click", function(){
+	vis.alphabetical = !vis.alphabetical;
+	$(vis.eventHandler).trigger("selectionChanged", vis.category);
+    });
+
     vis.tip = d3.tip()
 	.attr('class', 'd3-tip')
-	.offset([-10, 0])
+	.offset([-100, 0])
 	.html(function(d) {
             return "Plant: " + "<span style='color:#bdbdbd'>" + d.Facility + "<br>" + "</span>" +
                 "<br>" + "FY: " + "<span style='color:#bdbdbd'>" +  d.FY + "<br>"+ "</span>" +
@@ -192,6 +203,8 @@ SquaresChart.prototype.wrangleData = function(){
 	
     });
 
+    console.log(vis.nested);
+
     var transposed = {};
     var years = vis.nested[0].values.map(function(d){return d.FY});
     years.forEach(function(yr){ transposed[yr] = []});
@@ -235,7 +248,19 @@ SquaresChart.prototype.wrangleData = function(){
 
     vis.facilityArray = facilityArray;
 
-    vis.y.domain(Object.keys(facilityDict));
+    // sorting arrays
+    if(!vis.alphabetical){
+	console.log("here");
+	vis.facilityArray.sort(function(a, b){return a.value[vis.category].sum - b.value[vis.category].sum });
+	vis.nested.sort(function(a, b) { return facilityDict[a.key][vis.category].sum - facilityDict[b.key][vis.category].sum });
+    }else{
+	console.log("there");	
+	vis.facilityArray.sort(function(a, b){return a.key - b.key });
+	vis.nested.sort(function(a, b) { return a.key - b.key });
+    }
+
+
+    vis.y.domain(    vis.facilityArray.map(function(a){ return a.key}));
     vis.hbarlength.domain([0, d3.max(vis.facilityArray, function(d){return d.value[vis.category].sum})]);
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
@@ -260,8 +285,10 @@ SquaresChart.prototype.wrangleData = function(){
     vis.svg.append("g")
         .attr("class", "y axis")
 	//.attr("transform", "translate(" + (vis.margin.left) + ", " + (cellHeight+cellPadding)*(21*0.5) + ")")    
-	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")    
-        .call(vis.yAxis);
+	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")
+        //.call(vis.yAxis)
+	//.on('click', function(d){ console.log("click", vis.alphabetical); vis.alphabetical = !vis.alphabetical});
+    
 
     vis.svg.append("g")
 	.attr("class", "h axis")
@@ -375,30 +402,33 @@ SquaresChart.prototype.updateVis = function(){
 
     squares.enter()
 	.append("rect")
-	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
+	.attr("x", function(d, i, j) { return (cellWidth + cellPadding) * i; })
+	.attr("y", 0)
+	.attr("height", cellHeight)
+    	.attr("width", cellHeight)
         .on('mouseover', function(d, index){
-	    vis.tip.show(d);
-            d3.select(this).style("fill", function(d){ return "brown"});
+	    vis.tip.show(d);	    
+            d3.select(this).style("fill", "brown");
 	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})})
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})
+	})
         .on("mouseout", function(d, i) {
 	    vis.tip.hide(d);	    
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
 	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]});
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})})
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})
+	})
 	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})
-	//.attr("class", "square")
-	.style("fill", "gray")
+	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
 	.style("stroke-opacity", 0.5)
-	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })
-	.attr("x", function(d, i, j) { return (cellWidth + cellPadding) * i; })
-	.attr("y", 0)
-	.attr("height", cellHeight)
-    	.attr("width", cellHeight);
+	.style("opacity",
+	       function(d, i, j){
+		   return (+d[vis.category]==0) ? 0.05 : vis.opacity(d[vis.category]);
+	       });
 
     squares
-	//.attr("class", "square")
+	.attr("class", "square")
 	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})    
 	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
 	.style("stroke-opacity", 0.5)
@@ -410,7 +440,7 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("y", 0)
 	.attr("height", cellHeight)
     	.attr("width", cellHeight);
-
+    
     vis.svg.select(".h.axis")
     	.call(vis.hAxis)
 	.selectAll("text")
@@ -423,6 +453,9 @@ SquaresChart.prototype.updateVis = function(){
 
     vis.svg.select(".v.axis")
         .call(vis.vAxis)
+
+    vis.svg.select(".y.axis")
+	.call(vis.yAxis);
     
 };
 
