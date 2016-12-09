@@ -378,6 +378,8 @@ SquaresChart.prototype.updateVis = function(){
 
     // Update
     hbars
+	.transition()
+        .duration(250)
 	.style("fill", squareColor[vis.category])    
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 
@@ -418,6 +420,8 @@ SquaresChart.prototype.updateVis = function(){
     
     // Update
     vbars
+	.transition()
+        .duration(250)
 	.style("fill", squareColor[vis.category])    
 	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category].sum)})    
     
@@ -481,9 +485,13 @@ SquaresChart.prototype.updateVis = function(){
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
 
     vis.svg.select(".v.axis")
+    	.transition()
+	.duration(250)
         .call(vis.vAxis)
 
     vis.svg.select(".y.axis")
+	.transition()
+	.duration(250)
 	.call(vis.yAxis);
 
     vis.svg.select(".h.axis-title")
