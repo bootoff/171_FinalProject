@@ -6,6 +6,7 @@ var citiesMA = [], // geoJSON - cities in MA
     facilityLocations = [], // lat, long for pilot program facilities
     plants = [], // primary data set - pilot program results
     SummaryData = [], //
+    projects = [], //    
     //ghg = {},
     //ghg_tmp = {},
     AnnualData = [];
@@ -73,15 +74,17 @@ queue()
     .defer(d3.json, "data/mass_cities.json")
     .defer(d3.csv, "data/plants.csv")
     .defer(d3.csv, "data/ghg.csv")
+    .defer(d3.csv, "data/project_details.csv")
     .await(wrangleData);
 
 // clean up data
-function wrangleData(error, townsServed, massCities, plantsData, GHGdata) {
+function wrangleData(error, townsServed, massCities, plantsData, GHGdata, projectData) {
     if (!error) {
         // store loaded data
         citiesMA = massCities;
         facilityLocations = townsServed;
         plants = plantsData;
+	projects = projectData;
 
         // Make the ghg factor dictionary.
         GHGdata.forEach(function (d) {
@@ -97,6 +100,9 @@ function wrangleData(error, townsServed, massCities, plantsData, GHGdata) {
         // wrangle "SummaryData" dataset
         wrangleSummaryData();
 
+        // wrangle "projects" dataset
+        wrangleProjectData();
+	
         // wrangle data for facilityMap.js
         wrangleFacilityMap();
 
@@ -268,3 +274,12 @@ function wrangleFacilityMap() {
     });
 }
 
+// create "projects" dataset
+function wrangleProjectData() {
+
+    // We decided to drop the Chelmsford data.
+    projects = projects.filter(function(d) { return d.Facility != "Chelmsford Water District" });
+    
+    console.log(projects);
+
+}

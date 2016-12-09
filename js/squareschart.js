@@ -278,8 +278,8 @@ SquaresChart.prototype.wrangleData = function(){
 	vis.facilityArray.sort(function(a, b){return a.value[vis.category].sum - b.value[vis.category].sum });
 	vis.nested.sort(function(a, b) { return facilityDict[a.key][vis.category].sum - facilityDict[b.key][vis.category].sum });
     }else{
-	vis.facilityArray.sort(function(a, b){return a.key - b.key });
-	vis.nested.sort(function(a, b) { return a.key - b.key });
+	vis.facilityArray.sort(function(a, b){return (a.key>b.key) ? 1 : -1 });
+	vis.nested.sort(function(a, b) {return (a.key>b.key) ? 1 : -1 });
     }
 
 

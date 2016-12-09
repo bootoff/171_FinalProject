@@ -1,27 +1,26 @@
-Participant,Description,Installation size (kilowatts),Date of operation,Installed Cost (includes engineering),Installed Cost per watt,Energy Generated (kilowatt-hours), Energy per unit power (kWh/kW), Savings – avoided electricity ($), (2) Savings – REC revenue ($) (3)
-Ashland Water Dept,solar PV (roof),24.6,7/6/2010,$277887,$11.30,27787,1130,$4669,$889
-Barnstable WWTP,solar PV (ground),819,2/22/2012,$3935198,$4.80,990000,1210,$136268,$31688
-Barnstable WWTP,wind turbines (two 100 kW),200,6/1/2011,$1418423,$7.09,282000,1410,$38806,$9024
-Charles River PCD,solar PV (roof),19.475,3/3/2011,$131000,$6.73,21677,1110,$2883,n/a
-Chelmsford Water District,solar PV (ground),485.1,10/28/2010,$2927131.23,$6.03,531068,1100,$53563,$18368
-Easton Water Division,solar PV (ground),49.61,9/14/2010,$338706,$6.83,59891,1210,$7965,$1916
-Fairhaven BPW,solar PV (three roof arrays),7.56+16.4+78.75,3/10/2011,$513559.83,$6.52,129383,1259,$22059,$4140
-Fairhaven BPW,CHP (recip engine),110,Not on,$8066280,$73.33,500000,4545,$50500,TBD
-Falmouth Water Facility,solar PV (roof),16.4,8/2/2010,$119759,$7.30,21510,1312,$3440,$688
-Falmouth Waste Water Facility,wind turbine – Wind II,1650,Not on,$4813971,$2.92,3100000,1879,$442308,$99200
-Greater Lawrence SD,solar PV (two ground arrays),378+63,3/22/11,$1943172,$4.41,476526,1080,$72000,$15249
-Lee WTP,solar PV (roof),35.1,12/1/2011,$392500,$11.18,38833,1106,$5165,n/a
-Lee WTP,Hydroturbine upgrade,85,12/22/2010,$166250,Not applicable,204696,2411,$1000,n/a
-Lowell Regional WW Utility,solar PV (two roof arrays),48,Not on,$312000,$6.50,57600,1200,$7661,$1843
-MWRA –Carroll Water Treatment Plant,solar PV (ground),496.1,3/23/2011,$2484095,$5.01,582209,1174,$58722,$17367
-MWRA – Deer Island,solar PV (two roof arrays),180.56,5/5/2010,$1119000,$6.20,201587,1117,$21167, n/a
-MWRA - DeLauri,wind turbine,1500,Not on,$4750000,$3.17,3000000,2000,$315005,$96000
-MWRA – Loring Rd,hydroturbine,200,5/1/2011,$1525000,$7.63,1366015,6830,$137776,$43712
-New Bedford WTP,solar PV (ground),91.35,3/15/2011,$672242,$7.36,106761,1169,$15166,n/a
-Newburyport WWTP,solar PV (roof),26.88,Not on,$376000,$13.99,32256,1200,$4516, n/a
-Pittsfield WWTP,CHP (micro-turbines),195,2/10/2012,$3033561,$15.56,1572000,8061,$220080,$50304 REC/$36150 AEC
-Pittsfield WWTP,solar PV (ground),1584.45,2/1/2012,$8505672,$5.37,1953851,1233,$273539,$62523
-Townsend WTP,solar PV (ground),39.27,8/25/2010,$268000,$6.82,44288,1193,$6444,$1417
-Upper Blackstone WPAD,solar PV (ground),337.26,Not on,$3110879,$9.22,404712,n/a,$58683,$12951
-Worcester,solar PV (roof and ground),59.85+65.8,6/29/2011,$1176671,$9.36,128099,1019,$17824,$4099
-
+Facility,Description,Installation size (KW),Date of operation,Installed Cost ($)s,Installed Cost ($) per watt,Energy Generated (KWh),Energy per unit power (kWh/kW),Savings – avoided electricity ($),Savings – REC revenue ($)
+Ashland,solar PV (roof),24.6,7/6/2010,277887,11.30,27787,1130,4669,889
+Barnstable,solar PV (ground),819,2/22/2012,3935198,4.80,990000,1210,136268,31688
+Barnstable,wind turbines (two 100 kW),200,6/1/2011,1418423,7.09,282000,1410,38806,9024
+Charles River Pollution Control District,solar PV (roof),19.475,3/3/2011,131000,6.73,21677,1110,2883,n/a
+Chelmsford Water District,solar PV (ground),485.1,10/28/2010,2927131.23,6.03,531068,1100,53563,18368
+Easton,solar PV (ground),49.61,9/14/2010,338706,6.83,59891,1210,7965,1916
+Fairhaven,solar PV (three roof arrays),102.7,3/10/2011,513559.83,6.52,129383,1259,22059,4140
+Fairhaven,CHP (recip engine),110,Not on,8066280,73.33,500000,4545,50500,TBD
+Falmouth (DW),solar PV (roof),16.4,8/2/2010,119759,7.30,21510,1312,3440,688
+Falmouth (WW),wind turbine – Wind II,1650,Not on,4813971,2.92,3100000,1879,442308,99200
+Greater Lawrence SD,solar PV (two ground arrays),441,3/22/11,1943172,4.41,476526,1080,72000,15249
+Lee,solar PV (roof),35.1,12/1/2011,392500,11.18,38833,1106,5165,n/a
+Lee,Hydroturbine upgrade,85,12/22/2010,166250,Not applicable,204696,2411,1000,n/a
+Lowell,solar PV (two roof arrays),48,Not on,312000,6.50,57600,1200,7661,1843
+MWRA (JCWTP),solar PV (ground),496.1,3/23/2011,2484095,5.01,582209,1174,58722,17367
+MWRA (Deer Island),solar PV (two roof arrays),180.56,5/5/2010,1119000,6.20,201587,1117,21167, n/a
+MWRA (Delauri PS),wind turbine,1500,Not on,4750000,3.17,3000000,2000,315005,96000
+MWRA,hydroturbine,200,5/1/2011,1525000,7.63,1366015,6830,137776,43712
+New Bedford,solar PV (ground),91.35,3/15/2011,672242,7.36,106761,1169,15166,n/a
+Newburyport,solar PV (roof),26.88,Not on,376000,13.99,32256,1200,4516, n/a
+Pittsfield,CHP (micro-turbines),195,2/10/2012,3033561,15.56,1572000,8061,220080,50304 REC/36150 AEC
+Pittsfield,solar PV (ground),1584.45,2/1/2012,8505672,5.37,1953851,1233,273539,62523
+Townsend,solar PV (ground),39.27,8/25/2010,268000,6.82,44288,1193,6444,1417
+Upper Blackstone WPAD,solar PV (ground),337.26,Not on,3110879,9.22,404712,n/a,58683,12951
+Worcester,solar PV (roof and ground),59.85+65.8,6/29/2011,1176671,9.36,128099,1019,17824,4099
