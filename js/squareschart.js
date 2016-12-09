@@ -377,16 +377,16 @@ SquaresChart.prototype.updateVis = function(){
 	.append("rect")
 	//.on("mouseover", function(d, i, j){ console.log("row: " + i, "facility: ", d.Facility, "column: " + j, "FY: ", d.FY)})
         .on('mouseover', function(d, index){
+	    vis.tip.show(d);
             d3.select(this).style("fill", function(d){ return "brown"});
 	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"});
-	    vis.tip.show(d)})
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})})
         .on("mouseout", function(d, i) {
+	    vis.tip.hide(d);	    
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
 	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]});
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]});
-	    vis.tip.hide(d)})
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})})
 	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})
 	//.attr("class", "square")
 	.style("fill", "gray")
