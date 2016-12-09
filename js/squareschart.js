@@ -447,7 +447,7 @@ SquaresChart.prototype.updateVis = function(){
 	       });
 
     squares
-	.attr("class", "square")
+	//.attr("class", "square")
 	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})    
 	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
 	.style("stroke-opacity", 0.5)
