@@ -105,6 +105,15 @@ h2.text4 {
     text-anchor: middle;
 }
 
+.text {
+    font-weight: 100;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Tinos', serif;
+}
+
+
 /*********************/
 /*  TOOLTIP OVERLAY  */
 /*********************/

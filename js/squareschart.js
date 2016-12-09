@@ -46,12 +46,35 @@ SquaresChart.prototype.initVis = function(){
     vis.height = 1000 - vis.margin.top - vis.margin.bottom;
 
     vis.alphabetical = true;
-    vis.alphabetical = false;
 
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement).append("svg")
 	.attr("width", vis.width + vis.margin.left + vis.margin.right)
 	.attr("height", vis.height + vis.margin.top + vis.margin.bottom);
+
+    vis.svg.append("text")
+	.attr("text-anchor", "middle")
+    	.attr("transform", "translate(500,35)")    
+	.attr("class", "y axis-title")
+    	.text("Facility")
+
+    vis.svg.append("text")
+	.attr("text-anchor", "middle")
+    	.attr("transform", "translate(10,542)")    
+	.attr("class", "x axis-title")
+    	.text("FY")
+
+    vis.svg.append("text")
+	.attr("text-anchor", "middle")
+    	.attr("transform", "translate(500,555)")    
+	.attr("class", "h axis-title")
+    	.text("USD")
+
+        vis.svg.append("text")
+	.attr("text-anchor", "middle")
+    	.attr("transform", "translate(320,555)")    
+	.attr("class", "v axis-title")
+    	.text("USD")
 
     // Button for changing the selection type
     d3.select("#squares-type").on("change", function(){
@@ -63,12 +86,12 @@ SquaresChart.prototype.initVis = function(){
     d3.select("#squares-sort").on("click", function(){
 	vis.alphabetical = !vis.alphabetical;
 	$(vis.eventHandler).trigger("selectionChanged", vis.category);
-        d3.select(this).html(vis.alphabetical ? "names " : "values" );
+        d3.select(this).html(vis.alphabetical ? "values" : "names " );
     })
 
     vis.tip = d3.tip()
 	.attr('class', 'd3-tip')
-	.offset([-100, 0])
+	.offset([-20, 0])
 	.html(function(d) {
             return "Plant: " + "<span style='color:#bdbdbd'>" + d.Facility + "<br>" + "</span>" +
                 "<br>" + "FY: " + "<span style='color:#bdbdbd'>" +  d.FY + "<br>"+ "</span>" +
@@ -146,6 +169,9 @@ SquaresChart.prototype.wrangleData = function(){
     // axis functions
     vis.xAxis = d3.svg.axis()
         .scale(vis.x)
+	.tickFormat(function (d) {
+            return "\'" + d3.format("02")(d);
+    })    
         .orient("bottom");
 
     vis.yAxis = d3.svg.axis()
@@ -287,6 +313,7 @@ SquaresChart.prototype.wrangleData = function(){
         .attr("class", "y axis")
 	//.attr("transform", "translate(" + (vis.margin.left) + ", " + (cellHeight+cellPadding)*(21*0.5) + ")")    
 	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")
+	.append("text")
         //.call(vis.yAxis)
 	//.on('click', function(d){ console.log("click", vis.alphabetical); vis.alphabetical = !vis.alphabetical});
     
@@ -407,19 +434,6 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("y", 0)
 	.attr("height", cellHeight)
     	.attr("width", cellHeight)
-        .on('mouseover', function(d, index){
-	    vis.tip.show(d);	    
-            d3.select(this).style("fill", "brown");
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})
-	})
-        .on("mouseout", function(d, i) {
-	    vis.tip.hide(d);	    
-            d3.select(this).style("fill", function(d, index) {
-		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]});
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})
-	})
 	.attr("class", function(d, index){ return "square square-"+ d.FY + " square-"+vis.spaceFormat(d.Facility);})
 	.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
 	.style("stroke-opacity", 0.5)
@@ -440,7 +454,21 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("x", function(d, i, j) { return (cellWidth + cellPadding) * i; })
 	.attr("y", 0)
 	.attr("height", cellHeight)
-    	.attr("width", cellHeight);
+    	.attr("width", cellHeight)
+        .on('mouseover', function(d, index){
+	    vis.tip.show(d);	    
+            d3.select(this).style("fill", "brown");
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})
+	})
+        .on("mouseout", function(d, i) {
+	    vis.tip.hide(d);	    
+            d3.select(this).style("fill", function(d, index) {
+		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]});
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})
+	})
+    
     
     vis.svg.select(".h.axis")
     	.call(vis.hAxis)
@@ -457,6 +485,12 @@ SquaresChart.prototype.updateVis = function(){
 
     vis.svg.select(".y.axis")
 	.call(vis.yAxis);
+
+    vis.svg.select(".h.axis-title")
+	.text(label[vis.category]);
+
+    vis.svg.select(".v.axis-title")
+	.text(label[vis.category]);
     
 };
 
