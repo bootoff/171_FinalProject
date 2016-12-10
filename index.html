@@ -23,9 +23,6 @@
     <link href="https://fonts.googleapis.com/css?family=Tinos" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
 
-    <!-- Bootstrap template courtesy of: Start Bootstrap - Scrolling Nav (http://startbootstrap.com/)
-        Copyright 2013-2016 Start Bootstrap
-        Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE) -->
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
@@ -44,7 +41,7 @@
                 </button>
                <a class="navbar-brand page-scroll" href="#page-top">Visualizing Green Energy</a>
             </div>
-            
+
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -52,9 +49,9 @@
                     <!-- Hidden li included to remove active class from 2nd from top link when scrolled up to top -->
                     <!--<li class="hidden"><a class="page-scroll" href="#teaser"></a></li>-->
                     <li class="hidden"><a class="page-scroll" href="#teaser"></a></li>
-                    <li><a class="page-scroll" href="#intro">Background</a></li>
-                    <li><a class="page-scroll" href="#map-scroll">Facility Map</a></li>
-                    <li><a class="page-scroll" href="#bar-scroll">Summary Stats</a></li>
+                    <li><a class="page-scroll" href="#intro">Why?</a></li>
+                    <li><a class="page-scroll" href="#map-scroll">Where?</a></li>
+                    <li><a class="page-scroll" href="#bar-scroll">How Much?</a></li>
                     <li><a class="page-scroll" href="#grid-scroll">Data Grid</a></li>
                     <li><a class="page-scroll" href="#line-scroll">Line Chart</a></li>
                     <li><a class="page-scroll" href="#scatter-scroll">Scatter Plot</a></li>
@@ -63,7 +60,7 @@
             </div>
         </div>
     </nav>
-   
+
     <!-- Teaser Section -->
     <section id="teaser" class="teaser-section">
         <div class="container">
@@ -123,7 +120,7 @@
                                 <p>Pilot projects have demonstrated that on-site renewable energy production in wastewater and drinking
                                     water treatment facilities can reduce the facilities' energy consumption, and lower their CO2 emissions.
                                 <br>
-				<br>	
+                                    <br>
                                 </p>
                             </div>
                         </div>
@@ -147,43 +144,47 @@
             </div>
         </div>
     </section>
-   
+
     <!-- Facility Map -->
     <section id="map-scroll" class="chart">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <h1>Facility Map</h1>
-                    <!-- Viz placeholder -->
                     <div id="facility-map"></div>
                 </div>
                 <div class="col-md-4">
-                    <h2 class = "text3"><b> 21 facilities</b> from across Massachusetts participated in this renewable energy program. Since <b>2009</b>,
+                    <h2 class = "text3"><b> 21 facilities</b> from across Massachusetts participated in this renewable energy program. <!-- Since <b>2009</b>,
                         the state-funded program offered up to <b>$69 million</b> to water treatment facilities to construct new, green infrastructure projects on-site.
+-->
                        <br>
                         <br>
-                        The facilities that participated are highlighted on the map. <b>Click on the pin</b> to see a facility's name and the
-                        <b>region it serves</b>.
+                        The facilities that participated are highlighted on the map. <b>Click on a pin</b> on the map
+                        to see if the water treatment facility that serves your town has been a participant!</b>
                         <br>
                         <br>
-                        By <b>2012</b>, all facilities finished the installation of on-site energy generation equipment, where applicable
-                        upgraded existing equipment. </h2>
+                        This pilot project began in 2009, and by 2012, most plants had implemented renewable energy sources. </h2>
                 </div>
 
             </div>
         </div>
     </section>
-                    
-         <!-- Summary Statistics -->
+
+
+    <!-- Summary Statistics -->
     <section id="bar-scroll" class="chart">
         <div class="container">
             <div class="row">
-                <h1><b>Summary Statistics per Facility</b></h1>
+                <h1>Key Summary Statistics per Facility</h1>
                 <div class="col-md-4">
                    <h2 class = "text3">The goal of this pilot is to reduce greenhouse gas emissions
-                       by getting water treatment facilities to implement renewable energy technologies on-site. The data displayed in this graph
-                       shows the total number key indicators per plant since joining the pilot.
-                       Hovering over a bar displays the name of the facility, the number of years it has been a participant in the pilot and the summary
+                       by getting water treatment facilities to implement renewable energy technologies on-site.
+                       <br>
+                       <br>
+                       The data displayed in this graph show summary statistics for each plant since joining the pilot.
+                       <br>
+                       <br>
+                       <b>Hover</b> over a bar to see the name of the facility, the number of years it has been a participant in the pilot and the summary
                        data for the indicator selected.
                 </div>
                 <div class="col-md-8">
@@ -201,8 +202,8 @@
                 </div>
             </div>
         </div>
-    </section>          
-       
+    </section>
+	    
     <!-- Squares Chart -->
     <section id="grid-scroll" class="chart">
         <div class="container">
