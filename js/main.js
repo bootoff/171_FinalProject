@@ -101,14 +101,14 @@ function wrangleData(error, townsServed, massCities, cityTest, plantsData, GHGda
         // wrangle "dataByFacility" dataset
         wrangleDataByFacility();
 
-        // wrangle "SummaryData" dataset
-        wrangleSummaryData();
-
         // wrangle "projects" dataset
         wrangleProjectData();
 	
         // wrangle data for facilityMap.js
         wrangleFacilityMap();
+
+        // wrangle "SummaryData" dataset
+        wrangleSummaryData();
 
         // create visualizations
         createVis();
@@ -236,6 +236,16 @@ function wrangleSummaryData() {
         SavingsGHG += data.ghg_sum;
     });
     //console.log("Savings (Millions of KWH): ", SavingsKWh / 1e6, "Savings (Millions USD): ", SavingsUSD / 1e6, "Savings (Tons): ", SavingsGHG);
+
+    SummaryData.forEach(function(data, index){
+	for(var i=0; i<projects_nested.length; i++){
+	    if(data.key == projects_nested[i].key){
+		for(var key in projects_nested[i].values){
+		    SummaryData[i][key] = projects_nested[i].values[key];
+		}
+	    }
+	}
+    });
 
     var nestedFY = d3.nest()
         .key(function (d) {
