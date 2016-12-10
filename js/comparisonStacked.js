@@ -135,7 +135,9 @@ Co2Savings.prototype.updateVisualization = function() {
         ]);
 
 
-        vis.colorScale = d3.scale.category20();
+       vis.colorScale = d3.scale.ordinal()
+            .domain(["foo", "bar", "baz"])
+            .range(colorbrewer.BuGn[6]);
 
         vis.svg.selectAll(".bar")
             .data(vis.displayData)
@@ -161,7 +163,7 @@ Co2Savings.prototype.updateVisualization = function() {
             })
             .on("mouseover", function(d, index) {
                 d3.select(this)
-                    .style("fill", "green");
+                    .style("fill", "#8DB500");
                 vis.tip.show(d);
             })
             .on('mouseout', function(d, index) {
