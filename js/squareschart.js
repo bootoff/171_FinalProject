@@ -58,7 +58,7 @@ SquaresChart.prototype.initVis = function(){
 
     vis.svg.append("text")
 	.attr("text-anchor", "middle")
-    	.attr("transform", "translate(500,35)")    
+    	.attr("transform", "translate(450,20)")    
 	.attr("class", "y axis-title")
     	.text("Facility")
 
@@ -70,7 +70,7 @@ SquaresChart.prototype.initVis = function(){
 
     vis.svg.append("text")
 	.attr("text-anchor", "middle")
-    	.attr("transform", "translate(500,555)")    
+    	.attr("transform", "translate(450,555)")    
 	.attr("class", "h axis-title")
     	.text("USD")
 
@@ -294,7 +294,14 @@ SquaresChart.prototype.wrangleData = function(){
 
 
     vis.y.domain(    vis.facilityArray.map(function(a){ return a.key}));
-    vis.hbarlength.domain([0, d3.max(vis.facilityArray, function(d){return d.value[vis.category].sum})]);
+    vis.hbarlength.domain([0, d3.max(vis.facilityArray,
+				     function(d){
+					 if(vis.category == "savingsUSD"){
+					     return d.value["totalCostUSD"];
+					 }else{
+					     return d.value[vis.category].sum;					 
+					 }
+				     })]);
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
 
@@ -322,7 +329,7 @@ SquaresChart.prototype.wrangleData = function(){
 
     vis.svg.append("g")
 	.attr("class", "h axis")
-	.attr("transform", "translate(" + (vis.margin.left + 520) + "," + ((cellHeight + cellPadding)*20 +30 ) + ")")
+	.attr("transform", "translate(" + (vis.margin.left + 470) + "," + ((cellHeight + cellPadding)*20 +30 ) + ")")
 
     vis.svg.append("g")
         .attr("class", "v axis")
@@ -355,7 +362,7 @@ SquaresChart.prototype.updateVis = function(){
     hbars.enter()
 	.append("g")
 	.attr("transform", function(d, index) {
-	    return "translate(" + (vis.margin.left + 520) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
+	    return "translate(" + (vis.margin.left + 470) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
 	})
 	.append("rect")
 	.attr("class", function(d, index){ return "hbar hbar-"+ vis.spaceFormat(d.key);})    
@@ -401,7 +408,7 @@ SquaresChart.prototype.updateVis = function(){
     tbars.enter()
 	.append("g")
 	.attr("transform", function(d, index) {
-	    return "translate(" + (vis.margin.left + 520) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
+	    return "translate(" + (vis.margin.left + 470) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
 	})
 	.append("rect")
 	.attr("class", function(d, index){ return "tbar tbar-"+ vis.spaceFormat(d.key);})    
