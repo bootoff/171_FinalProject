@@ -46,15 +46,19 @@ FacilityMap.prototype.initVis = function() {
     // style for cities
     var cityStyle = {
         fill: "blue",
-        weight: 1,
-        visibility: "hidden"
+        weight: 1
     };
 
     // idea: add one layer to the map, with all towns served, for each facility
     // add city boundaries to map (hidden)
     vis.cities = L.geoJson(vis.cityData, {
-        style: cityStyle
+        style: cityStyle,
+        className: "city-bound"
     }).addTo(vis.map);
+
+    // hide all cities
+    d3.selectAll(".city-bound")
+        .style("opacity",0);
 
     // set IDs for cities
     vis.cities.eachLayer(function (layer) {
@@ -75,17 +79,14 @@ FacilityMap.prototype.initVis = function() {
                 // highlight the towns served by this facility
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
-                        .remove();
+                        .style("opacity", 0.8);
                 });
             })
             .on("mouseout", function() {
-                // freshly add layer of all cities
-                vis.map.removeLayer(vis.cities);
-                vis.map.addLayer(vis.cities);
-
-                // set IDs for cities
-                vis.cities.eachLayer(function (layer) {
-                    layer._path.id = 'feature-' + vis.removeSpaces(vis.reformat(layer.feature.properties.name));
+                // hide the towns served by this facility
+                d.townsServed.forEach(function(d2) {
+                    d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
+                        .style("opacity", 0);
                 });
             });
         facilityMarkers.addLayer(newMarker);
@@ -103,13 +104,11 @@ FacilityMap.prototype.initVis = function() {
 FacilityMap.prototype.wrangleData = function() {
     var vis = this;
 
-    vis.cityData.features.forEach(function(d) {
+    vis.displayData = vis.cityData;
+
+    vis.displayData.features.forEach(function(d) {
         d.properties.name = vis.reformat(d.properties.name);
     });
-
-    //console.log(vis.cityData);
-
-    // vis.displayData = vis.data;
 
     // Update the visualization
     //vis.updateVis();
@@ -121,7 +120,6 @@ FacilityMap.prototype.wrangleData = function() {
  */
 
 FacilityMap.prototype.updateVis = function() {
-
 };
 
 

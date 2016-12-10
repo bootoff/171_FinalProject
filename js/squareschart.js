@@ -335,7 +335,7 @@ SquaresChart.prototype.updateVis = function(){
     var vis = this;
 
     for(var i=0; i<projects_nested.length; i++){
-	console.log(projects_nested[i], vis.facilityArray[i]);
+	//console.log(projects_nested[i], vis.facilityArray[i]);
     }
     
     // Draw horizontal bars

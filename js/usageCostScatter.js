@@ -143,6 +143,10 @@ UsageCostScatter.prototype.updateVis = function() {
 UsageCostScatter.prototype.updateLine = function(indexData) {
     var vis = this;
 
+    // select
+    var facility = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
+        .data(indexData.values);
+
     // line-drawing function
     var drawLine = d3.svg.line()
         .x(function(d) {
@@ -152,10 +156,6 @@ UsageCostScatter.prototype.updateLine = function(indexData) {
             return vis.y(d.UsageUSD);
         })
         .interpolate("linear");
-
-    // select
-    var facility = vis.svg.selectAll(".line" + vis.spaceFormat(indexData.id))
-        .data(indexData.values);
 
     // enter & update
     // on hover: make points for this line appear
