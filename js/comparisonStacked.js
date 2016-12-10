@@ -47,8 +47,17 @@ Co2Savings.prototype.initVis = function() {
     //THIS IS NOT WORKING:
     vis.AxisGroup = vis.svg.append("g")
         .attr("class", "x-axis group")
-        .call(vis.xAxis)
+        //.call(vis.xAxis)
         .attr("transform", "translate(0," + vis.height + ")rotate(-65)");
+
+    vis.yAxis = d3.svg.axis()
+        .scale(vis.y)
+        .orient("left")
+        .ticks(12);
+
+    vis.yAxisGroup = vis.svg.append("g")
+        .attr("class", "y axis group")
+        //.call(vis.yAxis);
 
     vis.svg.append("text")
         .attr("class", "label x-label")
@@ -89,11 +98,12 @@ Co2Savings.prototype.wrangleData = function() {
 
     d3.select("#ranking-type").on("change", function (d) {
         //Get the current selection
-        var selection = d3.select("#ranking-type").property("value");
-        console.log("this is the " + selection);
+        //var selection = d3.select("#ranking-type").property("value");
+	vis.category = d3.select("#ranking-type").property("value");
+        console.log("this is the " + vis.category);
 
         vis.displayData.sort(function (a, b) {
-            return b[selection] - a[selection]
+            return b[vis.category] - a[vis.category]
         });
 
         vis.updateVisualization()
@@ -112,10 +122,6 @@ Co2Savings.prototype.updateVisualization = function() {
 
         vis.svg.call(vis.tip);
 
-        vis.y.domain([0, d3.extent(vis.displayData, function (d) {
-        return d[vis.category];
-    }) ]);
-
         var selection = d3.select("#ranking-type").property("value");
 
         vis.x.domain(vis.displayData.map(function (d) {
@@ -124,20 +130,10 @@ Co2Savings.prototype.updateVisualization = function() {
         ));
 
         vis.y.domain([0, d3.max(vis.displayData, function (d) {
-            return d[selection];
+            return d[vis.category];
         })
         ]);
 
-        vis.yAxis = d3.svg.axis()
-            .scale(vis.y)
-            .orient("left")
-            .ticks(12);
-
-        vis.yAxisGroup = vis.svg.append("g")
-            .attr("class", "y axis group")
-            .call(vis.yAxis);
-
-        vis.svg.select("g").remove();
 
         vis.colorScale = d3.scale.category20();
 
@@ -176,7 +172,7 @@ Co2Savings.prototype.updateVisualization = function() {
                 vis.tip.hide(d)});
 
     //attribute data-legend-pos
-
+    
     vis.legend = vis.svg.append("g")
         .attr("class","legend")
         .attr("transform","translate(500,10)")
@@ -197,13 +193,24 @@ Co2Savings.prototype.updateVisualization = function() {
             .transition()
             .duration(800)
             .attr("y", function (d) {
-                return vis.y(d[selection]);
+                return vis.y(d[vis.category]);
             })
             .attr("width", vis.x.rangeBand())
             .attr("height", function (d) {
-                return vis.height - vis.y(d[selection]);
+                return vis.height - vis.y(d[vis.category]);
             })
             .transition()
-            .delay(800)
+            .delay(800);
 
-    }
+    vis.svg.select(".y.axis.group")
+	.transition()
+	.duration(250)
+	.call(vis.yAxis);
+
+    vis.svg.select(".x.axis.group")
+	.transition()
+	.duration(250)
+	.call(vis.xAxis);
+    
+
+}
