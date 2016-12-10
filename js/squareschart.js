@@ -10,12 +10,17 @@ var label = {"savingsUSD" : "USD",
 	     "ElectricityGenerationKWh": "KWh",
 	     "GHG" : "tons"};
 
-var squareColor = {"savingsUSD" : "green",
-		   "ElectricityGenerationKWh": "blue",
-		   "GHG" : '#3182bd'};
-var tbarColor = {"savingsUSD" : "green",
-		   "ElectricityGenerationKWh": "green",
-		   "GHG" : "green"};
+var standoutColor = "brown", moneyColor="#006837", electricityColor="#8856a7", GHGColor='#08519c';
+
+var squareColor = {"savingsUSD" : moneyColor,
+		   "ElectricityGenerationKWh": electricityColor,
+		   "GHG" : GHGColor};
+
+var tbarColor = {"savingsUSD" : moneyColor,
+		 "ElectricityGenerationKWh": moneyColor,
+		 "GHG" : moneyColor};
+
+
 
 //"red"};
 
@@ -372,13 +377,13 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
         .on('mouseover', function(d, index){
-            d3.select(this).style("fill", function(d){ return "brown"});
+            d3.select(this).style("fill", function(d){ return standoutColor});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    var tmpOpacity = d3.scale.linear()
 		.domain([0, d.value[vis.category].max])
 		.range([0.05, 1.0]);
 	    theSquares
-		.style("fill", function(x){ return "brown"})
+		.style("fill", function(x){ return standoutColor})
 		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
@@ -418,13 +423,13 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("width", function(d){ return vis.hbarlength(d.value["totalCostUSD"])})
 	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
         .on('mouseover', function(d, index){
-            d3.select(this).style("fill", function(d){ return "brown"});
+            d3.select(this).style("fill", function(d){ return standoutColor});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    var tmpOpacity = d3.scale.linear()
 		.domain([0, d.value[vis.category].max])
 		.range([0.05, 1.0]);
 	    theSquares
-		.style("fill", function(x){ return "brown"})
+		.style("fill", function(x){ return standoutColor})
 		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
@@ -461,13 +466,13 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category].sum)})
 	.attr("width", cellWidth)
         .on('mouseover', function(d, index){
-            d3.select(this).style("fill", function(d){ return "brown"});
+            d3.select(this).style("fill", function(d){ return standoutColor});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    var tmpOpacity = d3.scale.linear()
 		.domain([0, d.value[vis.category].max])
 		.range([0.05, 1.0]);
 	    theSquares
-		.style("fill", function(x){ return "brown"})
+		.style("fill", function(x){ return standoutColor})
 		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
@@ -522,10 +527,10 @@ SquaresChart.prototype.updateVis = function(){
     	.attr("width", cellHeight)
         .on('mouseover', function(d, index){
 	    vis.tip.show(d);	    
-            d3.select(this).style("fill", "brown");
-	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
-	    //d3.select(".tbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});	    
-	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})
+            d3.select(this).style("fill", standoutColor);
+	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return standoutColor});
+	    //d3.select(".tbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return standoutColor});	    
+	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return standoutColor})
 	})
         .on("mouseout", function(d, i) {
 	    vis.tip.hide(d);	    
