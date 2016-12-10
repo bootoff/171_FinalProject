@@ -137,7 +137,7 @@ Co2Savings.prototype.updateVisualization = function() {
 
        vis.colorScale = d3.scale.ordinal()
             .domain(["foo", "bar", "baz"])
-            .range(colorbrewer.BuGn[6]);
+            .range(colorbrewer.YlGnBu[3]);
 
         vis.svg.selectAll(".bar")
             .data(vis.displayData)
