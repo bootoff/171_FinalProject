@@ -63,7 +63,7 @@ FacilityMap.prototype.initVis = function() {
 
     // set IDs for cities
     vis.cities.eachLayer(function (d) {
-        d._path.id = 'feature-' + vis.removeSpaces(vis.reformat(d.feature.properties.TOWN));
+        d._path.id = 'feature-' + vis.removeSpaces(vis.reformat(d.feature.properties.name));
     });
 
     // MARKERS --------------------------------------------------

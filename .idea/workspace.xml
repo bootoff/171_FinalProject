@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6543679-cda8-4df9-9671-f61d8a18ab6d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/MA_towns.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/facilityMap.js" afterPath="$PROJECT_DIR$/js/facilityMap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/squareschart.js" afterPath="$PROJECT_DIR$/js/squareschart.js" />
     </list>
     <ignored path="171_FinalProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,38 +44,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
-              <caret line="50" column="77" selection-start-line="50" selection-start-column="77" selection-end-line="50" selection-end-column="77" />
+              <caret line="50" column="78" selection-start-line="50" selection-start-column="78" selection-end-line="50" selection-end-column="78" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="facilityMap.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="facilityMap.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/facilityMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
+            <state relative-caret-position="372">
+              <caret line="65" column="89" selection-start-line="65" selection-start-column="89" selection-end-line="65" selection-end-column="89" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="squareschart.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/squareschart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="357" column="6" selection-start-line="357" selection-start-column="6" selection-end-line="357" selection-end-column="6" />
-              <folding>
-                <marker date="1481403746000" expanded="true" signature="2760:2773" ph="..." />
-                <marker date="1481403746000" expanded="true" signature="2861:2874" ph="..." />
-                <marker date="1481403746000" expanded="true" signature="2880:2893" ph="..." />
-                <marker date="1481403746000" expanded="true" signature="2976:2989" ph="..." />
-                <marker date="1481403746000" expanded="true" signature="3096:3109" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -99,7 +79,7 @@
       <file leaf-file-name="comparisonStacked.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/comparisonStacked.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-30">
+            <state relative-caret-position="-1215">
               <caret line="33" column="88" selection-start-line="33" selection-start-column="88" selection-end-line="33" selection-end-column="88" />
               <folding>
                 <marker date="1481383918000" expanded="true" signature="337:1281" ph="{...}" />
@@ -114,8 +94,8 @@
       <file leaf-file-name="usageCostScatter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="897">
-              <caret line="209" column="26" selection-start-line="209" selection-start-column="26" selection-end-line="209" selection-end-column="26" />
+            <state relative-caret-position="132">
+              <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <marker date="1481379439000" expanded="true" signature="595:3753" ph="{...}" />
@@ -158,8 +138,8 @@
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/squareschart.js" />
-        <option value="$PROJECT_DIR$/js/facilityMap.js" />
         <option value="$PROJECT_DIR$/js/main.js" />
+        <option value="$PROJECT_DIR$/js/facilityMap.js" />
       </list>
     </option>
   </component>
@@ -365,12 +345,12 @@
       <workItem from="1481054990824" duration="786000" />
       <workItem from="1481218988411" duration="8721000" />
       <workItem from="1481343327433" duration="8017000" />
-      <workItem from="1481402594240" duration="1376000" />
+      <workItem from="1481402594240" duration="1701000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112391000" />
+    <option name="totallyTimeSpent" value="112716000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -755,9 +735,31 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/squareschart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="359" column="6" selection-start-line="359" selection-start-column="6" selection-end-line="359" selection-end-column="6" />
+          <folding>
+            <marker date="1481404101000" expanded="true" signature="2968:2981" ph="..." />
+            <marker date="1481404101000" expanded="true" signature="3069:3082" ph="..." />
+            <marker date="1481404101000" expanded="true" signature="3088:3101" ph="..." />
+            <marker date="1481404101000" expanded="true" signature="3184:3197" ph="..." />
+            <marker date="1481404101000" expanded="true" signature="3304:3317" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="50" column="78" selection-start-line="50" selection-start-column="78" selection-end-line="50" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/comparisonStacked.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
+        <state relative-caret-position="-1215">
           <caret line="33" column="88" selection-start-line="33" selection-start-column="88" selection-end-line="33" selection-end-column="88" />
           <folding>
             <marker date="1481383918000" expanded="true" signature="337:1281" ph="{...}" />
@@ -770,8 +772,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/usageCostScatter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="897">
-          <caret line="209" column="26" selection-start-line="209" selection-start-column="26" selection-end-line="209" selection-end-column="26" />
+        <state relative-caret-position="132">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <marker date="1481379439000" expanded="true" signature="595:3753" ph="{...}" />
@@ -779,32 +781,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/squareschart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="357" column="6" selection-start-line="357" selection-start-column="6" selection-end-line="357" selection-end-column="6" />
-          <folding>
-            <marker date="1481403746000" expanded="true" signature="2760:2773" ph="..." />
-            <marker date="1481403746000" expanded="true" signature="2861:2874" ph="..." />
-            <marker date="1481403746000" expanded="true" signature="2880:2893" ph="..." />
-            <marker date="1481403746000" expanded="true" signature="2976:2989" ph="..." />
-            <marker date="1481403746000" expanded="true" signature="3096:3109" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/facilityMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="50" column="77" selection-start-line="50" selection-start-column="77" selection-end-line="50" selection-end-column="77" />
+        <state relative-caret-position="372">
+          <caret line="65" column="89" selection-start-line="65" selection-start-column="89" selection-end-line="65" selection-end-column="89" />
           <folding />
         </state>
       </provider>
