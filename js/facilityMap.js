@@ -70,14 +70,21 @@ FacilityMap.prototype.initVis = function() {
     // create layer group
     facilityMarkers = L.layerGroup().addTo(vis.map);
 
+    var windmillIcon = L.icon({
+        iconUrl: "img/windmill-green.png",
+        iconSize: [32, 32]
+    });
+
     // create markers; add them to marker layer group
     vis.facilityData.forEach(function(d) {
         var popupContent = d.name + "<br/>Location: " + d.city + ", MA";
-        var newMarker = L.marker([d.latitude, d.longitude])
+        var newMarker = L.marker([d.latitude, d.longitude], {icon: windmillIcon})
+            // add popup
             .bindPopup(popupContent)
+            // add mouseover events
             .on("mouseover", function() {
                 // open popup on hover
-                this.openPopup();
+                //this.openPopup();
                 // highlight the towns served by this facility
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
@@ -86,7 +93,7 @@ FacilityMap.prototype.initVis = function() {
             })
             .on("mouseout", function() {
                 // close popup
-                this.closePopup();
+                //this.closePopup();
                 // hide the towns served by this facility
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))

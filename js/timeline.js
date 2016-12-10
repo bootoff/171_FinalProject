@@ -219,7 +219,8 @@ TimeLine.prototype.updatePoints = function(indexData) {
         .on("mouseover", function(d) {
             vis.tip.show(d);
         })
-        .on("mouseout", vis.tip.hide);
+        .on("mouseout", vis.tip.hide)
+        .style("fill", "gray");
 
     // update tooltip circles
     dataSelection.transition()
