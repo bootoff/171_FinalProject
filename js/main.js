@@ -6,7 +6,8 @@ var citiesMA = [], // geoJSON - cities in MA
     facilityLocations = [], // lat, long for pilot program facilities
     plants = [], // primary data set - pilot program results
     SummaryData = [], //
-    projects = [], //    
+    projects = [], //
+    projects_nested = [];
     //ghg = {},
     //ghg_tmp = {},
     AnnualData = [];
@@ -287,16 +288,16 @@ function wrangleProjectData() {
     projects.forEach(function(d){delete d["Energy per unit power (kWh/kW)"]});
 
     
-    var projects_nested = d3.nest()
+    projects_nested = d3.nest()
         .key(function (d) {
             return d.Facility;
         })
-	.rollup(function(leaves) { return {"length": leaves.length,
-					   "totalCost": d3.sum(leaves, function(d) {return +d["Installed Cost ($)"]}),
-					   "totalPower": d3.sum(leaves, function(d) {return +d["Installation size (KW)"]})}})
+	.sortKeys(d3.ascending)
+	.rollup(function(leaves) { return {"numInstallations": leaves.length,
+					   "totalCostUSD": d3.sum(leaves, function(d) {return +d["Installed Cost ($)"]}),
+					   "totalPowerKWh": d3.sum(leaves, function(d) {return +d["Installation size (KW)"]})}})
         .entries(projects);
 
-    console.log(projects);
     console.log(projects_nested);
 
 }

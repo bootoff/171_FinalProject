@@ -334,8 +334,10 @@ SquaresChart.prototype.wrangleData = function(){
 SquaresChart.prototype.updateVis = function(){
     var vis = this;
 
-    console.log(vis.facilityArray);
-
+    for(var i=0; i<projects_nested.length; i++){
+	console.log(projects_nested[i], vis.facilityArray[i]);
+    }
+    
     // Draw horizontal bars
     var hbars = vis.svg.selectAll(".hbar").remove();
 
