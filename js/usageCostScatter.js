@@ -189,9 +189,10 @@ UsageCostScatter.prototype.updatePoints = function(indexData) {
 
     // draw data points (hidden)
     // on hover: make tooltip appear & make all points for this line appear
-    vis.svg.selectAll(".point" + vis.spaceFormat(indexData.id))
-        .data(indexData.values)
-        .enter()
+    var dataSelection = vis.svg.selectAll(".point" + vis.spaceFormat(indexData.id))
+        .data(indexData.values);
+
+    dataSelection.enter()
         .append("circle")
         .attr("class", "point vis-point point-" + vis.spaceFormat(indexData.id))
         .attr("cx", function(d) {
@@ -205,9 +206,6 @@ UsageCostScatter.prototype.updatePoints = function(indexData) {
             return vis.colors[d.FY - 7];
         })
         .style("display", "none")
-        .attr("data-legend",function(d) {
-            return "20" + d.FY;
-        })
         .on("mouseover", function(d) {
             vis.tip.show(d);
             //$("#timeline-svg").selectAll("line-" + vis.spaceFormat(indexData.id))
@@ -219,7 +217,15 @@ UsageCostScatter.prototype.updatePoints = function(indexData) {
             vis.tip.hide(d);
             vis.svg.selectAll(".point-" + vis.spaceFormat(indexData.id))
                 .style("display", "none");
+        })
+        .attr("data-legend",function(d) {
+            return "20" + d.FY;
         });
+
+    dataSelection.transition();
+
+    dataSelection.exit()
+        .remove();
 };
 
 

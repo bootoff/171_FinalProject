@@ -71,6 +71,20 @@ TimeLine.prototype.initVis = function() {
         .attr("transform", "rotate(-90)")
         .text("Electricity Savings (USD)");
 
+    // initialize tooltip || call tooltip
+    vis.tip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-10,0])
+        .html(function(d) {
+            var HTML = d.Facility;
+            if (vis.currSelection == "UsageKWh")
+                HTML += "<br/>" + d[vis.currSelection] + " KWh";
+            else
+                HTML += "<br/>\$" + d[vis.currSelection];
+            return HTML;
+        });
+    vis.svg.call(vis.tip);
+
     // initialize data selection
     vis.currSelection = "savingsUSD";
 
@@ -201,11 +215,14 @@ TimeLine.prototype.updatePoints = function(indexData) {
     dataSelection.enter()
         .append("circle")
         .attr("class", "tooltip-circle-" + vis.spaceFormat(indexData.id))
-        .attr("r", 5);
+        .attr("r", 5)
+        .on("mouseover", function(d) {
+            vis.tip.show(d);
+        })
+        .on("mouseout", vis.tip.hide);
 
     // update tooltip circles
-    dataSelection
-        .transition()
+    dataSelection.transition()
         .duration(800)
         .attr("cx", function(d) {
             return vis.x(d.FY);
