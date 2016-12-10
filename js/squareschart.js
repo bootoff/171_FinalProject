@@ -355,7 +355,7 @@ SquaresChart.prototype.updateVis = function(){
     /*
     */
 
-    console.log(vis.facilityArray);
+    //console.log(vis.facilityArray);
     
     // Draw horizontal bars
     var hbars = vis.svg.selectAll(".hbar").remove();

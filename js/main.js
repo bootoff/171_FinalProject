@@ -2,6 +2,7 @@
 
 // global variables for primary datasets
 var citiesMA = [], // geoJSON - cities in MA
+    citiesMATest,
     dataByFacility = [], // array[19] of facilities and respective data
     facilityLocations = [], // lat, long for pilot program facilities
     plants = [], // primary data set - pilot program results
@@ -73,19 +74,21 @@ function createVis() {
 queue()
     .defer(d3.csv, "data/towns_served.csv")
     .defer(d3.json, "data/mass_cities.json")
+    .defer(d3.json, "data/MA_Towns_MercatorProjection.json")
     .defer(d3.csv, "data/plants.csv")
     .defer(d3.csv, "data/ghg.csv")
     .defer(d3.csv, "data/project_details.csv")
     .await(wrangleData);
 
 // clean up data
-function wrangleData(error, townsServed, massCities, plantsData, GHGdata, projectData) {
+function wrangleData(error, townsServed, massCities, cityTest, plantsData, GHGdata, projectData) {
     if (!error) {
         // store loaded data
-        citiesMA = massCities;
-        facilityLocations = townsServed;
-        plants = plantsData;
-	projects = projectData;
+        citiesMA = massCities,
+            citiesMATest = cityTest,
+            facilityLocations = townsServed,
+            plants = plantsData,
+	        projects = projectData;
 
         // Make the ghg factor dictionary.
         GHGdata.forEach(function (d) {

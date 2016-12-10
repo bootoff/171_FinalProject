@@ -41,6 +41,8 @@ FacilityMap.prototype.initVis = function() {
         minZoom: 7
     }).addTo(vis.map);
 
+    console.log(vis.cityData);
+
     // CITY MAPS ------------------------------------------------
 
     // style for cities
@@ -49,20 +51,19 @@ FacilityMap.prototype.initVis = function() {
         weight: 1
     };
 
-    // idea: add one layer to the map, with all towns served, for each facility
-    // add city boundaries to map (hidden)
+    // add city boundaries to map
     vis.cities = L.geoJson(vis.cityData, {
         style: cityStyle,
         className: "city-bound"
     }).addTo(vis.map);
 
-    // hide all cities
+    // hide all city polygons
     d3.selectAll(".city-bound")
         .style("opacity",0);
 
     // set IDs for cities
-    vis.cities.eachLayer(function (layer) {
-        layer._path.id = 'feature-' + vis.removeSpaces(vis.reformat(layer.feature.properties.name));
+    vis.cities.eachLayer(function (d) {
+        d._path.id = 'feature-' + vis.removeSpaces(vis.reformat(d.feature.properties.TOWN));
     });
 
     // MARKERS --------------------------------------------------
@@ -70,6 +71,7 @@ FacilityMap.prototype.initVis = function() {
     // create layer group
     facilityMarkers = L.layerGroup().addTo(vis.map);
 
+    // create custom marker icon
     var windmillIcon = L.icon({
         iconUrl: "img/windmill-green.png",
         iconSize: [32, 32]
@@ -104,14 +106,14 @@ FacilityMap.prototype.initVis = function() {
     });
 
     // adjust geoJSON city names
-    vis.wrangleData();
+    //vis.wrangleData();
 };
 
 
 /*
  *  Data wrangling
  */
-
+/*
 FacilityMap.prototype.wrangleData = function() {
     var vis = this;
 
@@ -124,15 +126,15 @@ FacilityMap.prototype.wrangleData = function() {
     // Update the visualization
     //vis.updateVis();
 };
-
+*/
 
 /*
  *  The drawing function
  */
-
+/*
 FacilityMap.prototype.updateVis = function() {
 };
-
+*/
 
 // remove unwanted strings from geoJSON city names
 FacilityMap.prototype.reformat = function(str) {
