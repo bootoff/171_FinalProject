@@ -298,6 +298,4 @@ function wrangleProjectData() {
 					   "totalPowerKWh": d3.sum(leaves, function(d) {return +d["Installation size (KW)"]})}})
         .entries(projects);
 
-    console.log(projects_nested);
-
 }

@@ -13,6 +13,10 @@ var label = {"savingsUSD" : "USD",
 var squareColor = {"savingsUSD" : "green",
 		   "ElectricityGenerationKWh": "blue",
 		   "GHG" : '#3182bd'};
+var tbarColor = {"savingsUSD" : "green",
+		   "ElectricityGenerationKWh": "green",
+		   "GHG" : "green"};
+
 //"red"};
 
 //['#deebf7','#9ecae1','#3182bd']
@@ -273,6 +277,12 @@ SquaresChart.prototype.wrangleData = function(){
 
     vis.facilityArray = facilityArray;
 
+    for(var i=0; i<projects_nested.length; i++){
+	for(var key in projects_nested[i].values){
+	    vis.facilityArray[i].value[key] = projects_nested[i].values[key];
+	}
+    }
+
     // sorting arrays
     if(!vis.alphabetical){
 	vis.facilityArray.sort(function(a, b){return a.value[vis.category].sum - b.value[vis.category].sum });
@@ -309,9 +319,6 @@ SquaresChart.prototype.wrangleData = function(){
 	//.attr("transform", "translate(" + (vis.margin.left) + ", " + (cellHeight+cellPadding)*(21*0.5) + ")")    
 	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")
 	.append("text")
-        //.call(vis.yAxis)
-	//.on('click', function(d){ console.log("click", vis.alphabetical); vis.alphabetical = !vis.alphabetical});
-    
 
     vis.svg.append("g")
 	.attr("class", "h axis")
@@ -334,9 +341,10 @@ SquaresChart.prototype.wrangleData = function(){
 SquaresChart.prototype.updateVis = function(){
     var vis = this;
 
-    for(var i=0; i<projects_nested.length; i++){
-	console.log(projects_nested[i], vis.facilityArray[i]);
-    }
+    /*
+    */
+
+    console.log(vis.facilityArray);
     
     // Draw horizontal bars
     var hbars = vis.svg.selectAll(".hbar").remove();
@@ -353,8 +361,8 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("class", function(d, index){ return "hbar hbar-"+ vis.spaceFormat(d.key);})    
 	.style("fill", squareColor[vis.category])
 	.attr("x", 0)
-	.attr("y", 0)
-	.attr("height", cellHeight)
+	.attr("y", -cellHeight*0.25)
+	.attr("height", cellHeight*0.5)
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
         .on('mouseover', function(d, index){
@@ -383,6 +391,52 @@ SquaresChart.prototype.updateVis = function(){
         .duration(250)
 	.style("fill", squareColor[vis.category])    
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
+
+    // Draw horizontal total bars
+    var tbars = vis.svg.selectAll(".tbar").remove();
+
+    tbars = vis.svg.selectAll(".tbar")
+	.data(vis.facilityArray);
+    
+    tbars.enter()
+	.append("g")
+	.attr("transform", function(d, index) {
+	    return "translate(" + (vis.margin.left + 520) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
+	})
+	.append("rect")
+	.attr("class", function(d, index){ return "tbar tbar-"+ vis.spaceFormat(d.key);})    
+	.style("fill", tbarColor[vis.category])
+	.attr("x", 0)
+	.attr("y", +cellHeight*0.25)
+	.attr("height", cellHeight*0.5)
+	.attr("width", function(d){ return vis.hbarlength(d.value["totalCostUSD"])})
+	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
+        .on('mouseover', function(d, index){
+            d3.select(this).style("fill", function(d){ return "brown"});
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
+	    var tmpOpacity = d3.scale.linear()
+		.domain([0, d.value[vis.category].max])
+		.range([0.05, 1.0]);
+	    theSquares
+		.style("fill", function(x){ return "brown"})
+		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
+	})
+        .on("mouseout", function(d, i) {
+            d3.select(this).style("fill", function(d, index) {
+		return (+d[vis.category]==0) ? "gray" : tbarColor[vis.category];});
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));	    
+	    theSquares
+		//.style("fill", function(x){ return squareColor[vis.category]})
+		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})	    
+		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    	    
+	});
+
+    // Update
+    tbars
+	.transition()
+        .duration(250)
+	.style("fill", squareColor[vis.category])    
+	.attr("width", function(d){ return vis.hbarlength(d.value["totalCostUSD"])})
     
     // Draw vertical bars
     var vbars = vis.svg.selectAll(".vbar")
@@ -464,6 +518,7 @@ SquaresChart.prototype.updateVis = function(){
 	    vis.tip.show(d);	    
             d3.select(this).style("fill", "brown");
 	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});
+	    //d3.select(".tbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return "brown"});	    
 	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return "brown"})
 	})
         .on("mouseout", function(d, i) {
@@ -471,6 +526,7 @@ SquaresChart.prototype.updateVis = function(){
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
 	    d3.select(".vbar-"+d.FY).style("fill", function(x){ return squareColor[vis.category]});
+	    //d3.select(".tbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})
 	    d3.select(".hbar-"+vis.spaceFormat(d.Facility)).style("fill", function(x){ return squareColor[vis.category]})
 	})
     
