@@ -1,20 +1,20 @@
 Rank (size),Average Monthly Flow MGD,name,address,latitude,longitude,city,townsServed,project,type,townsServed orig
-3,56,Upper Blackstone Wastewater Pollution Abatement District,50 Route 20,42.21251,-71.788495,Millbury,"Auburn, Cherry Valley Sewer District, Holden, Millbury, Rutland, West Boylston, Worcester, Oxford, Paxton, Shrewsbury, Sutton",MA Energy Pilot,WW,"Auburn, Cherry Valley Sewer District, Holden, Millbury, Rutland, West Boylston, and Worcester.Œæ The District also serves portions of Oxford, Paxton, Shrewsbury, and Sutton."
+3,56,Upper Blackstone Wastewater Pollution Abatement District,50 Route 20,42.21251,-71.788495,Millbury,"Auburn, Cherry Valley Sewer District, Holden, Millbury, Rutland, West Boylston, Worcester, Oxford, Paxton, Shrewsbury, Sutton",MA Energy Pilot,WW,"Auburn, Cherry Valley Sewer District, Holden, Millbury, Rutland, West Boylston, and Worcester.ï¿½ï¿½ The District also serves portions of Oxford, Paxton, Shrewsbury, and Sutton."
 4,52,Greater Lawrence Sanitary District,240 Charles St.,42.712294,-71.131349,North Andover,"Andover, North Andover, Lawrence Metheun",MA Energy Pilot,WW,"Andover, North Andover, Lawrence Metheun, Salem, NH"
 5,32,Lowell Regional Water and Wastewater Utility,"451 First St. Blvd., Route 110",42.648541,-71.289208,Lowell,"Lowell, Chelmsford, Dracut, Tewksbury, Tyngsboro",MA Energy Pilot,WW,"Lowell, Chelmsford, Dracut, Tewksbury and Tyngsboro"
 13,17,Pittsfield Wastewater Treatment Facility,901 Holmes Rd.,42.41137,-73.250668,Pittsfield,"Pittsfield, Dalton, Hinsdale, Lenox",MA Energy Pilot,WW,"Pittsfield, Dalton, Hinsdale, and sections of Lenox"
 24,5.7,Charles River Pollution Control District,66 Village St.,42.143644,-71.384859,Medway,"Bellingham, Franklin, Medway, Millis, Norfolk, Wrentham, Dover, Sherborn",MA Energy Pilot,WW,"Bellingham, Franklin, Medway, Millis, Norfolk, Wrentham, Dover and Sherborn"
-102,4.2,Barnstable Water Pollution Control Facility,617 Bearsea's Way,41.665732,-70.302014,Barnstable ,Barnstable ,MA Energy Pilot,WW,Barnstable 
-106,0.81,Falmouth,154 Blacksmithshop Road,41.602299,-70.624494,Falmouth ,Falmouth ,MA Energy Pilot,WW,Falmouth 
+102,4.2,Barnstable Water Pollution Control Facility,617 Bearsea's Way,41.665732,-70.302014,Barnstable,Barnstable,MA Energy Pilot,WW,Barnstable
+106,0.81,Falmouth,154 Blacksmithshop Road,41.602299,-70.624494,Falmouth,Falmouth,MA Energy Pilot,WW,Falmouth
 2,30,Worcester Water Filtration Plant,71 Stonehouse Hill Road,42.300368,-71.865428,Holden,Worcester,MA Energy Pilot,DW,Worcester
-3,12,Quittacus Water Treatment Plant ,1 Negus Way,41.786652,-70.922739,East Freetown ,New Bedford,MA Energy Pilot,DW,New Bedford
+3,12,Quittacus Water Treatment Plant ,1 Negus Way,41.786652,-70.922739,East Freetown,New Bedford,MA Energy Pilot,DW,New Bedford
 31,2.1,Falmouth Water Treatment Plant - Long Pond Pumping Station,65 Pumping Station Road ,41.571877,-70.613591,Falmouth,Falmouth,MA Energy Pilot,DW,Falmouth
 58,2,Howe Street Water Treatment  Facility ,229 Howe Street,42.258766,-71.505254,Ashland,Ashland,MA Energy Pilot,DW,Ashland
 63,0.95,Easton Water Division  -Pumping Station #2,411 Washington Street,42.058536,-71.087956,Easton,Easton,MA Energy Pilot,DW,Easton
 118,0.8,Lee Drinking Water Treatment Plant,310 Reservoir Road,42.326693,-73.215531,Lee,Lee,MA Energy Pilot,DW,Lee
-172,0.7,Townsend Water Treatment -- Harbor Trace Well,24 Harbor Trace Road,42.648639,-71.673373,Townsend ,Townsend,MA Energy Pilot,DW,Townsend
+172,0.7,Townsend Water Treatment -- Harbor Trace Well,24 Harbor Trace Road,42.648639,-71.673373,Townsend,Townsend,MA Energy Pilot,DW,Townsend
 1,436,MA Water Resources Authority (MWRA) Deer Island Treatment Plant,190 Tafts Avenue,42.356023,-70.968363,Winthrop,Winthrop,Green Project Reserve,WW,Winthrop
-----,part of system,MA Water Resources Authority (MWRA) Delauri Pump Station,unknown',42.379766,-71.060226,Charlestown ,Charlestown ,Green Project Reserve,WW,Charlestown 
+----,part of system,MA Water Resources Authority (MWRA) Delauri Pump Station,unknown',42.379766,-71.060226,Charlestown,Charlestown ,Green Project Reserve,WW,Charlestown
 30,5,Fairhaven Wastewater Treatment Plant,5 Arsene Street,41.640579,-70.876585,Fairhaven,Fairhaven,Green Project Reserve,WW,Fairhaven
 40,3.4,Newburyport Wastewater Pollution Control Facility,157 Water Street,42.808546,-70.861597,Newburyport,Newburyport,Green Project Reserve,WW,Newburyport
 1,215,MA Water Resources Authority (MWRA) John J. Carroll Water Treatment Plant,86 D'Angelo Drive,42.312974,-71.581618,Marlboro,Marlboro,Green Project Reserve,DW,Marlboro

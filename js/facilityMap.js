@@ -72,10 +72,12 @@ FacilityMap.prototype.initVis = function() {
 
     // create markers; add them to marker layer group
     vis.facilityData.forEach(function(d) {
-        var popupContent = d.name;
+        var popupContent = d.name + "<br/>Location: " + d.city + ", MA";
         var newMarker = L.marker([d.latitude, d.longitude])
             .bindPopup(popupContent)
             .on("mouseover", function() {
+                // open popup on hover
+                this.openPopup();
                 // highlight the towns served by this facility
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
@@ -83,6 +85,8 @@ FacilityMap.prototype.initVis = function() {
                 });
             })
             .on("mouseout", function() {
+                // close popup
+                this.closePopup();
                 // hide the towns served by this facility
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
