@@ -279,7 +279,24 @@ function wrangleProjectData() {
 
     // We decided to drop the Chelmsford data.
     projects = projects.filter(function(d) { return d.Facility != "Chelmsford Water District" });
+    // Drop some outdated or unreliable data
+    projects.forEach(function(d){delete d["Energy Generated (KWh)"]});
+    projects.forEach(function(d){delete d["Savings – REC revenue ($)"]});
+    projects.forEach(function(d){delete d["Savings – avoided electricity ($)"]});
+    projects.forEach(function(d){delete d["Installed Cost ($) per watt"]});
+    projects.forEach(function(d){delete d["Energy per unit power (kWh/kW)"]});
+
     
+    var projects_nested = d3.nest()
+        .key(function (d) {
+            return d.Facility;
+        })
+	.rollup(function(leaves) { return {"length": leaves.length,
+					   "totalCost": d3.sum(leaves, function(d) {return +d["Installed Cost ($)"]}),
+					   "totalPower": d3.sum(leaves, function(d) {return +d["Installation size (KW)"]})}})
+        .entries(projects);
+
     console.log(projects);
+    console.log(projects_nested);
 
 }

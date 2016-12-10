@@ -1,4 +1,4 @@
-Facility,Description,Installation size (KW),Date of operation,Installed Cost ($)s,Installed Cost ($) per watt,Energy Generated (KWh),Energy per unit power (kWh/kW),Savings – avoided electricity ($),Savings – REC revenue ($)
+Facility,Description,Installation size (KW),Date of operation,Installed Cost ($),Installed Cost ($) per watt,Energy Generated (KWh),Energy per unit power (kWh/kW),Savings – avoided electricity ($),Savings – REC revenue ($)
 Ashland,solar PV (roof),24.6,7/6/2010,277887,11.30,27787,1130,4669,889
 Barnstable,solar PV (ground),819,2/22/2012,3935198,4.80,990000,1210,136268,31688
 Barnstable,wind turbines (two 100 kW),200,6/1/2011,1418423,7.09,282000,1410,38806,9024
