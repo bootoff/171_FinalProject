@@ -34,7 +34,7 @@ h1 .sub-headline {
 h1.text0{
     font-family: 'Archivo Black', sans-serif;
     font-size: 4em;
-    color: #006d2c;
+   color: #006d2c
     margin-bottom: 1em;
 }
 
@@ -59,11 +59,34 @@ h2.text4 {
     height: 1100px;
 }
 
+/*.intro{
+    background: #1c9099;
+}*/
+
+/* panel - heading */
+.panel-body{
+    font-family: 'Tinos', serif;
+    font-size: medium;
+    text-align: justify;
+}
+
+
+
+.page-header{
+    font-weight: bold;
+    color: #1b6d85;
+}
+
+.panel-heading{
+    font-family: 'Reem Kufi', sans-serif;
+    color: #1b6d85;
+    }
+
 /* facilityMap */
 #facility-map {
     height: 550px;
     margin: 20px;
-    width: 100%;
+    width: 65%;
 }
 
 /* comparisonStacked */
