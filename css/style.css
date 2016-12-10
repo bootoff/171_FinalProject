@@ -44,6 +44,16 @@ h2.text1 {
     text-align: center;
     border-bottom-left-radius: 0.4em;
     }
+
+h2.text3 {
+    font-family: 'Tinos', serif;
+    color:#4F545A;
+    text-align: justify;
+    font-size: 19px;
+    padding: 2.5em;
+    line-height: 1.4;
+}
+
 h2.text4 {
     font-family: 'Tinos', serif;
     /*font-family: 'Slabo 27px', serif;*/
