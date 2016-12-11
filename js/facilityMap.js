@@ -92,7 +92,7 @@ FacilityMap.prototype.initVis = function() {
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
                         .style("opacity", 0.8);
-                    console.log(vis.removeSpaces(vis.reformat(d2)));
+                    //console.log(d.city + " " + vis.removeSpaces(vis.reformat(d2)));
                 });
             })
             .on("mouseout", function() {
