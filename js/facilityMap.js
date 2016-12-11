@@ -145,8 +145,9 @@ FacilityMap.prototype.reformat = function(str) {
     return str;
 };
 
-// replace spaces by -'s
+// remove spaces from outer edges of strings; replace inner spaces by -'s
 FacilityMap.prototype.removeSpaces = function(str) {
+    str = str.trim();
     str = str.replace(" ", "-");
     return str;
 };
