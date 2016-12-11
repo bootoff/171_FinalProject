@@ -240,6 +240,10 @@ Co2Savings.prototype.updateVisualization = function() {
         .attr("height", function (d) {
             return vis.height - vis.y(d.totalCostUSD);
         })
+        .attr("data-legend",function(d) {
+            return  d.num_years + " yr total";
+        })
+    
 
     tbars.exit().remove();
     
