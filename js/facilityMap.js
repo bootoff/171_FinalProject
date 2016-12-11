@@ -78,6 +78,9 @@ FacilityMap.prototype.initVis = function() {
         iconSize: [32, 32]
     });
 
+    // exclude Chelmsford facility per team's decision
+    vis.facilityData.splice(20, 1);
+
     // create markers; add them to marker layer group
     vis.facilityData.forEach(function(d) {
         var popupContent = d.name + "<br/>Location: " + d.city + ", MA";
