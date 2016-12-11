@@ -9,9 +9,17 @@ Co2Savings = function(_parentElement, _data){
     this.parentElement = _parentElement;
     this.data = _data;
 
-    //console.log(this.data);
+    console.log(this.data);
 
     this.initVis();
+};
+
+n_copies = function(d, n){
+    var c = [];
+    for(var i=0; i<d.num_years; i++){
+	c.concat(d);
+    }
+    return c;
 };
 
 //Initialization:
@@ -101,6 +109,7 @@ Co2Savings.prototype.wrangleData = function() {
     vis.displayData = vis.data;
 
     vis.category = d3.select("#ranking-type").property("value");
+    console.log(vis.category);
 
     vis.displayData.sort(function (x, y) {
         return y[vis.category] - x[vis.category]
@@ -119,21 +128,80 @@ Co2Savings.prototype.updateVisualization = function() {
     vis.x.domain(vis.displayData.map(function (d) { return d.key; } ));
     vis.y.domain([0, d3.max(vis.displayData, function (d) { return d[vis.category]; }) ]);
 
-    var rect = vis.svg.selectAll("rect")
+    var bars = vis.svg.selectAll(".bar")
         .data(vis.displayData);
 
-    rect.enter()
-	.append("rect")
+    bars.enter()
+    	.append("rect")
+    	//.each(function(d, i){for(var j=0; j<d.num_years; j++){ console.log(i, j, d.num_years)}})
         .attr("class", "bar")
         .attr("x", function (d) {
-            return vis.x(d.key);
-        })
+            //return vis.x(d.key);
+	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.0*vis.x.rangeBand() : vis.x(d.key) })
         .attr("y", function (d) {
-            return vis.y(d.savings_USD_sum)
+            return (vis.category == 'totalCostUSD') ? vis.y(d['savings_USD_sum']): vis.y(d[vis.category]);
         })
-        .attr("width", 10)
+        //.attr("width", vis.x.rangeBand())
+        .attr("width", function(d){
+	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : vis.x.rangeBand(); })
         .attr("height", function (d) {
-            return vis.height - vis.y(d.savings_USD_sum);
+            return (vis.category == 'totalCostUSD') ? vis.height - vis.y(d['savings_USD_sum']): vis.height - vis.y(d[vis.category]);
+            //return vis.height - vis.y(d.savings_USD_sum);
+        })
+        .style("fill", function(d) {
+            return vis.colorScale(d.num_years);
+        })
+        .on("mouseover", function(d, index) {
+            d3.select(this)
+                .style("fill", "green");
+            vis.tip.show(d);
+        })
+        .on('mouseout', function(d, index) {
+            d3.select(this)
+                .style("fill", function(d) {
+                    return vis.colorScale(d.num_years);
+                });
+            vis.tip.hide(d)});
+
+    bars
+        .transition()
+        .duration(800)
+        .style("fill", function(d) {
+            return vis.colorScale(d.num_years);
+        })
+        .attr("x", function (d) {
+            //return vis.x(d.key);
+	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.0*vis.x.rangeBand() : vis.x(d.key) })
+        .attr("y", function (d) {
+            return (vis.category == 'totalCostUSD') ? vis.y(d['savings_USD_sum']): vis.y(d[vis.category]);		    
+        })
+        .attr("width", function(d){ return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : vis.x.rangeBand(); })    
+	.attr("height", function (d) {
+            return (vis.category == 'totalCostUSD') ? vis.height - vis.y(d['savings_USD_sum']): vis.height - vis.y(d[vis.category]);	
+            //return vis.height - vis.y(d[vis.category]);
+        })
+        .attr("data-legend",function(d) {
+            return  d.num_years + " yr total";
+        })
+
+    bars.exit().remove();
+
+    var tbars = vis.svg.selectAll(".tbar")
+        .data(vis.displayData);
+
+    tbars.enter()
+    	.append("rect")
+    	//.each(function(d, i){for(var j=0; j<d.num_years; j++){ console.log(i, j, d.num_years)}})
+        .attr("class", "tbar")
+        .attr("x", function (d) {
+            //return vis.x(d.key);
+	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.5*vis.x.rangeBand() : vis.x(d.key) })
+        .attr("y", function (d) {
+            return vis.y(d.totalCostUSD);
+        })
+        .attr("width", function(d){ return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : 0 })
+        .attr("height", function (d) {
+            return vis.height - vis.y(d.totalCostUSD);
         })
         .attr("data-legend",function(d) {
             return  d.num_years + " yr total";
@@ -153,32 +221,25 @@ Co2Savings.prototype.updateVisualization = function() {
                 });
             vis.tip.hide(d)});
 
-    rect
+    tbars
         .transition()
         .duration(800)
         .style("fill", function(d) {
             return vis.colorScale(d.num_years);
         })
         .attr("x", function (d) {
-            return vis.x(d.key);
-        })
+            //return vis.x(d.key);
+	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.5*vis.x.rangeBand() : vis.x(d.key) })
         .attr("y", function (d) {
-            return vis.y(d[vis.category]);
+            return vis.y(d.totalCostUSD);
         })
-        .attr("width", vis.x.rangeBand())
+        .attr("width", function(d){ return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : 0 })
         .attr("height", function (d) {
-            return vis.height - vis.y(d[vis.category]);
+            return vis.height - vis.y(d.totalCostUSD);
         })
 
-    rect.exit().remove();
-
-    //attribute data-legend-pos
-    vis.legend = vis.svg.append("g")
-        .attr("class","legend")
-        .attr("transform","translate(500,10)")
-        .style("font-size","12px")
-        .call(d3.legend);
-
+    tbars.exit().remove();
+    
     vis.svg.select(".y.axis.group")
 	.transition()
 	.duration(250)
@@ -192,6 +253,14 @@ Co2Savings.prototype.updateVisualization = function() {
 	.attr("y", 4)
 	.attr("x", 8)    
         .attr("transform", "rotate(45)")
-	.style("text-anchor", "start");    
+	.style("text-anchor", "start");
+
+    //attribute data-legend-pos
+    vis.legend = vis.svg.append("g")
+        .attr("class","legend")
+        .attr("transform","translate(500,10)")
+        .style("font-size","12px")
+        .call(d3.legend);
+    
     
 }

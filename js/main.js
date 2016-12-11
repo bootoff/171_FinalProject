@@ -237,16 +237,20 @@ function wrangleSummaryData() {
     });
     //console.log("Savings (Millions of KWH): ", SavingsKWh / 1e6, "Savings (Millions USD): ", SavingsUSD / 1e6, "Savings (Tons): ", SavingsGHG);
 
+    //console.log(projects_nested);
+
     SummaryData.forEach(function(data, index){
 	for(var i=0; i<projects_nested.length; i++){
-	    if(data.key == projects_nested[i].key){
-		for(var key in projects_nested[i].values){
-		    SummaryData[i][key] = projects_nested[i].values[key];
+	    if(data.key == projects_nested[i].key){	    
+		for(var x in projects_nested[i].values){
+		    SummaryData[index][x] = projects_nested[i].values[x];
 		}
 	    }
 	}
     });
 
+    console.log(SummaryData);
+    
     var nestedFY = d3.nest()
         .key(function (d) {
             return d.FY;
