@@ -48,7 +48,7 @@ function createVis() {
     // timeLine event handler
     var timeLineEventHandler = {};
     
-    facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMA, centerOfMA);
+    facilityMap = new FacilityMap("facility-map", facilityLocations, citiesMATest, centerOfMA);
     co2Savings = new Co2Savings("comparison-stacked", SummaryData);
     usageCostScatter = new UsageCostScatter("usagecost-scatter", plants, dataByFacility);
     squaresChart = new SquaresChart("squares-chart", plants, myEventHandler);
@@ -74,7 +74,7 @@ function createVis() {
 queue()
     .defer(d3.csv, "data/towns_served.csv")
     .defer(d3.json, "data/mass_cities.json")
-    .defer(d3.json, "data/MA_Towns_MercatorProjection.json")
+    .defer(d3.json, "data/TownsMA_EPSG_01.json")
     .defer(d3.csv, "data/plants.csv")
     .defer(d3.csv, "data/ghg.csv")
     .defer(d3.csv, "data/project_details.csv")
