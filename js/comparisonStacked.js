@@ -53,6 +53,9 @@ Co2Savings.prototype.initVis = function() {
         .orient("bottom");
 
     vis.colorScale = d3.scale.category20();
+    vis.colorScale = d3.scale.ordinal()
+	.domain(["foo", "bar", "baz"])
+	.range(colorbrewer.YlGnBu[3]);    
 
     vis.xAxisGroup = vis.svg.append("g")
         .attr("class", "x axis group")
