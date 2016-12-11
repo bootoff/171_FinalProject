@@ -41,7 +41,8 @@ FacilityMap.prototype.initVis = function() {
         minZoom: 7
     }).addTo(vis.map);
 
-    console.log(vis.cityData);
+    //console.log(vis.facilityData);
+    //console.log(vis.cityData);
 
     // CITY MAPS ------------------------------------------------
 
@@ -63,7 +64,7 @@ FacilityMap.prototype.initVis = function() {
 
     // set IDs for cities
     vis.cities.eachLayer(function (d) {
-        d._path.id = 'feature-' + vis.removeSpaces(vis.reformat(d.feature.properties.name));
+        d._path.id = 'feature-' + vis.removeSpaces(vis.reformat(d.feature.properties.TOWN));
     });
 
     // MARKERS --------------------------------------------------
@@ -91,6 +92,7 @@ FacilityMap.prototype.initVis = function() {
                 d.townsServed.forEach(function(d2) {
                     d3.select("#feature-" + vis.removeSpaces(vis.reformat(d2)))
                         .style("opacity", 0.8);
+                    console.log(vis.removeSpaces(vis.reformat(d2)));
                 });
             })
             .on("mouseout", function() {
@@ -136,9 +138,10 @@ FacilityMap.prototype.updateVis = function() {
 };
 */
 
-// remove unwanted strings from geoJSON city names
+// remove unwanted strings from geoJSON city names; make name lowercase
 FacilityMap.prototype.reformat = function(str) {
     str = str.replace(", MA", '');
+    str = str.toLowerCase();
     return str;
 };
 
