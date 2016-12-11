@@ -10,8 +10,8 @@ var label = {"savingsUSD" : "USD",
 	     "ElectricityGenerationKWh": "KWh",
 	     "GHG" : "tons"};
 
-var standoutColor = "#04BFBF", moneyColor="#A9CF54", electricityColor="#FFE11A", GHGColor='#588F27';
-//var standoutColor = "#5E0042", moneyColor="#8DB500", electricityColor="#005869", GHGColor='#00856A';
+//var standoutColor = "#04BFBF", moneyColor="#A9CF54", electricityColor="#FFE11A", GHGColor='#588F27';
+var standoutColor = "#5E0042", moneyColor="#8DB500", electricityColor="#005869", GHGColor='#00856A';
 //var standoutColor = "#01A2A6", moneyColor='#962D3E', electricityColor="#343642", GHGColor="#348899";
 
 var squareColor = {"savingsUSD" : moneyColor,

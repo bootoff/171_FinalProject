@@ -44,11 +44,11 @@ Co2Savings.prototype.initVis = function() {
         .scale(vis.x)
         .orient("bottom");
 
-    //THIS IS NOT WORKING:
-    vis.AxisGroup = vis.svg.append("g")
-        .attr("class", "x-axis group")
-        //.call(vis.xAxis)
-        .attr("transform", "translate(0," + vis.height + ")rotate(-65)");
+    vis.colorScale = d3.scale.category20();
+
+    vis.xAxisGroup = vis.svg.append("g")
+        .attr("class", "x axis group")
+        .attr("transform", "translate(0," + vis.height + ")");
 
     vis.yAxis = d3.svg.axis()
         .scale(vis.y)
@@ -57,7 +57,6 @@ Co2Savings.prototype.initVis = function() {
 
     vis.yAxisGroup = vis.svg.append("g")
         .attr("class", "y axis group")
-        //.call(vis.yAxis);
 
     vis.svg.append("text")
         .attr("class", "label x-label")
@@ -78,6 +77,18 @@ Co2Savings.prototype.initVis = function() {
 
     vis.svg.call(vis.tip);
 
+    d3.select("#ranking-type").on("change", function (d) {
+        //Get the current selection
+	vis.category = d3.select("#ranking-type").property("value");
+
+        vis.displayData.sort(function (a, b) {
+            return b[vis.category] - a[vis.category]
+        });
+
+        vis.wrangleData()
+    });
+    
+
     vis.wrangleData();
 }
 
@@ -88,7 +99,6 @@ Co2Savings.prototype.wrangleData = function() {
     var vis = this;
 
     vis.displayData = vis.data;
-    vis.svg.call(vis.tip);
 
     vis.category = d3.select("#ranking-type").property("value");
 
@@ -96,18 +106,6 @@ Co2Savings.prototype.wrangleData = function() {
         return y[vis.category] - x[vis.category]
     });
 
-    d3.select("#ranking-type").on("change", function (d) {
-        //Get the current selection
-        //var selection = d3.select("#ranking-type").property("value");
-	vis.category = d3.select("#ranking-type").property("value");
-        console.log("this is the " + vis.category);
-
-        vis.displayData.sort(function (a, b) {
-            return b[vis.category] - a[vis.category]
-        });
-
-        vis.updateVisualization()
-    });
     vis.updateVisualization()
 }
 
@@ -116,91 +114,70 @@ Co2Savings.prototype.wrangleData = function() {
 
 Co2Savings.prototype.updateVisualization = function() {
 
-        var vis = this;
+    var vis = this;
 
-        vis.displayData = vis.data;
+    vis.x.domain(vis.displayData.map(function (d) { return d.key; } ));
+    vis.y.domain([0, d3.max(vis.displayData, function (d) { return d[vis.category]; }) ]);
 
-        vis.svg.call(vis.tip);
+    var rect = vis.svg.selectAll("rect")
+        .data(vis.displayData);
 
-        var selection = d3.select("#ranking-type").property("value");
-
-        vis.x.domain(vis.displayData.map(function (d) {
-            return d.key;
-            }
-        ));
-
-        vis.y.domain([0, d3.max(vis.displayData, function (d) {
-            return d[vis.category];
+    rect.enter()
+	.append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return vis.x(d.key);
         })
-        ]);
-
-
-        vis.colorScale = d3.scale.category20();
-
-        vis.svg.selectAll(".bar")
-            .data(vis.displayData)
-            .enter()
-            .append("rect")
-            .attr("class", "bar")
-            .style("fill", function(d) {
-                return vis.colorScale(d.num_years);
-            })
-            .attr("x", function (d) {
-                return vis.x(d.key);
-            })
-            .attr("width", vis.x.rangeBand())
-            .attr("width", 10)
-            .attr("y", function (d) {
-                return vis.y(d.savings_USD_sum)
-            })
-            .attr("height", function (d) {
-                return vis.height - vis.y(d.savings_USD_sum);
-            })
-            .attr("data-legend",function(d) {
-                return  d.num_years + " yr total";
-            })
-            .on("mouseover", function(d, index) {
-                d3.select(this)
-                    .style("fill", "green");
-                vis.tip.show(d);
-            })
-            .on('mouseout', function(d, index) {
-                d3.select(this)
-                    .style("fill", function(d) {
+        .attr("y", function (d) {
+            return vis.y(d.savings_USD_sum)
+        })
+        .attr("width", 10)
+        .attr("height", function (d) {
+            return vis.height - vis.y(d.savings_USD_sum);
+        })
+        .attr("data-legend",function(d) {
+            return  d.num_years + " yr total";
+        })
+        .style("fill", function(d) {
+            return vis.colorScale(d.num_years);
+        })
+        .on("mouseover", function(d, index) {
+            d3.select(this)
+                .style("fill", "green");
+            vis.tip.show(d);
+        })
+        .on('mouseout', function(d, index) {
+            d3.select(this)
+                .style("fill", function(d) {
                     return vis.colorScale(d.num_years);
                 });
-                vis.tip.hide(d)});
+            vis.tip.hide(d)});
+
+    rect
+        .transition()
+        .duration(800)
+        .style("fill", function(d) {
+            return vis.colorScale(d.num_years);
+        })
+        .attr("x", function (d) {
+            return vis.x(d.key);
+        })
+        .attr("y", function (d) {
+            return vis.y(d[vis.category]);
+        })
+        .attr("width", vis.x.rangeBand())
+        .attr("height", function (d) {
+            return vis.height - vis.y(d[vis.category]);
+        })
+
+    rect.exit().remove();
 
     //attribute data-legend-pos
-    
     vis.legend = vis.svg.append("g")
         .attr("class","legend")
         .attr("transform","translate(500,10)")
         .style("font-size","12px")
         .call(d3.legend);
-
-        var rect = vis.svg.selectAll("rect")
-            .data(vis.displayData);
-
-        rect.enter().append("rect")
-            .attr("class", "bar")
-            .on('mouseover', vis.tip.show)
-            .on('mouseout', function(d, index) { vis.tip.hide(d)});
-
-        rect.exit().remove();
-
-        rect
-            .transition()
-            .duration(800)
-            .attr("y", function (d) {
-                return vis.y(d[vis.category]);
-            })
-            .attr("width", vis.x.rangeBand())
-            .attr("height", function (d) {
-                return vis.height - vis.y(d[vis.category]);
-            })
-            .transition()
-            .delay(800);
 
     vis.svg.select(".y.axis.group")
 	.transition()
@@ -210,7 +187,11 @@ Co2Savings.prototype.updateVisualization = function() {
     vis.svg.select(".x.axis.group")
 	.transition()
 	.duration(250)
-	.call(vis.xAxis);
+	.call(vis.xAxis)
+	.selectAll("text")
+	.attr("y", 4)
+	.attr("x", 8)    
+        .attr("transform", "rotate(45)")
+	.style("text-anchor", "start");    
     
-
 }
