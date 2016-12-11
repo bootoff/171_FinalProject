@@ -149,43 +149,6 @@ Co2Savings.prototype.updateVisualization = function() {
         .on('mouseout', function(d, index) {
             d3.select(this)
                 .style("fill", function(d) {
-        ]);
-
-
-       vis.colorScale = d3.scale.ordinal()
-            .domain(["foo", "bar", "baz"])
-            .range(colorbrewer.YlGnBu[3]);
-
-        vis.svg.selectAll(".bar")
-            .data(vis.displayData)
-            .enter()
-            .append("rect")
-            .attr("class", "bar")
-            .style("fill", function(d) {
-                return vis.colorScale(d.num_years);
-            })
-            .attr("x", function (d) {
-                return vis.x(d.key);
-            })
-            .attr("width", vis.x.rangeBand())
-            .attr("width", 10)
-            .attr("y", function (d) {
-                return vis.y(d.savings_USD_sum)
-            })
-            .attr("height", function (d) {
-                return vis.height - vis.y(d.savings_USD_sum);
-            })
-            .attr("data-legend",function(d) {
-                return  d.num_years + " yr total";
-            })
-            .on("mouseover", function(d, index) {
-                d3.select(this)
-                    .style("fill", "#8DB500");
-                vis.tip.show(d);
-            })
-            .on('mouseout', function(d, index) {
-                d3.select(this)
-                    .style("fill", function(d) {
                     return vis.colorScale(d.num_years);
                 });
             vis.tip.hide(d)});
