@@ -5,6 +5,11 @@
 // to do: x axis
 // color bars by years in project (4, 5, or 6)
 
+var cat_label = {"savings_USD_sum" : "USD",
+	     "totalCostUSD" : "USD",	     
+	     "energy_sum": "KWh",
+	     "ghg_sum" : "tons"};
+
 Co2Savings = function(_parentElement, _data){
     this.parentElement = _parentElement;
     this.data = _data;
@@ -27,11 +32,11 @@ n_copies = function(d, n){
 Co2Savings.prototype.initVis = function() {
     var vis = this;
 
-    vis.margin = {top: 30, right: 10, bottom: 60, left: 100};
+    vis.margin = {top: 30, right: 10, bottom: 80, left: 60};
 
     vis.width = 700 - vis.margin.left - vis.margin.right,
         vis.height = 500 - vis.margin.top - vis.margin.bottom,
-        vis.offset = 50;
+        vis.offset = 40;
 
     // SVG drawing area
     vis.svg = d3.select("#" + vis.parentElement)
@@ -40,6 +45,12 @@ Co2Savings.prototype.initVis = function() {
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
         .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+
+    vis.svg.append("text")
+	.attr("text-anchor", "end")
+    	.attr("transform", "translate(-15,-10)")    
+	.attr("class", "y axis-title")
+    	.text("USD")
 
     // Scales and axes
     vis.x = d3.scale.ordinal()
@@ -71,23 +82,41 @@ Co2Savings.prototype.initVis = function() {
 
     vis.svg.append("text")
         .attr("class", "label x-label")
-        .attr("x", vis.width/2)
+        .attr("x", 20)
         .attr("y", vis.height + vis.offset)
         .style("text-anchor", "end")
         .text("Plant Facilities");
 
-    //Tool tip
+    //Tool tips
     vis.tip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-            return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
-                 "<br>" + "<span style='color:#bdbdbd'>" +  d[vis.category] + "<br>"+
-                "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
+	    if(vis.category=='totalCostUSD' || vis.category=='savings_USD_sum'){
+		return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
+                    "<br>" + "Savings to date <br><br>" + cat_label['savings_USD_sum'] + ": " + "<span style='color:#bdbdbd'>" +  d['savings_USD_sum'].toFixed(2) + "<br>"+
+                    "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
+	    }else{
+		return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
+                    "<br>" + cat_label[vis.category] + ": " + "<span style='color:#bdbdbd'>" +  d[vis.category].toFixed(2) + "<br>"+
+                    "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
+	    }
+	    
         });
 
     vis.svg.call(vis.tip);
 
+    vis.tbartip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+	    return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
+                "<br>" + "Installation cost <br><br>" + cat_label['totalCostUSD'] + ": " + "<span style='color:#bdbdbd'>" +  d['totalCostUSD'].toFixed(2) + "<br>"+
+                "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
+        });
+
+    vis.svg.call(vis.tbartip);
+    
     d3.select("#ranking-type").on("change", function (d) {
         //Get the current selection
 	vis.category = d3.select("#ranking-type").property("value");
@@ -112,7 +141,6 @@ Co2Savings.prototype.wrangleData = function() {
     vis.displayData = vis.data;
 
     vis.category = d3.select("#ranking-type").property("value");
-    console.log(vis.category);
 
     vis.displayData.sort(function (x, y) {
         return y[vis.category] - x[vis.category]
@@ -212,17 +240,18 @@ Co2Savings.prototype.updateVisualization = function() {
         .style("fill", function(d) {
             return vis.colorScale(d.num_years);
         })
+	.style("opacity", 0.5)
         .on("mouseover", function(d, index) {
             d3.select(this)
                 .style("fill", "green");
-            vis.tip.show(d);
+            vis.tbartip.show(d);
         })
         .on('mouseout', function(d, index) {
             d3.select(this)
                 .style("fill", function(d) {
                     return vis.colorScale(d.num_years);
                 });
-            vis.tip.hide(d)});
+            vis.tbartip.hide(d)});
 
     tbars
         .transition()
@@ -230,6 +259,7 @@ Co2Savings.prototype.updateVisualization = function() {
         .style("fill", function(d) {
             return vis.colorScale(d.num_years);
         })
+	.style("opacity", 0.5)    
         .attr("x", function (d) {
             //return vis.x(d.key);
 	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.5*vis.x.rangeBand() : vis.x(d.key) })
@@ -268,6 +298,10 @@ Co2Savings.prototype.updateVisualization = function() {
         .attr("transform","translate(500,10)")
         .style("font-size","12px")
         .call(d3.legend);
+
+    vis.svg.select(".y.axis-title")
+	.text(cat_label[vis.category]);
+    
     
     
 }

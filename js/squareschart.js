@@ -112,6 +112,27 @@ SquaresChart.prototype.initVis = function(){
 
     vis.svg.call(vis.tip);
 
+    vis.vbartip = d3.tip()
+	.attr('class', 'd3-tip')
+	.offset([-20, 0])
+	.html(function(d) {
+            return "FY: " + "<span style='color:#bdbdbd'>" + d.key + "</span>" + "<br>" +
+                "<br>" + "All facilities <br><br> " + label[vis.category] + ": " + "<span style='color:#bdbdbd'>" + d.value[vis.category].sum.toFixed(2) + "<br>"+ "</span>";
+	});
+
+    vis.svg.call(vis.vbartip);    
+    
+    vis.hbartip = d3.tip()
+	.attr('class', 'd3-tip')
+	.offset([-20, 0])
+	.html(function(d) {
+            return "Facility: " + "<span style='color:#bdbdbd'>" + d.key + "</span>" + "<br>" +
+                "<br>" + "All FYs <br><br> " + label[vis.category] + ": " + "<span style='color:#bdbdbd'>" + d.value[vis.category].sum.toFixed(2) + "<br>"+ "</span>";
+	});
+
+    vis.svg.call(vis.hbartip);    
+    
+
     // Scales and axes
 
     // (Filter, aggregate, modify data)
@@ -303,11 +324,7 @@ SquaresChart.prototype.wrangleData = function(){
     vis.y.domain(    vis.facilityArray.map(function(a){ return a.key}));
     vis.hbarlength.domain([0, d3.max(vis.facilityArray,
 				     function(d){
-					 if(vis.category == "savingsUSD"){
-					     return d.value["totalCostUSD"];
-					 }else{
-					     return d.value[vis.category].sum;					 
-					 }
+					 return d.value[vis.category].sum;					 
 				     })]);
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
     vis.vbarlength.domain([0, d3.max(vis.FYArray, function(d){return d.value[vis.category].sum})]);    
@@ -374,11 +391,12 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("class", function(d, index){ return "hbar hbar-"+ vis.spaceFormat(d.key);})    
 	.style("fill", squareColor[vis.category])
 	.attr("x", 0)
-	.attr("y", -cellHeight*0.25)
-	.attr("height", cellHeight*0.5)
+	.attr("y", 0)
+	.attr("height", cellHeight)
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
         .on('mouseover', function(d, index){
+	    vis.hbartip.show(d);	    	    	    
             d3.select(this).style("fill", function(d){ return standoutColor});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    var tmpOpacity = d3.scale.linear()
@@ -389,6 +407,7 @@ SquaresChart.prototype.updateVis = function(){
 		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
+	    vis.hbartip.hide(d);	    	    	    	    
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));	    
@@ -405,52 +424,6 @@ SquaresChart.prototype.updateVis = function(){
 	.style("fill", squareColor[vis.category])    
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 
-    // Draw horizontal total bars
-    var tbars = vis.svg.selectAll(".tbar").remove();
-
-    tbars = vis.svg.selectAll(".tbar")
-	.data(vis.facilityArray);
-    
-    tbars.enter()
-	.append("g")
-	.attr("transform", function(d, index) {
-	    return "translate(" + (vis.margin.left + 470) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
-	})
-	.append("rect")
-	.attr("class", function(d, index){ return "tbar tbar-"+ vis.spaceFormat(d.key);})    
-	.style("fill", tbarColor[vis.category])
-	.attr("x", 0)
-	.attr("y", +cellHeight*0.25)
-	.attr("height", cellHeight*0.5)
-	.attr("width", function(d){ return vis.hbarlength(d.value["totalCostUSD"])})
-	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
-        .on('mouseover', function(d, index){
-            d3.select(this).style("fill", function(d){ return standoutColor});
-	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
-	    var tmpOpacity = d3.scale.linear()
-		.domain([0, d.value[vis.category].max])
-		.range([0.05, 1.0]);
-	    theSquares
-		.style("fill", function(x){ return standoutColor})
-		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
-	})
-        .on("mouseout", function(d, i) {
-            d3.select(this).style("fill", function(d, index) {
-		return (+d[vis.category]==0) ? "gray" : tbarColor[vis.category];});
-	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));	    
-	    theSquares
-		//.style("fill", function(x){ return squareColor[vis.category]})
-		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})	    
-		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    	    
-	});
-
-    // Update
-    tbars
-	.transition()
-        .duration(250)
-	.style("fill", squareColor[vis.category])    
-	.attr("width", function(d){ return vis.hbarlength(d.value["totalCostUSD"])})
-    
     // Draw vertical bars
     var vbars = vis.svg.selectAll(".vbar")
 	.data(vis.FYArray);
@@ -468,6 +441,7 @@ SquaresChart.prototype.updateVis = function(){
 	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category].sum)})
 	.attr("width", cellWidth)
         .on('mouseover', function(d, index){
+	    vis.vbartip.show(d);	    	    
             d3.select(this).style("fill", function(d){ return standoutColor});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    var tmpOpacity = d3.scale.linear()
@@ -478,6 +452,7 @@ SquaresChart.prototype.updateVis = function(){
 		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
+	    vis.vbartip.hide(d);
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
