@@ -1,4 +1,6 @@
-/* General HTML styling */
+/******************************************/
+/*           GENERAL HTML STYLING         */
+/******************************************/
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -25,7 +27,12 @@ h1 .sub-headline {
     font-weight: 300;
 }
 
-/* teaser*/
+
+/******************************************/
+/*              PAGE SECTIONS             */
+/******************************************/
+
+/* teaser */
 
 .teaser{
     background: white;
@@ -69,11 +76,14 @@ h2.text4 {
     height: 1100px;
 }
 
-/*.intro{
-    background: #1c9099;
-}*/
 
-/* panel - heading */
+/* panel-heading */
+
+.panel-heading{
+    font-family: 'Reem Kufi', sans-serif;
+    color: #1b6d85;
+}
+
 .panel-body{
     font-family: 'Tinos', serif;
     font-size: medium;
@@ -81,16 +91,16 @@ h2.text4 {
 }
 
 
+/* descriptive text */
 
-/*.page-header{
-    font-weight: bold;
-    color: #1b6d85;
-}*/
+h2 {
+    text-indent: 35px;
+}
 
-.panel-heading{
-    font-family: 'Reem Kufi', sans-serif;
-    color: #1b6d85;
-    }
+/***********************************************/
+/*                VISUALIZATIONS               */
+/***********************************************/
+
 
 /* facilityMap */
 #facility-map {
@@ -102,6 +112,7 @@ h2.text4 {
 .leaflet-popup-content-wrapper {
     opacity: 0.78;
 }
+
 
 /* comparisonStacked */
 .bar:hover {
@@ -120,9 +131,9 @@ h2.text4 {
     stroke-width: 2.5px;
 }
 
-/****************/
-/*     CHART    */
-/****************/
+/***********************************************/
+/*                    CHARTS                   */
+/***********************************************/
 
 .axis {
     font: 10px sans-serif;
@@ -151,9 +162,9 @@ h2.text4 {
 }
 
 
-/*********************/
-/*  TOOLTIP OVERLAY  */
-/*********************/
+/************************************************/
+/*               TOOLTIP OVERLAY                */
+/************************************************/
 
 .tooltip-title {
     display: block;
@@ -191,10 +202,9 @@ h2.text4 {
     left: 0;
 }
 
-/********************/
-/*      Legend      */
-/********************/
-
+/**************************************************/
+/*                      LEGEND                    */
+/**************************************************/
 
 .legend rect {
     fill:white;
