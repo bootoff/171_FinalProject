@@ -10,9 +10,14 @@ var label = {"savingsUSD" : "USD",
 	     "ElectricityGenerationKWh": "KWh",
 	     "GHG" : "tons"};
 
-//var standoutColor = "#04BFBF", moneyColor="#A9CF54", electricityColor="#FFE11A", GHGColor='#588F27';
-var standoutColor = "#5E0042", moneyColor="#8DB500", electricityColor="#005869", GHGColor='#00856A';
-//var standoutColor = "#01A2A6", moneyColor='#962D3E', electricityColor="#343642", GHGColor="#348899";
+//var colors = [,'#1f78b4','#b2df8a','#33a02c'];
+//var colors = ['#a6611a','#dfc27d','#80cdc1',
+//var colors = colorbrewer.GnBu[4];
+//var colors = ['#fef0d9','#fdcc8a','#fc8d59','#d7301f']
+
+var colors = ['#a6611a', '#238b45', '#d7301f', '#018571']
+//var standoutColor = "#5E0042", moneyColor="#8DB500", electricityColor="#005869", GHGColor='#00856A';
+var standoutColor = colors[0], moneyColor=colors[1], electricityColor=colors[2], GHGColor=colors[3];
 
 var squareColor = {"savingsUSD" : moneyColor,
 		   "ElectricityGenerationKWh": electricityColor,

@@ -65,9 +65,13 @@ Co2Savings.prototype.initVis = function() {
 
     vis.colorScale = d3.scale.category20();
     vis.colorScale = d3.scale.ordinal()
-	.domain(["foo", "bar", "baz"])
-	.range(colorbrewer.YlGnBu[3]);    
+	.domain([4, 5, 6])
+	.range(['#74a9cf','#2b8cbe','#045a8d']);
 
+    vis.tcolorScale = d3.scale.ordinal()
+	.domain([4, 5, 6])    
+	.range(['#74c476','#31a354','#006d2c']);
+    
     vis.xAxisGroup = vis.svg.append("g")
         .attr("class", "x axis group")
         .attr("transform", "translate(0," + vis.height + ")");
@@ -184,7 +188,7 @@ Co2Savings.prototype.updateVisualization = function() {
         })
         .on("mouseover", function(d, index) {
             d3.select(this)
-                .style("fill", "green");
+                .style("fill", "brown");
             vis.tip.show(d);
         })
         .on('mouseout', function(d, index) {
@@ -192,7 +196,11 @@ Co2Savings.prototype.updateVisualization = function() {
                 .style("fill", function(d) {
                     return vis.colorScale(d.num_years);
                 });
-            vis.tip.hide(d)});
+            vis.tip.hide(d)})
+        .attr("data-legend",function(d) {
+            return  d.num_years + " yr total";
+        })
+    
 
     bars
         .transition()
@@ -234,22 +242,19 @@ Co2Savings.prototype.updateVisualization = function() {
         .attr("height", function (d) {
             return vis.height - vis.y(d.totalCostUSD);
         })
-        .attr("data-legend",function(d) {
-            return  d.num_years + " yr total";
-        })
         .style("fill", function(d) {
-            return vis.colorScale(d.num_years);
+            return vis.tcolorScale(d.num_years);
         })
 	.style("opacity", 0.5)
         .on("mouseover", function(d, index) {
             d3.select(this)
-                .style("fill", "green");
+                .style("fill", "brown");
             vis.tbartip.show(d);
         })
         .on('mouseout', function(d, index) {
             d3.select(this)
                 .style("fill", function(d) {
-                    return vis.colorScale(d.num_years);
+                    return vis.tcolorScale(d.num_years);
                 });
             vis.tbartip.hide(d)});
 
@@ -257,7 +262,7 @@ Co2Savings.prototype.updateVisualization = function() {
         .transition()
         .duration(800)
         .style("fill", function(d) {
-            return vis.colorScale(d.num_years);
+            return vis.tcolorScale(d.num_years);
         })
 	.style("opacity", 0.5)    
         .attr("x", function (d) {
@@ -269,9 +274,6 @@ Co2Savings.prototype.updateVisualization = function() {
         .attr("width", function(d){ return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : 0 })
         .attr("height", function (d) {
             return vis.height - vis.y(d.totalCostUSD);
-        })
-        .attr("data-legend",function(d) {
-            return  d.num_years + " yr total";
         })
     
 
