@@ -116,7 +116,7 @@ h2 {
 
 /* comparisonStacked */
 .bar:hover {
-    fill: #2ca25f ;
+    fill: #2ca25f;
 }
 .bar {
     fill: #99d8c9;
@@ -126,9 +126,14 @@ h2 {
 /* timeLine & usageCostScatter */
 .vis-line {
     fill: none;
+    opacity: 0.7;
     shape-rendering: crispEdges;
-    stroke: gray;
-    stroke-width: 2.5px;
+    stroke: #4B4B4B;
+    stroke-width: 1.5px;
+}
+
+.ucs-line {
+    stroke-width: 2px;
 }
 
 /***********************************************/
@@ -210,3 +215,30 @@ h2 {
     fill:white;
     stroke:black;
     opacity:0.8;}
+
+
+/**************************************************/
+/*                  TESTING COLORS                */
+/**************************************************/
+/*
+.unused-test {
+    color: #ffffe5;
+    color: #f7fcb9;
+    color: #d9f0a3;
+    color: #addd8e;
+    color: #78c679;
+    color: #41ab5d;
+    color: #238443;
+    color: #006837;
+    color: #004529;
+    color: #fff7ec;
+    color: #fee8c8;
+    color: #fdd49e;
+    color: #fdbb84;
+    color: #fc8d59;
+    color: #ef6548;
+    color: #d7301f;
+    color: #b30000;
+    color: #7f0000;
+}
+*/

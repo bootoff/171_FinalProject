@@ -249,7 +249,7 @@ function wrangleSummaryData() {
 	}
     });
 
-    console.log(SummaryData);
+    //console.log(SummaryData);
     
     var nestedFY = d3.nest()
         .key(function (d) {

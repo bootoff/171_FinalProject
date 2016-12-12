@@ -521,9 +521,9 @@ SquaresChart.prototype.updateVis = function(){
     
     vis.svg.select(".h.axis")
     	.call(vis.hAxis)
-	.selectAll("text")
-	.attr("y", 4)
-	.attr("x", 8)    
+		.selectAll("text")
+		.attr("y", 4)
+		.attr("x", 8)
         .attr("transform", "rotate(45)")
 	.style("text-anchor", "start");    
 

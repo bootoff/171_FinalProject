@@ -76,11 +76,17 @@ TimeLine.prototype.initVis = function() {
         .attr("class", "d3-tip")
         .offset([-10,0])
         .html(function(d) {
-            var HTML = d.Facility;
-            if (vis.currSelection == "UsageKWh")
-                HTML += "<br/>" + d[vis.currSelection] + " KWh";
-            else
-                HTML += "<br/>\$" + d[vis.currSelection];
+            var HTML = d.Facility,
+                num;
+            // format number based on selection
+            if (vis.currSelection == "UsageKWh") {
+                num = d[vis.currSelection].toLocaleString('en-US');
+                HTML += "<br/>" + num + " KWh";
+            }
+            else {
+                num = d[vis.currSelection].toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                HTML += "<br/>\$" + num;
+            }
             return HTML;
         });
     vis.svg.call(vis.tip);
@@ -190,6 +196,26 @@ TimeLine.prototype.updateLine = function(indexData) {
     dataSelection.enter()
         .append("path")
         .attr("class", "line vis-line line-" + vis.spaceFormat(indexData.id))
+        .on("mouseover", function() {
+            // highlight points
+            vis.svg.selectAll(".tooltip-circle-" + vis.spaceFormat(indexData.id))
+                .style("fill", "#78c679")
+                .attr("r", 6);
+            // highlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#475C9D")
+                .style("stroke-width", 4);
+        })
+        .on("mouseout", function() {
+            // unhighlight points
+            vis.svg.selectAll(".tooltip-circle-" + vis.spaceFormat(indexData.id))
+                .style("fill", "#4B4B4B")
+                .attr("r", 4);
+            // unhighlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#4B4B4B")
+                .style("stroke-width", 1.5);
+        })
         .transition()
         .delay(700)
         .duration(800)
@@ -215,12 +241,32 @@ TimeLine.prototype.updatePoints = function(indexData) {
     dataSelection.enter()
         .append("circle")
         .attr("class", "tooltip-circle-" + vis.spaceFormat(indexData.id))
-        .attr("r", 5)
+        .attr("r", 4)
         .on("mouseover", function(d) {
+            // tooltip show
             vis.tip.show(d);
+            // highlight points
+            vis.svg.selectAll(".tooltip-circle-" + vis.spaceFormat(indexData.id))
+                .style("fill", "#78c679")
+                .attr("r", 6);
+            // highlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#475C9D")
+                .style("stroke-width", 4);
         })
-        .on("mouseout", vis.tip.hide)
-        .style("fill", "gray");
+        .on("mouseout", function(d) {
+            // tooltip hide
+            vis.tip.hide(d);
+            // unhighlight points
+            vis.svg.selectAll(".tooltip-circle-" + vis.spaceFormat(indexData.id))
+                .style("fill", "#4B4B4B")
+                .attr("r", 4);
+            // unhighlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#4B4B4B")
+                .style("stroke-width", 1.5);
+        })
+        .style("fill", "#4B4B4B");
 
     // update tooltip circles
     dataSelection.transition()
@@ -265,6 +311,7 @@ TimeLine.prototype.spaceFormat = function(str) {
 
 /*
  *  function to pass from event handler to vis update
+ *  borrowed from Matt in squareschart.js and main.js
  */
 
 TimeLine.prototype.onSelectionChange = function(){

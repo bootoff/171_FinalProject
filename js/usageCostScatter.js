@@ -24,7 +24,7 @@ UsageCostScatter.prototype.initVis = function() {
     var vis = this;
 
     // define svg size and margins
-    vis.margin = {top: 30, right: 10, bottom: 60, left: 100},
+    vis.margin = {top: 30, right: 40, bottom: 80, left: 100},
         vis.width = 700 - vis.margin.left - vis.margin.right,
         vis.height = 500 - vis.margin.top - vis.margin.bottom,
         vis.offset = 50;
@@ -42,7 +42,9 @@ UsageCostScatter.prototype.initVis = function() {
         .attr("class", "d3-tip")
         .offset([-10,0])
         .html(function(d) {
-            return d.Facility + "<br/>" + vis.formatYear(d.FY) + "<br/>" + d.UsageKWh  + " KWh<br/>$" + d.UsageUSD;
+            var usageKWh = d.UsageKWh.toLocaleString('en-US'),
+                usageUSD = d.UsageUSD.toLocaleString('en-US');
+            return d.Facility + "<br/>" + vis.formatYear(d.FY) + "<br/>" + usageKWh  + " KWh<br/>$" + usageUSD;
         });
     vis.svg.call(vis.tip);
 
@@ -50,7 +52,7 @@ UsageCostScatter.prototype.initVis = function() {
     vis.svg.append("text")
         .attr("class", "label axis-label x-label")
         .attr("x", (vis.width / 2))
-        .attr("y", vis.height + vis.offset)
+        .attr("y", vis.height + (vis.offset * 1.5))
         .text("Usage (KWh)");
     vis.svg.append("text")
         .attr("class", "label axis-label y-label")
@@ -83,20 +85,22 @@ UsageCostScatter.prototype.wrangleData = function() {
     var usageCostMax = d3.max(vis.displayData, function(d) {
         return d.UsageUSD;
     });
-    vis.x = d3.scale.linear()
+    vis.xPower = d3.scale.pow()
+        .exponent([1/3])
         .domain([0, usageKWhMax])
         .range([0, vis.width]);
-    vis.y = d3.scale.linear()
+    vis.yPower = d3.scale.pow()
+        .exponent([1/3])
         .domain([0, (usageCostMax + 100000)])
         .range([vis.height, 0]);
     vis.colors = ['#f7fcfd','#e5f5f9','#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#006d2c','#00441b', '#000000'];
 
     // axis functions
     vis.xAxis = d3.svg.axis()
-        .scale(vis.x)
+        .scale(vis.xPower)
         .orient("bottom");
     vis.yAxis = d3.svg.axis()
-        .scale(vis.y)
+        .scale(vis.yPower)
         .orient("left");
 
     // Update the visualization
@@ -123,11 +127,19 @@ UsageCostScatter.prototype.updateVis = function() {
     vis.svg.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", "translate(0, " + vis.height + ")")
-        .call(vis.xAxis);
+        .call(vis.xAxis)
+        .selectAll("text")
+        .style("text-anchor", "start")
+        .attr("dx", ".8em")
+        .attr("dy", ".15em")
+        .attr("transform", function(d) {
+            return "rotate(45)"
+        });
     vis.svg.append("g")
         .attr("class", "axis y-axis")
         .call(vis.yAxis);
 
+    // draw legend
     vis.legend = vis.svg.append("g")
         .attr("class","legend")
         .attr("transform","translate(50,30)")
@@ -150,10 +162,10 @@ UsageCostScatter.prototype.updateLine = function(indexData) {
     // line-drawing function
     var drawLine = d3.svg.line()
         .x(function(d) {
-            return vis.x(d.UsageKWh);
+            return vis.xPower(d.UsageKWh);
         })
         .y(function(d) {
-            return vis.y(d.UsageUSD);
+            return vis.yPower(d.UsageUSD);
         })
         .interpolate("linear");
 
@@ -161,14 +173,24 @@ UsageCostScatter.prototype.updateLine = function(indexData) {
     // on hover: make points for this line appear
     facility.enter()
         .append("path")
-        .attr("class", "line vis-line line-" + vis.spaceFormat(indexData.id))
+        .attr("class", "line vis-line ucs-line line-" + vis.spaceFormat(indexData.id))
         .on("mouseover", function() {
+            // highlight points
             vis.svg.selectAll(".point-" + vis.spaceFormat(indexData.id))
-                .style("display", null);
+                .style("opacity", 100);
+            // highlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#5775C5")
+                .style("stroke-width", 4);
         })
         .on("mouseout", function() {
+            // unhighlight points
             vis.svg.selectAll(".point-" + vis.spaceFormat(indexData.id))
-                .style("display", "none");
+                .style("opacity", 0);
+            // unhighlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#4B4B4B")
+                .style("stroke-width", 2);
         })
         .transition()
         .delay(700)
@@ -196,27 +218,39 @@ UsageCostScatter.prototype.updatePoints = function(indexData) {
         .append("circle")
         .attr("class", "point vis-point point-" + vis.spaceFormat(indexData.id))
         .attr("cx", function(d) {
-            return vis.x(d.UsageKWh);
+            return vis.xPower(d.UsageKWh);
         })
         .attr("cy", function(d) {
-            return vis.y(d.UsageUSD);
+            return vis.yPower(d.UsageUSD);
         })
         .attr("r", 5)
         .style("fill", function(d) {
             return vis.colors[d.FY - 7];
         })
-        .style("display", "none")
+        .style("opacity", 0)
         .on("mouseover", function(d) {
+            // tooltip show
             vis.tip.show(d);
             //$("#timeline-svg").selectAll("line-" + vis.spaceFormat(indexData.id))
             //    .style("fill", "blue");
+            // highlight points
             vis.svg.selectAll(".point-" + vis.spaceFormat(indexData.id))
-                .style("display", null);
+                .style("opacity", 100);
+            // highlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#5775C5")
+                .style("stroke-width", 4);
         })
         .on("mouseout", function(d) {
+            // tooltip hide
             vis.tip.hide(d);
+            // unhighlight points
             vis.svg.selectAll(".point-" + vis.spaceFormat(indexData.id))
-                .style("display", "none");
+                .style("opacity", 0);
+            // unhighlight lines
+            vis.svg.selectAll(".line-" + vis.spaceFormat(indexData.id))
+                .style("stroke", "#4B4B4B")
+                .style("stroke-width", 2);
         })
         .attr("data-legend",function(d) {
             return "20" + d.FY;
