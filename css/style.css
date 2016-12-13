@@ -7,10 +7,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.chart {
-    margin: 30px 30px 30px 30px;
-}
-
 h1 {
     font-weight: 100;
     font-size: 30px;
@@ -19,13 +15,8 @@ h1 {
     font-family: 'Tinos', serif;
 }
 
-h1 .divider {
-    margin: 0 8px;
-}
-
-h1 .sub-headline {
-    color: #888;
-    font-weight: 300;
+.chart {
+    margin: 30px 30px 30px 30px;
 }
 
 .divider {
@@ -40,15 +31,10 @@ h1 .sub-headline {
 
 /* teaser */
 
-/*
-.teaser{
-    background: white;
-}*/
-
 h1.text0{
     font-family: 'Archivo Black', sans-serif;
     font-size: 4em;
-    color: #006d2c
+    color: #006d2c;
     margin-bottom: 1em;
 }
 
@@ -57,7 +43,7 @@ h2.text1 {
     color: #636363;
     text-align: center;
     border-bottom-left-radius: 0.4em;
-    }
+}
 
 h2.text3 {
     font-family: 'Tinos', serif;
@@ -70,21 +56,14 @@ h2.text3 {
 
 h2.text4 {
     font-family: 'Tinos', serif;
-    /*font-family: 'Slabo 27px', serif;*/
     color:#4F545A;
-    /*color: #CFDBCF;*/
     text-align: center;
     font-size: 21px;
     padding: 2.5em;
     line-height: 1.8
 }
 
-#grid-scroll {
-    height: 1100px;
-}
-
-
-/* panel-heading */
+/* panel */
 
 .panel-heading{
     font-family: 'Reem Kufi', sans-serif;
