@@ -236,11 +236,11 @@ Co2Savings.prototype.updateVisualization = function() {
             //return vis.x(d.key);
 	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.5*vis.x.rangeBand() : vis.x(d.key) })
         .attr("y", function (d) {
-            return vis.y(d.totalCostUSD);
+            return vis.y(d.totalCostUSD) < 0 ? 0 : vis.y(d.totalCostUSD);
         })
         .attr("width", function(d){ return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : 0 })
         .attr("height", function (d) {
-            return vis.height - vis.y(d.totalCostUSD);
+            return vis.height - vis.y(d.totalCostUSD) > vis.height ? vis.height : vis.height - vis.y(d.totalCostUSD);
         })
         .style("fill", function(d) {
             return vis.tcolorScale(d.num_years);
@@ -269,11 +269,11 @@ Co2Savings.prototype.updateVisualization = function() {
             //return vis.x(d.key);
 	    return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? vis.x(d.key) + 0.5*vis.x.rangeBand() : vis.x(d.key) })
         .attr("y", function (d) {
-            return vis.y(d.totalCostUSD);
+            return vis.y(d.totalCostUSD) < 0 ? 0 : vis.y(d.totalCostUSD);
         })
         .attr("width", function(d){ return (vis.category == 'savings_USD_sum' || vis.category == 'totalCostUSD') ? 0.5*vis.x.rangeBand() : 0 })
         .attr("height", function (d) {
-            return vis.height - vis.y(d.totalCostUSD);
+            return vis.height - vis.y(d.totalCostUSD) > vis.height ? vis.height : vis.height - vis.y(d.totalCostUSD);
         })
     
 
