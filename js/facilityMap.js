@@ -74,7 +74,7 @@ FacilityMap.prototype.initVis = function() {
 
     // create custom marker icon
     var windmillIcon = L.icon({
-        iconUrl: "img/windmill-green.png",
+        iconUrl: "img/windmill2.png",
         iconSize: [32, 32]
     });
 
@@ -83,7 +83,7 @@ FacilityMap.prototype.initVis = function() {
 
     // create markers; add them to marker layer group
     vis.facilityData.forEach(function(d) {
-        var popupContent = d.name + "<br/>Location: " + d.city + ", MA";
+        var popupContent = d.name + "<br/>" + d.city + ", MA";
         var newMarker = L.marker([d.latitude, d.longitude], {icon: windmillIcon})
             // add popup
             .bindPopup(popupContent)
