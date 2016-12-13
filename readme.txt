@@ -16,7 +16,7 @@ Public site link:
     https://bootoff.github.io/171_FinalProject/
 
 Screencast link:
-    
+
 
 Our code:
     index.html
