@@ -4,6 +4,9 @@
     <list default="true" id="f6543679-cda8-4df9-9671-f61d8a18ab6d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/comparisonStacked.js" afterPath="$PROJECT_DIR$/js/comparisonStacked.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/squareschart.js" afterPath="$PROJECT_DIR$/js/squareschart.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.txt" afterPath="$PROJECT_DIR$/readme.txt" />
     </list>
     <ignored path="171_FinalProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +32,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
+            <state relative-caret-position="423">
+              <caret line="98" column="91" selection-start-line="98" selection-start-column="91" selection-end-line="98" selection-end-column="91" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#h1#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -52,16 +55,16 @@
       <file leaf-file-name="squareschart.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/squareschart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="527" column="29" selection-start-line="527" selection-start-column="29" selection-end-line="527" selection-end-column="29" />
+            <state relative-caret-position="537">
+              <caret line="579" column="12" selection-start-line="579" selection-start-column="12" selection-end-line="579" selection-end-column="12" />
               <folding>
-                <marker date="1481597880000" expanded="true" signature="3233:3246" ph="..." />
-                <marker date="1481597880000" expanded="true" signature="3334:3347" ph="..." />
-                <marker date="1481597880000" expanded="true" signature="3449:3462" ph="..." />
-                <marker date="1481597880000" expanded="true" signature="3811:3824" ph="..." />
-                <marker date="1481597880000" expanded="true" signature="3956:3969" ph="..." />
-                <marker date="1481597880000" expanded="true" signature="4220:4233" ph="..." />
-                <marker date="1481597880000" expanded="true" signature="4358:4371" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="3233:3246" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="3320:3333" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="3451:3464" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="3880:3893" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="4025:4038" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="4289:4302" ph="..." />
+                <marker date="1481604643000" expanded="true" signature="4427:4440" ph="..." />
               </folding>
             </state>
           </provider>
@@ -71,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/readme.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -90,32 +93,10 @@
       <file leaf-file-name="timeline.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/timeline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-681">
-              <caret line="207" column="10" selection-start-line="207" selection-start-column="10" selection-end-line="207" selection-end-column="10" />
+            <state relative-caret-position="42">
+              <caret line="286" column="0" selection-start-line="286" selection-start-column="0" selection-end-line="296" selection-end-column="2" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comparisonStacked.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/comparisonStacked.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="287" column="16" selection-start-line="287" selection-start-column="16" selection-end-line="287" selection-end-column="16" />
-              <folding>
-                <marker date="1481597833000" expanded="true" signature="2600:2613" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="2758:2771" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="2895:2908" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="2985:2998" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="3109:3122" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="3241:3254" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="3490:3503" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="3643:3656" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="3773:3786" ph="..." />
-                <marker date="1481597833000" expanded="true" signature="10306:10317" ph="{...}" />
-                <marker date="1481597833000" expanded="true" signature="10315:10317" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -155,9 +136,9 @@
         <option value="$PROJECT_DIR$/js/facilityMap.js" />
         <option value="$PROJECT_DIR$/css/scrolling-nav.css" />
         <option value="$PROJECT_DIR$/css/style.css" />
-        <option value="$PROJECT_DIR$/readme.txt" />
         <option value="$PROJECT_DIR$/js/comparisonStacked.js" />
         <option value="$PROJECT_DIR$/js/squareschart.js" />
+        <option value="$PROJECT_DIR$/readme.txt" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -169,6 +150,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="470" />
     <option name="y" value="23" />
     <option name="width" value="801" />
     <option name="height" value="777" />
@@ -199,38 +181,7 @@
     </navigator>
     <panes>
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="171_FinalProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="171_FinalProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="171_FinalProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="171_FinalProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="171_FinalProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
       <pane id="Scratches" />
       <pane id="Scope" />
@@ -367,12 +318,12 @@
       <workItem from="1481402594240" duration="1831000" />
       <workItem from="1481436551179" duration="1268000" />
       <workItem from="1481494834686" duration="802000" />
-      <workItem from="1481509488499" duration="17460000" />
+      <workItem from="1481509488499" duration="18768000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132376000" />
+    <option name="totallyTimeSpent" value="133684000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -384,7 +335,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="801" height="777" extended-state="0" />
+    <frame x="470" y="23" width="801" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18076923" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -771,64 +722,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/readme.txt">
+    <entry file="file://$PROJECT_DIR$/js/comparisonStacked.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="315">
+          <caret line="117" column="43" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
+          <folding>
+            <marker date="1481604396000" expanded="true" signature="2600:2613" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="2713:2726" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="2918:2931" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="3008:3021" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="3132:3145" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="3331:3344" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="3580:3593" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="3691:3704" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="3889:3902" ph="..." />
+            <marker date="1481604396000" expanded="true" signature="10422:10433" ph="{...}" />
+            <marker date="1481604396000" expanded="true" signature="10431:10433" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/timeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-681">
-          <caret line="207" column="10" selection-start-line="207" selection-start-column="10" selection-end-line="207" selection-end-column="10" />
+        <state relative-caret-position="42">
+          <caret line="286" column="0" selection-start-line="286" selection-start-column="0" selection-end-line="296" selection-end-column="2" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/comparisonStacked.js">
+    <entry file="file://$PROJECT_DIR$/js/squareschart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="287" column="16" selection-start-line="287" selection-start-column="16" selection-end-line="287" selection-end-column="16" />
+        <state relative-caret-position="537">
+          <caret line="579" column="12" selection-start-line="579" selection-start-column="12" selection-end-line="579" selection-end-column="12" />
           <folding>
-            <marker date="1481597833000" expanded="true" signature="2600:2613" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="2758:2771" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="2895:2908" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="2985:2998" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="3109:3122" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="3241:3254" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="3490:3503" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="3643:3656" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="3773:3786" ph="..." />
-            <marker date="1481597833000" expanded="true" signature="10306:10317" ph="{...}" />
-            <marker date="1481597833000" expanded="true" signature="10315:10317" ph="{...}" />
+            <marker date="1481604643000" expanded="true" signature="3233:3246" ph="..." />
+            <marker date="1481604643000" expanded="true" signature="3320:3333" ph="..." />
+            <marker date="1481604643000" expanded="true" signature="3451:3464" ph="..." />
+            <marker date="1481604643000" expanded="true" signature="3880:3893" ph="..." />
+            <marker date="1481604643000" expanded="true" signature="4025:4038" ph="..." />
+            <marker date="1481604643000" expanded="true" signature="4289:4302" ph="..." />
+            <marker date="1481604643000" expanded="true" signature="4427:4440" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/squareschart.js">
+    <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="527" column="29" selection-start-line="527" selection-start-column="29" selection-end-line="527" selection-end-column="29" />
-          <folding>
-            <marker date="1481597880000" expanded="true" signature="3233:3246" ph="..." />
-            <marker date="1481597880000" expanded="true" signature="3334:3347" ph="..." />
-            <marker date="1481597880000" expanded="true" signature="3449:3462" ph="..." />
-            <marker date="1481597880000" expanded="true" signature="3811:3824" ph="..." />
-            <marker date="1481597880000" expanded="true" signature="3956:3969" ph="..." />
-            <marker date="1481597880000" expanded="true" signature="4220:4233" ph="..." />
-            <marker date="1481597880000" expanded="true" signature="4358:4371" ph="..." />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
+        <state relative-caret-position="423">
+          <caret line="98" column="91" selection-start-line="98" selection-start-column="91" selection-end-line="98" selection-end-column="91" />
           <folding>
             <element signature="n#style#0;n#span#0;n#h1#0;n#div#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />

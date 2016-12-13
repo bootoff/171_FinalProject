@@ -110,8 +110,8 @@ SquaresChart.prototype.initVis = function(){
 	.offset([-20, 0])
 	.html(function(d) {
             return "Plant: " + "<span style='color:#bdbdbd'>" + d.Facility + "<br>" + "</span>" +
-                "<br>" + "FY: " + "<span style='color:#bdbdbd'>" +  d.FY + "<br>"+ "</span>" +
-                "<br>" + label[vis.category] + ": " + "<span style='color:#bdbdbd'>" + d[vis.category].toFixed(2) + "<br>"+ "</span>";
+                "<br><span style='color:#bdbdbd'>" +  vis.formatYear(d.FY) + "<br>"+ "</span>" +
+                "<br>" + label[vis.category] + ": " + "<span style='color:#bdbdbd'>" + d[vis.category].toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "<br>"+ "</span>";
 	    //return "Plant: <span style='color:red'>" + d.Facility + "<br>" + "FY: " + d.FY + "<br>" + d[vis.category] + "</span>";
 	});
 
@@ -354,7 +354,7 @@ SquaresChart.prototype.wrangleData = function(){
         .attr("class", "y axis")
 	//.attr("transform", "translate(" + (vis.margin.left) + ", " + (cellHeight+cellPadding)*(21*0.5) + ")")    
 	.attr("transform", "translate(" + (cellWidth+cellPadding)*11 + ", 18)")
-	.append("text")
+	.append("text");
 
     vis.svg.append("g")
 	.attr("class", "h axis")
@@ -570,5 +570,17 @@ SquaresChart.prototype.spaceFormat = function(str) {
     str = str.replace(/\s+/g, '_');
     str = str.replace("(", '-');
     str = str.replace(")", '');
+    return str;
+};
+
+/*
+ *  format year text correctly
+ */
+
+SquaresChart.prototype.formatYear = function(str) {
+    if (str.toString().length >1)
+        str = "20" + str;
+    else
+        str = "200" + str;
     return str;
 };

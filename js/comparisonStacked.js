@@ -98,11 +98,11 @@ Co2Savings.prototype.initVis = function() {
         .html(function(d) {
 	    if(vis.category=='totalCostUSD' || vis.category=='savings_USD_sum'){
 		return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
-                    "<br>" + "Savings to date <br><br>" + cat_label['savings_USD_sum'] + ": " + "<span style='color:#bdbdbd'>" +  d['savings_USD_sum'].toFixed(2) + "<br>"+
+                    "<br>" + "Savings to date: " + "<span style='color:#bdbdbd'>$" +  d['savings_USD_sum'].toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "<br>"+
                     "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
 	    }else{
 		return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
-                    "<br>" + cat_label[vis.category] + ": " + "<span style='color:#bdbdbd'>" +  d[vis.category].toFixed(2) + "<br>"+
+                    "<br>" + cat_label[vis.category] + ": " + "<span style='color:#bdbdbd'>" +  d[vis.category].toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "<br>"+
                     "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
 	    }
 	    
@@ -115,7 +115,7 @@ Co2Savings.prototype.initVis = function() {
         .offset([-10, 0])
         .html(function(d) {
 	    return "Plant: " + "<span style='color:#bdbdbd'>" + d.key + "<br>" + "</span>" +
-                "<br>" + "Installation cost <br><br>" + cat_label['totalCostUSD'] + ": " + "<span style='color:#bdbdbd'>" +  d['totalCostUSD'].toFixed(2) + "<br>"+
+                "<br>" + "Installation cost: " + "<span style='color:#bdbdbd'>$" +  d['totalCostUSD'].toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "<br>"+
                 "<br>"+ "</span>" + "Years in pilot: " + "<span style='color:#bdbdbd'>" + d.num_years +"</span>";
         });
 
