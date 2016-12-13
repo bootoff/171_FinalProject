@@ -199,8 +199,7 @@ Co2Savings.prototype.updateVisualization = function() {
             vis.tip.hide(d)})
         .attr("data-legend",function(d) {
             return  d.num_years + " yr total";
-        })
-    
+        });
 
     bars
         .transition()
@@ -281,12 +280,12 @@ Co2Savings.prototype.updateVisualization = function() {
     
     vis.svg.select(".y.axis.group")
 	.transition()
-	.duration(250)
+	.duration(800)
 	.call(vis.yAxis);
 
     vis.svg.select(".x.axis.group")
 	.transition()
-	.duration(250)
+	.duration(800)
 	.call(vis.xAxis)
 	.selectAll("text")
 	.attr("y", 4)

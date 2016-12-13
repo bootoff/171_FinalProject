@@ -142,7 +142,7 @@ SquaresChart.prototype.initVis = function(){
 
     // (Filter, aggregate, modify data)
     vis.wrangleData();
-}
+};
 
 /*
  * Data wrangling
@@ -287,7 +287,7 @@ SquaresChart.prototype.wrangleData = function(){
     });
 
     var FYArray = [];
-    for(var ky in FYDict){
+    for(ky in FYDict){
 	FYArray.push({"key": ky, "value": FYDict[ky]});
     }
 
@@ -368,7 +368,7 @@ SquaresChart.prototype.wrangleData = function(){
     // Update the visualization
     vis.updateVis();
     
-}
+};
 
 /*
  * The drawing function - should use the D3 update sequence (enter, update, exit)
@@ -393,15 +393,15 @@ SquaresChart.prototype.updateVis = function(){
 	    return "translate(" + (vis.margin.left + 470) + "," + (vis.margin.top + (cellHeight + cellPadding) * index) + ")"
 	})
 	.append("rect")
-	.attr("class", function(d, index){ return "hbar hbar-"+ vis.spaceFormat(d.key);})    
+	.attr("class", function(d, index){ return "hbar hbar-"+ vis.spaceFormat(d.key);})
 	.style("fill", squareColor[vis.category])
 	.attr("x", 0)
 	.attr("y", 0)
 	.attr("height", cellHeight)
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
-	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    
+	.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })
         .on('mouseover', function(d, index){
-	    vis.hbartip.show(d);	    	    	    
+	    vis.hbartip.show(d);
             d3.select(this).style("fill", function(d){ return standoutColor});
 	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    var tmpOpacity = d3.scale.linear()
@@ -412,21 +412,22 @@ SquaresChart.prototype.updateVis = function(){
 		.style("opacity", function(x){ return tmpOpacity(x[vis.category])});
 	})
         .on("mouseout", function(d, i) {
-	    vis.hbartip.hide(d);	    	    	    	    
+	    vis.hbartip.hide(d);
             d3.select(this).style("fill", function(d, index) {
 		return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];});
-	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));	    
+	    var theSquares = d3.selectAll(".square-"+vis.spaceFormat(d.key));
 	    theSquares
 		//.style("fill", function(x){ return squareColor[vis.category]})
-		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})	    
-		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    	    
+		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})
+		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })
 	});
 
     // Update
     hbars
 	.transition()
-        .duration(250)
-	.style("fill", squareColor[vis.category])    
+		.delay(300)
+        .duration(800)
+	.style("fill", squareColor[vis.category])
 	.attr("width", function(d){ return vis.hbarlength(d.value[vis.category].sum)})
 
     // Draw vertical bars
@@ -464,12 +465,12 @@ SquaresChart.prototype.updateVis = function(){
 	    theSquares
 		.style("fill", function(d){ return (+d[vis.category]==0) ? "gray" : squareColor[vis.category];})	    
 		.style("opacity", function(d, i, j){ return vis.opacity(d[vis.category]) })	    	    	    
-	})
+	});
     
     // Update
     vbars
 	.transition()
-        .duration(250)
+        .duration(800)
 	.style("fill", squareColor[vis.category])    
 	.attr("height", function(d){ return vis.vbarlength(d.value[vis.category].sum)})    
     
@@ -536,12 +537,12 @@ SquaresChart.prototype.updateVis = function(){
 
     vis.svg.select(".v.axis")
     	.transition()
-	.duration(250)
+	.duration(800)
         .call(vis.vAxis)
 
     vis.svg.select(".y.axis")
 	.transition()
-	.duration(250)
+	.duration(800)
 	.call(vis.yAxis);
 
     vis.svg.select(".h.axis-title")
