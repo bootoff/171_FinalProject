@@ -35,13 +35,13 @@ of those sections to manage the look and feel of the site. */
     height: 100%;
     padding-top: 150px;
     text-align: center;
-     background: white;
+    /* background: white; */
 }
 .intro-section {
     height: 100%;
     padding-top: 150px;
     text-align: center;
-    background: lightgrey;
+    /* background: lightgrey; */
     
     
 }
@@ -52,7 +52,7 @@ of those sections to manage the look and feel of the site. */
     min-height: 800px;
     padding-top: 100px;
     text-align: center;
-    background: #F3F3F3;
+    /* background: #F3F3F3; */
 }
 
 .content {
@@ -60,10 +60,10 @@ of those sections to manage the look and feel of the site. */
     margin-bottom:100px;
     padding-top: 100px;
     text-align: center;
-    background: #F3F3F3;
-    
+    /* background: #F3F3F3; */
  }
 
+/*
 .content2 {
     background: #F8FFFF;
 }
@@ -75,6 +75,7 @@ of those sections to manage the look and feel of the site. */
 .content4 {
     background: #F8FFFF;
 }
+*/
 
  .case {
     height: 100%;

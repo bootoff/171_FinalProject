@@ -3,6 +3,7 @@
 /******************************************/
 
 body {
+    background: #F5F5DC;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -27,6 +28,11 @@ h1 .sub-headline {
     font-weight: 300;
 }
 
+.divider {
+    display:block;
+    margin:auto
+}
+
 
 /******************************************/
 /*              PAGE SECTIONS             */
@@ -34,14 +40,15 @@ h1 .sub-headline {
 
 /* teaser */
 
+/*
 .teaser{
     background: white;
-}
+}*/
 
 h1.text0{
     font-family: 'Archivo Black', sans-serif;
     font-size: 4em;
-   color: #006d2c
+    color: #006d2c
     margin-bottom: 1em;
 }
 
@@ -126,9 +133,9 @@ h2 {
 /* timeLine & usageCostScatter */
 .vis-line {
     fill: none;
-    opacity: 0.7;
     shape-rendering: crispEdges;
     stroke: #4B4B4B;
+    stroke-opacity: 0.7;
     stroke-width: 1.5px;
 }
 
